@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/oppo_charge_padding" android:padding="16.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="18.0sp" android:textColor="#ff40464b" android:gravity="left" android:id="@id/oppo_charge_warring_text" android:paddingBottom="16.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <ImageView android:id="@id/oppo_charge_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/oppo_battery_charge_alert" />
+</LinearLayout>

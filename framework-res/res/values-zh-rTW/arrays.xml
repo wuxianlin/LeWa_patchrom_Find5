@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="emailAddressTypes">
+        <item>主要信箱</item>
+        <item>公司信箱</item>
+        <item>其他信箱</item>
+        <item>自訂</item>
+    </string-array>
+    <string-array name="imProtocols">
+        <item>AIM</item>
+        <item>Windows Live</item>
+        <item>Yahoo</item>
+        <item>Skype</item>
+        <item>QQ</item>
+        <item>Google Talk</item>
+        <item>ICQ</item>
+        <item>Jabber</item>
+    </string-array>
+    <string-array name="organizationTypes">
+        <item>工作</item>
+        <item>其他</item>
+        <item>自訂</item>
+    </string-array>
+    <string-array name="phoneTypes">
+        <item>住家電話</item>
+        <item>行動電話</item>
+        <item>公司電話</item>
+        <item>公司傳真</item>
+        <item>住家傳真</item>
+        <item>呼叫器</item>
+        <item>其他</item>
+        <item>自訂</item>
+    </string-array>
+    <string-array name="postalAddressTypes">
+        <item>住家</item>
+        <item>公司</item>
+        <item>其他</item>
+        <item>自訂</item>
+    </string-array>
+    <integer-array name="maps_starting_lat_lng">
+        <item>25022112</item>
+        <item>121478019</item>
+    </integer-array>
+    <integer-array name="maps_starting_zoom">
+        <item>3</item>
+    </integer-array>
+    <string-array name="imAddressTypes">
+        <item>住家</item>
+        <item>工作</item>
+        <item>其他</item>
+        <item>自訂</item>
+    </string-array>
+    <string-array name="oppo_ptp_directories">
+        <item>我的照片</item>
+    </string-array>
+    <string-array name="oppo_permissions_prompt">
+        <item>撥打電話</item>
+        <item>讀取通話記錄</item>
+        <item>讀取聯繫人</item>
+        <item>讀取短信</item>
+        <item>發送短信</item>
+        <item>修改WLAN狀態</item>
+        <item>修改數據網絡狀態</item>
+        <item>通過GPS獲取位置信息</item>
+        <item>通過網絡獲取位置信息</item>
+        <item>錄音</item>
+        <item>使用相機</item>
+        <item>開啟或關閉藍牙</item>
+        <item>連接藍牙設備</item>
+        <item>使用NFC</item>
+        <item>訪問網絡</item>
+    </string-array>
+    <string-array name="select_ringtone_old">
+        <item>ringtone_001</item>
+        <item>ringtone_002</item>
+        <item>ringtone_003</item>
+        <item>ringtone_004</item>
+        <item>ringtone_005</item>
+        <item>ringtone_006</item>
+        <item>ringtone_007</item>
+        <item>ringtone_008</item>
+        <item>ringtone_009</item>
+        <item>ringtone_010</item>
+        <item>notification_001</item>
+        <item>notification_002</item>
+        <item>notification_003</item>
+        <item>notification_004</item>
+        <item>notification_005</item>
+        <item>alarm_001</item>
+        <item>alarm_002</item>
+    </string-array>
+    <string-array name="select_ringtone_new">
+        <item>旅途</item>
+        <item>悅動</item>
+        <item>光電精靈</item>
+        <item>歡樂時光</item>
+        <item>之間跳躍</item>
+        <item>小小世界</item>
+        <item>俏皮啦啦</item>
+        <item>Real Me</item>
+        <item>巴黎陽光</item>
+        <item>彩虹島</item>
+        <item>木琴</item>
+        <item>神秘</item>
+        <item>叮咚</item>
+        <item>風鈴</item>
+        <item>波紋</item>
+        <item>美好時光</item>
+        <item>清晨小道</item>
+    </string-array>
+</resources>

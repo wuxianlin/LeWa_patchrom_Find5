@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="darker_gray">#ffaaaaaa</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="background_dark">#ff000000</color>
+    <color name="background_light">#ffffffff</color>
+    <color name="holo_blue_light">#ff33b5e5</color>
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_green_dark">#ff669900</color>
+    <color name="holo_red_light">#ffff4444</color>
+    <color name="holo_red_dark">#ffcc0000</color>
+    <color name="holo_orange_light">#ffffbb33</color>
+    <color name="holo_orange_dark">#ffff8800</color>
+    <color name="holo_purple">#ffaa66cc</color>
+    <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="safe_mode_text">#80ffffff</color>
+    <item type="color" name="bright_foreground_dark">@color/background_light</item>
+    <item type="color" name="bright_foreground_light">@color/background_dark</item>
+    <color name="bright_foreground_dark_disabled">#80ffffff</color>
+    <color name="bright_foreground_light_disabled">#80000000</color>
+    <item type="color" name="bright_foreground_dark_inverse">@color/bright_foreground_light</item>
+    <item type="color" name="bright_foreground_light_inverse">@color/bright_foreground_dark</item>
+    <color name="dim_foreground_dark">#ffbebebe</color>
+    <color name="dim_foreground_dark_disabled">#80bebebe</color>
+    <color name="dim_foreground_dark_inverse">#ff323232</color>
+    <color name="dim_foreground_dark_inverse_disabled">#80323232</color>
+    <color name="hint_foreground_dark">#ff808080</color>
+    <color name="dim_foreground_light">#ff323232</color>
+    <color name="dim_foreground_light_disabled">#80323232</color>
+    <color name="dim_foreground_light_inverse">#ffbebebe</color>
+    <color name="dim_foreground_light_inverse_disabled">#80bebebe</color>
+    <color name="hint_foreground_light">#ff808080</color>
+    <color name="highlighted_text_dark">#4c57b5d5</color>
+    <color name="highlighted_text_light">#4c57b5d5</color>
+    <color name="link_text_dark">#ff5c5cff</color>
+    <color name="link_text_light">#ff0000ee</color>
+    <color name="suggestion_highlight_text">#ff177bbd</color>
+    <color name="lighter_gray">#ffdddddd</color>
+    <color name="perms_dangerous_grp_color">#ff33b5e5</color>
+    <color name="perms_dangerous_perm_color">#ff33b5e5</color>
+    <color name="shadow">#cc222222</color>
+    <color name="perms_costs_money">#ffffbb33</color>
+    <color name="search_url_text_normal">#ff7fa87f</color>
+    <item type="color" name="search_url_text_selected">@color/black</item>
+    <item type="color" name="search_url_text_pressed">@color/black</item>
+    <item type="color" name="search_widget_corpus_item_background">@color/lighter_gray</item>
+    <item type="color" name="sliding_tab_text_color_active">@color/black</item>
+    <item type="color" name="sliding_tab_text_color_shadow">@color/black</item>
+    <color name="keyguard_text_color_normal">#ffffffff</color>
+    <color name="keyguard_text_color_unlock">#ffa7d84c</color>
+    <color name="keyguard_text_color_soundoff">#ffffffff</color>
+    <color name="keyguard_text_color_soundon">#ffe69310</color>
+    <color name="keyguard_text_color_decline">#fffe0a5a</color>
+    <color name="lockscreen_clock_background">#ffffffff</color>
+    <color name="lockscreen_clock_foreground">#ffffffff</color>
+    <color name="lockscreen_clock_am_pm">#ffffffff</color>
+    <color name="lockscreen_owner_info">#ff9a9a9a</color>
+    <color name="kg_multi_user_text_active">#ffffffff</color>
+    <color name="kg_multi_user_text_inactive">#ff808080</color>
+    <color name="kg_widget_pager_gradient">#ffffffff</color>
+    <color name="facelock_spotlight_mask">#cc000000</color>
+    <color name="background_holo_dark">#ff000000</color>
+    <color name="background_holo_light">#fff3f3f3</color>
+    <item type="color" name="bright_foreground_holo_dark">@color/background_holo_light</item>
+    <item type="color" name="bright_foreground_holo_light">@color/background_holo_dark</item>
+    <color name="bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <item type="color" name="bright_foreground_inverse_holo_dark">@color/bright_foreground_holo_light</item>
+    <item type="color" name="bright_foreground_inverse_holo_light">@color/bright_foreground_holo_dark</item>
+    <color name="dim_foreground_holo_dark">#ffbebebe</color>
+    <color name="dim_foreground_disabled_holo_dark">#80bebebe</color>
+    <color name="dim_foreground_inverse_holo_dark">#ff323232</color>
+    <color name="dim_foreground_inverse_disabled_holo_dark">#80323232</color>
+    <color name="hint_foreground_holo_dark">#ff808080</color>
+    <color name="dim_foreground_holo_light">#ff323232</color>
+    <color name="dim_foreground_disabled_holo_light">#80323232</color>
+    <color name="dim_foreground_inverse_holo_light">#ffbebebe</color>
+    <color name="dim_foreground_inverse_disabled_holo_light">#80bebebe</color>
+    <color name="hint_foreground_holo_light">#ff808080</color>
+    <color name="highlighted_text_holo_dark">#6633b5e5</color>
+    <color name="highlighted_text_holo_light">#6633b5e5</color>
+    <color name="link_text_holo_dark">#ff5c5cff</color>
+    <color name="link_text_holo_light">#ff0000ee</color>
+    <color name="group_button_dialog_pressed_holo_dark">#46c5c1ff</color>
+    <color name="group_button_dialog_focused_holo_dark">#2699cc00</color>
+    <color name="group_button_dialog_pressed_holo_light">#ffffffff</color>
+    <color name="group_button_dialog_focused_holo_light">#4699cc00</color>
+    <color name="legacy_pressed_highlight">#fffeaa0c</color>
+    <color name="legacy_selected_highlight">#fff17a0a</color>
+    <color name="legacy_long_pressed_highlight">#ffffffff</color>
+    <color name="keyguard_avatar_frame_color">#ffffffff</color>
+    <color name="keyguard_avatar_frame_shadow_color">#80000000</color>
+    <color name="keyguard_avatar_nick_color">#ffffffff</color>
+    <color name="keyguard_avatar_frame_pressed_color">#ff35b5e5</color>
+    <color name="config_defaultNotificationColor">#ff00ff00</color>
+    <color name="oppo_action_bar_title_textcolor_default">#ffffffff</color>
+    <color name="oppo_title_text_color">#fffefefe</color>
+    <color name="oppo_title_bar_button_text_color">#ffd2d2d2</color>
+    <color name="oppo_widget_background_color">#fff7fbff</color>
+    <color name="oppo_transparence">#00000000</color>
+    <color name="oppo_text_disabled_color">#80787878</color>
+    <color name="oppo_multilist_primary_text_dark">#ff40464b</color>
+    <color name="oppo_alert_dialog_button_text_normal_color">#ff4d4d58</color>
+    <color name="oppo_alert_dialog_button_text_pressed_color">#ff2c2b31</color>
+    <color name="oppo_multilist_text_disabled_color">#ff40464b</color>
+    <color name="oppo_multilist_text_disabled_color_select">#ff40464b</color>
+    <color name="oppo_pathbar_text_shadow_color">#dd000000</color>
+    <color name="OppoQuickContact_text_color">#ffffffff</color>
+    <color name="OppoQuickContact_text_shadow_color">#ff000000</color>
+    <color name="oppo_shortcutbar_default_text_color">#ffffffff</color>
+    <color name="oppo_shortcutbar_default_text_hl_color">#ff000000</color>
+    <color name="oppo_shortcutbar_default_text_disable_color">#80bebebe</color>
+    <color name="oppo_shortcutbar_default_bg_color">#80bebebe</color>
+    <item type="color" name="shortcut_text_color">@color/oppo_shortcutbutton_text_color</item>
+    <color name="shortcut_text_shadow_color">#ddffffff</color>
+    <color name="oppospringlistview_background_color">#ff393939</color>
+    <color name="title_text_color">#ffc8c8c8</color>
+    <color name="oppo_alertdialog_title_text_color">#ff40464b</color>
+    <color name="listview_background_color">#fff3f3f3</color>
+    <color name="large_text_color">#ff40464b</color>
+    <color name="oppo_listview_cacheColorHint">#00000000</color>
+    <color name="oppo_large_text_color_select">#ff000000</color>
+    <color name="oppo_little_text_color">#ff969696</color>
+    <color name="oppo_search_bar_background">#80000000</color>
+    <color name="oppo_list_separator_text_color">#ff787878</color>
+    <color name="oppo_edit_text_color">#ff000000</color>
+    <color name="oppo_search_bar_edit_text_hint_color">#ff969696</color>
+    <color name="oppo_search_bar_button_text_color">#fffefefe</color>
+    <color name="oppo_tabwidget_label_shadow_color">#ffcfcfcf</color>
+    <color name="oppo_hint_foreground_dark">#ffdee6ee</color>
+    <color name="oppo_text_color_link">#ff1255ff</color>
+    <color name="oppo_progress_notitle_dialog_content_text_color">#ff40464b</color>
+    <color name="oppo_numberpicker_text_color">#ff40464b</color>
+    <color name="oppo_numberpicker_text_shader_color_from">#ff40464b</color>
+    <color name="oppo_numberpicker_text_shader_color_to">#ff40464b</color>
+    <color name="oppo_alert_dialog_title_text_shadow_color">#00ffffff</color>
+    <color name="oppo_alert_dialog_button_text_shadow_color">#00ffffff</color>
+    <color name="oppo_alert_dialog_content_bg_color">#00ffffff</color>
+    <color name="oppo_alert_dialog_bluetitle_text_color">#ff57b5d5</color>
+    <color name="oppo_status_bar_latest_event_title_color">#ff333333</color>
+    <color name="oppo_status_bar_latest_event_content_color">#ff666666</color>
+    <color name="oppo_status_bar_latest_event_content_emphasis_color">#ff767676</color>
+    <color name="oppo_toolbar_text_color">#ff40464b</color>
+    <color name="oppo_recipient_text_color">#ffececec</color>
+    <color name="oppo_alert_dialog_title_text_color">#ff40464b</color>
+    <color name="oppo_alert_dialog_content_text_color">#ff40464b</color>
+    <color name="oppo_alert_dialog_context_text2_color">#ff969696</color>
+    <color name="oppo_listview_background_color">#fff3f3f3</color>
+    <color name="oppo_listview_item_color">#00000000</color>
+    <color name="oppo_list_large_text_color_normal">#ff40464b</color>
+    <color name="oppo_list_large_text_color_selected">#ffffffff</color>
+    <color name="oppo_list_small_text_color_normal">#ff969696</color>
+    <color name="oppo_list_small_text_color_selected">#ffffffff</color>
+    <color name="oppo_list_text_color_disabled">#ffb2b5b9</color>
+    <color name="oppo_pathbar_text_color">#ffc8c8c8</color>
+    <item type="color" name="oppo_quickcontact_text_color">@color/oppo_title_bar_button_text_color</item>
+    <item type="color" name="oppo_shortcut_text_color">@color/oppo_shortcutbutton_text_color</item>
+    <color name="oppo_tabwidget_label_color_normal">#ffd2d2d2</color>
+    <color name="oppo_tabwidget_label_color_focus">#ffffffff</color>
+    <color name="oppo_tab_widget_only_text_color_normal">#ffd2d2d2</color>
+    <color name="oppo_tab_widget_only_text_color_selected">#ffffffff</color>
+    <color name="oppo_touchsearch_popupwin_default_textcolor">#ff181b20</color>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:oppo="http://schemas.android.com/apk/res/oppo">
+    <TextView android:textSize="27.0dip" android:textColor="@color/white" android:gravity="center" android:id="@id/headerText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="35.0dip" android:shadowColor="#ff000049" android:shadowDx="0.0" android:shadowDy="-1.0" android:shadowRadius="0.1" />
+    <TextView android:textAppearance="?textAppearanceMedium" android:textSize="17.0dip" android:textColor="#ffebebeb" android:gravity="center" android:id="@id/carrier" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:singleLine="true" android:shadowColor="#ff000049" android:shadowDx="0.0" android:shadowDy="-1.0" android:shadowRadius="0.1" android:layout_below="@id/headerText" />
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="30.0dip" android:layout_alignParentBottom="true">
+        <TextView android:textAppearance="?textAppearanceLargeInverse" android:textSize="36.0sp" android:gravity="center" android:id="@id/pinDisplay" android:background="@drawable/oppo_password_edit_background" android:layout_width="fill_parent" android:layout_height="55.0dip" android:layout_marginLeft="30.0dip" android:layout_marginRight="30.0dip" android:maxLines="1" android:inputType="textPassword" />
+        <include android:id="@id/keyPad" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="83.0dip" layout="@layout/oppo_twelve_key_entry" />
+        <com.oppo.widget.OppoShortCutIndicators android:id="@id/oppo_unlock_port_shourt_cut_button" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="0.0dip">
+        <Button android:textAppearance="?textAppearanceLarge" android:gravity="center" android:id="@id/emergencyCallButton" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/lockscreen_emergency_call" android:shadowColor="#ddffffff" android:shadowDx="0.0" android:shadowDy="-0.1" android:shadowRadius="0.1" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/oppo_lockscreen_keyboard_background" android:paddingTop="0.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:oppo="http://schemas.android.com/apk/res/oppo">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0px" android:layout_marginTop="4.0px" android:layout_marginRight="4.0px">
+        <ImageButton android:id="@id/one" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:src="@drawable/oppo_password_key_1" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+        <ImageButton android:id="@id/two" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_2" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+        <ImageButton android:id="@id/three" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_3" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0px" android:layout_marginTop="1.0px" android:layout_marginRight="4.0px">
+        <ImageButton android:id="@id/four" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:src="@drawable/oppo_password_key_4" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+        <ImageButton android:id="@id/five" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_5" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+        <ImageButton android:id="@id/six" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_6" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0px" android:layout_marginTop="1.0px" android:layout_marginRight="4.0px">
+        <ImageButton android:id="@id/seven" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:src="@drawable/oppo_password_key_7" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+        <ImageButton android:id="@id/eight" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_8" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+        <ImageButton android:id="@id/nine" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_9" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="4.0px" android:layout_marginTop="1.0px" android:layout_marginRight="4.0px">
+        <ImageButton android:id="@id/oppo_emergencyCall" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:src="@drawable/oppo_simcard_unlock_emergency_call" android:layout_weight="1.0" />
+        <ImageButton android:id="@id/zero" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_0" android:layout_weight="1.0" style="style/PasswordTextAppearance" />
+        <ImageButton android:id="@id/backspace" android:background="@drawable/oppo_password_key" android:layout_width="0.0sp" android:layout_height="fill_parent" android:layout_marginLeft="2.0px" android:src="@drawable/oppo_password_key_delete_pressed" android:layout_weight="1.0" />
+    </LinearLayout>
+</LinearLayout>

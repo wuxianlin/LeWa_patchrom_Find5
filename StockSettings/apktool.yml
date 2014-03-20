@@ -1,0 +1,14 @@
+version: 1.5.2
+apkFileName: StockSettings.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+  - 9
+sdkInfo:
+  minSdkVersion: '17'
+  targetSdkVersion: '17'
+packageInfo:
+  cur_package: com.wuxianlin.stocksettings
+  orig_package: com.wuxianlin.stocksettings
+compressionType: false

@@ -1,0 +1,17 @@
+<!-- This file is auto-generated.  DO NOT MODIFY. -->
+
+<permissions>
+	<feature name="oppo.hw.manufacturer.qualcomm" />
+	<feature name="oppo.sw.solution.device" />
+	<feature name="oppo.breath.light.support" />
+	<feature name="oppo.align.time" />
+	<feature name="oppo.narrow.frame" />
+	<feature name="oppo.filtrated.app" />
+	<feature name="oppo.soundeffect.support" />
+	<feature name="oppo.dolby.support" />
+	<feature name="oppo.dirac.support" />
+	<feature name="oppo.button.light.support" />
+	<feature name="oppo.double.flinger.volume.support" />
+	<feature name="oppo.multi.touch.camera.support" />
+	<feature name="oppo.breath.light.color.set.support" />
+</permissions>

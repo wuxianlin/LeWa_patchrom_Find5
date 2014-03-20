@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:id="@id/banner" android:background="@drawable/oppo_activity_title_bar" android:paddingLeft="6.0dip" android:layout_width="fill_parent" android:layout_height="50.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.oppo.widget.OppoQuickContactBadge android:layout_gravity="center_vertical" android:id="@id/photo" android:background="@color/oppo_transparence" android:focusable="true" android:layout_width="43.0dip" android:layout_height="43.0dip" android:layout_marginRight="8.0dip" android:scaleType="centerCrop" />
+    <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:id="@id/aggregate_badge" android:paddingTop="3.0dip" android:paddingRight="3.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/oppo_ic_aggregated" />
+            <include layout="@layout/oppo_contact_header_name" />
+        </LinearLayout>
+        <TextView android:textAppearance="?textAppearanceSmall" android:ellipsize="end" android:id="@id/status" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="-4.0dip" android:singleLine="true" />
+        <TextView android:textAppearance="?textAppearanceSmall" android:textSize="12.0sp" android:id="@id/status_date" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="-2.0dip" android:layout_weight="1.0" />
+    </LinearLayout>
+    <ImageView android:layout_gravity="center_vertical" android:id="@id/presence" android:paddingLeft="3.0dip" android:paddingRight="6.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <CheckBox android:layout_gravity="center_vertical" android:id="@id/star" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" style="?android:attr/starStyle" />
+    <ImageView android:layout_gravity="center_vertical" android:id="@id/new_build_button" android:background="@drawable/oppo_newbuild_drawable" android:focusable="true" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="0.0px" android:src="@drawable/oppo_newbuild" />
+    <ImageView android:layout_gravity="center_vertical" android:id="@id/phone_button" android:background="@drawable/oppo_phone_drawable" android:focusable="true" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="0.0px" android:layout_marginRight="0.0px" android:layout_marginBottom="0.0px" android:src="@drawable/oppo_phone" />
+    <ImageView android:layout_gravity="center_vertical" android:id="@id/contact_button" android:background="@drawable/oppo_contact_drawable" android:focusable="true" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="0.0px" android:src="@drawable/oppo_contact" />
+</LinearLayout>

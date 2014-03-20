@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:clickable="false" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="14.0dip" android:textColor="#ff57b5d5" android:id="@id/title" android:background="#fff3f3f3" android:paddingLeft="@dimen/oppo_list_separator_text_padding_left" android:paddingTop="@dimen/oppo_list_separator_height_text_padding_top" android:paddingBottom="@dimen/oppo_list_separator_height_text_padding_bottom" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <ImageView android:background="@drawable/oppo_catgory_bg" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</LinearLayout>

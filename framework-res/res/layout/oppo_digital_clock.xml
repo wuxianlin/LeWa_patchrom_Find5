@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="68.0sp" android:textColor="@color/white" android:id="@id/hour" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:shadowColor="#33000000" android:shadowDx="0.0" android:shadowDy="1.0" android:shadowRadius="0.1" />
+    <ImageView android:id="@id/colon_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" />
+    <TextView android:textSize="68.0sp" android:textColor="@color/white" android:id="@id/minute" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:shadowColor="#33000000" android:shadowDx="0.0" android:shadowDy="1.0" android:shadowRadius="0.1" />
+    <TextView android:textSize="22.0sp" android:textColor="@color/white" android:id="@id/am_pm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dip" android:layout_marginTop="10.0dip" android:singleLine="true" android:shadowColor="#33000000" android:shadowDx="0.0" android:shadowDy="1.0" android:shadowRadius="0.1" />
+</LinearLayout>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Theme map is a map that decide which drawable resource should be 
+    redirect when theme is changed. Used by OnlineRD Find5.
+    -->
+<ThemeMap>
+	<!--Module name="android">
+		<Item name="default_wallpaper.jpg"/>
+		<Item name="iphone_style_bg.png"/>
+	</Module-->
+
+	<!-- Key page applications -->
+	<!--Module name="AccountAndSyncSettings" path="/system/app/AccountAndSyncSettings.apk">
+		<Item name="ic_launcher_accountsandsyncsettings.png"/>
+	</Module-->
+
+	<Module name="com.android.browser">
+		<Item name="ic_launcher_browser.png"/>
+	</Module>
+
+	<Module name="com.android.contacts">
+		<Item name="ic_launcher_oppo_contacts.png"/>
+	</Module>
+    
+	<Module name="com.android.providers.downloads.ui">
+		<Item name="ic_launcher_download.png"/>
+	</Module>
+
+	<Module name="com.android.email">
+		<Item name="ic_launcher_email.png"/>
+	</Module>
+
+	<Module name="com.oppo.filemanager">
+		<Item name="ic_launcher_filemanager.png"/>
+	</Module>
+
+	<Module name="com.android.gallery3d">
+        <Item alias="com.android.gallery3d@ic_launcher_album.png" name="ic_launcher_gallery3d.png"/>
+        <Item alias="com.android.gallery3d@ic_launcher_camera.png" name="ic_launcher_lomo_camera.png"/>
+        <Item alias="com.android.gallery3d@ic_launcher_camera.png" name="ic_launcher_camera.png"/>
+	</Module>
+
+	<Module name="com.android.mms">
+		<Item name="ic_launcher_smsmms.png"/>
+	</Module>
+    
+	<Module name="com.nearme.gamecenter">
+		<Item name="ic_launcher_nearme_gamecenter.png"/>
+	</Module>
+    
+	<Module name="com.oppo.market">
+		<Item name="ic_launcher_nearme_market.png"/>
+	</Module>
+    
+	<Module name="com.nearme.music">
+		<Item name="ic_launcher_nearme_music.png"/>
+	</Module>
+    
+	<Module name="com.nearme.note">
+		<Item name="ic_launcher_nearme_note.png"/>
+	</Module>
+    
+	<Module name="com.oppo.ota">
+		<Item name="ic_launcher_nearme_ota.png"/>
+	</Module>
+    
+	<Module name="com.oppo.reader">
+		<Item name="ic_launcher_nearme_reader.png"/>
+	</Module>
+    
+	<Module name="com.nearme.sync">
+		<Item name="ic_launcher_nearme_sync.png"/>
+	</Module>
+
+	<Module name="com.oppo.soundrecorder">
+		<Item name="ic_launcher_recorder.png"/>
+	</Module>
+    
+	<Module name="com.android.calculator2">
+		<Item name="ic_launcher_calcultor.png"/>
+	</Module>
+    
+	<Module name="com.android.calendar">
+		<Item name="ic_launcher_calender.png"/>
+		<Item alias="com.android.calendar@ic_launcher_todolist.png" name="ic_launcher_todolist.png"/>
+	</Module>
+    
+	<Module name="com.android.alarmclock">
+		<Item name="ic_launcher_clock.png"/>
+	</Module>
+        
+	<Module name="com.oppo.compass">
+		<Item name="ic_launcher_compass.png"/>
+	</Module>
+
+	<Module name="com.oppo.aidial">
+		<Item name="ic_launcher_dialer.png"/>
+	</Module>
+    
+	<Module name="com.oppo.flashlight">
+		<Item name="ic_launcher_flash_light.png"/>
+	</Module>
+
+	<Module name="com.oppo.launcher">
+		<Item alias="com.oppo.launcher@oppo_allapps_button_focused.png" name="allapps_button_focused.png"/>
+		<Item alias="com.oppo.launcher@oppo_allapps_button_normal.png" name="allapps_button_normal.png"/>
+		<Item alias="com.oppo.launcher@oppo_home_button_focused.png" name="home_button_focused.png"/>
+		<Item alias="com.oppo.launcher@oppo_home_button_normal.png" name="home_button_normal.png"/>
+		<Item alias="com.oppo.launcher@home_container_bg.png" name="home_container_bg.png"/>
+		<Item alias="com.oppo.launcher@hotseat_bg_total.png" name="hotseat_bg_total.png"/>
+		<Item alias="com.oppo.launcher@hotseat_mms_focused.png" name="hotseat_mms_focused.png"/>
+		<Item alias="com.oppo.launcher@hotseat_mms_normal.png" name="hotseat_mms_normal.png"/>
+		<Item alias="com.oppo.launcher@hotseat_phone_focused.png" name="hotseat_phone_focused.png"/>
+		<Item alias="com.oppo.launcher@hotseat_phone_normal.png" name="hotseat_phone_normal.png"/>
+		<Item alias="com.oppo.launcher@hotseat_todesktop_focused.png" name="hotseat_todesktop_focused.png"/>
+		<Item alias="com.oppo.launcher@hotseat_todesktop_normal.png" name="hotseat_todesktop_normal.png"/>
+        <Item alias="com.oppo.launcher@oppo_iphone_style_bg.png" name="iphone_style_bg.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_3dpreview_icon_focused.png" name="ic_launcher_3dpreview_icon_focused.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_3dpreview_icon_normal.png" name="ic_launcher_3dpreview_icon_normal.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_mainmenu_default_bg.png" name="ic_launcher_mainmenu_default_bg.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_trashcan.png" name="ic_launcher_trashcan.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_trashcan_hover.png" name="ic_launcher_trashcan_hover.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_page_point_normal.png" name="ic_launcher_page_point_normal.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_page_point_focused.png" name="ic_launcher_page_point_focused.png"/>
+		<Item alias="com.oppo.launcher@oppo_portal_ring_inner_holo.png" name="ic_launcher_folder.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_folder_full.png" name="ic_launcher_folder_full.png"/>
+		<Item alias="com.oppo.launcher@ic_launcher_folder_open.png" name="ic_launcher_folder_open.png"/>
+	</Module>
+    
+	<Module name="com.oppo.music">
+		<Item name="ic_launcher_music.png"/>
+	</Module>
+    
+	<Module name="com.oppo.operationmanual">
+		<Item name="ic_launcher_operation_manual.png"/>
+	</Module>
+    
+	<Module name="com.oppo.tribune">
+		<Item name="ic_launcher_tribune.png"/>
+        <Item name="ic_launcher_nearme_oppotribune.png"/>
+	</Module>
+
+	<Module name="com.oppo.weather">
+		<Item name="ic_launcher_weather.png"/>
+	</Module>
+
+	<Module name="com.android.phonenoareainquire">
+		<Item name="ic_launcher_noquery.png"/>
+	</Module>
+    
+	<Module name="com.oppo.powermanager">
+		<Item name="ic_launcher_save_power.png"/>
+	</Module>
+    
+	<Module name="com.oppo.safe">
+		<Item name="ic_launcher_safe.png"/>
+	</Module>
+    
+	<Module name="com.android.settings">
+		<Item name="ic_launcher_settings.png"/>
+		<Item alias="com.android.settings@ic_launcher_app_manager.png" name="ic_launcher_app_manager.png"/>
+		<Item alias="com.android.settings@ic_launcher_wifi_hotspot.png" name="ic_launcher_wifi_hotspot.png"/>
+		<Item alias="com.android.settings@ic_launcher_wifi_hotspot.png" name="ic_launcher_individuation_settings.png"/>
+	</Module>
+
+	<Module name="com.android.video">
+		<Item name="ic_launcher_video.png"/>
+	</Module>
+	
+	<Module name="com.oppo.locknow">
+		<Item name="ic_launcher_locknow.png"/>
+	</Module>
+	
+	<Module name="com.nearme.feedback">
+		<Item name="ic_launcher_nearme_feedback.png"/>
+        <Item name="ic_launcher_feedback.png"/>
+	</Module>
+    
+    <Module name="com.oppo.speechassist">
+		<Item name="ic_launcher_speechassist.png"/>
+	</Module>
+    
+    <Module name="com.nearme.ocloud">
+		<Item name="ic_launcher_nearme_cloudservice.png"/>
+	</Module>
+    
+	
+</ThemeMap>
+

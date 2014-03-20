@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/sec_layout" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip">
+        <ImageView android:layout_gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_marginBottom="8.0dip" android:src="@drawable/oppo_permission_warn" />
+        <TextView android:textSize="16.0sp" android:textColor="@color/oppo_primary_text_dark" android:id="@id/permission_prompt" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        <TextView android:textSize="10.0sp" android:textColor="@color/oppo_primary_text_dark" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/permission_settings_prompt" />
+        <ImageView android:background="#ff40464b" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginLeft="1.0dip" android:layout_marginTop="15.0dip" android:layout_marginRight="1.0dip" />
+        <LinearLayout android:id="@id/save_panel" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_marginBottom="8.0dip">
+            <TextView android:textSize="13.0sp" android:textColor="@color/oppo_primary_text_dark" android:gravity="right" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginRight="5.0dip" android:text="@string/permission_choice_label" android:layout_weight="1.0" />
+            <CheckBox android:id="@id/remember_cb" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="10.0dip" android:button="@drawable/oppo_permission_cb_selector" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

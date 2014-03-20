@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest android:versionCode="17" android:versionName="1.0" package="com.wuxianlin.stocksettings"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <application android:theme="@lewa:style/V5.Theme" android:label="@string/app_name" android:icon="@drawable/icon" android:supportsRtl="true">
+        <activity android:label="@string/app_name" android:name="com.wuxianlin.stocksettings.DeviceSettings" android:exported="true" android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.android.settings.MANUFACTURER_APPLICATION_SETTING" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <receiver android:name="com.wuxianlin.stocksettings.Startup">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

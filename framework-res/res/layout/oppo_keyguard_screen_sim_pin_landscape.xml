@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@drawable/oppo_spring_listview_background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:oppo="http://schemas.android.com/apk/res/oppo">
+    <TextView android:textAppearance="?textAppearanceLargeInverse" android:gravity="center" android:id="@id/headerText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:shadowColor="#ffffffff" android:shadowDx="0.0" android:shadowDy="1.0" android:shadowRadius="1.0" />
+    <TextView android:textAppearance="?textAppearanceMedium" android:ellipsize="marquee" android:gravity="center" android:id="@id/carrier" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:layout_below="@id/headerText" />
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <EditText android:textAppearance="?textAppearanceLargeInverse" android:textSize="30.0sp" android:textColor="@color/black" android:gravity="center" android:id="@id/pinDisplay" android:background="@drawable/oppo_password_edit_background" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxLines="1" android:inputType="textPassword" />
+        <com.oppo.widget.OppoShortCutIndicators android:id="@id/oppo_unlock_land_shourt_cut_button" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="0.0dip">
+        <Button android:textAppearance="?textAppearanceLarge" android:gravity="center" android:id="@id/emergencyCallButton" android:layout_width="0.0dip" android:layout_height="0.0dip" android:text="@string/lockscreen_emergency_call" android:shadowColor="#ddffffff" android:shadowDx="0.0" android:shadowDy="-0.1" android:shadowRadius="0.1" />
+    </LinearLayout>
+</RelativeLayout>

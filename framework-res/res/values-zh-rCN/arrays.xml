@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="emailAddressTypes">
+        <item>家庭</item>
+        <item>单位</item>
+        <item>其他</item>
+        <item>自定义</item>
+    </string-array>
+    <string-array name="imProtocols">
+        <item>AIM</item>
+        <item>Windows Live</item>
+        <item>中国雅虎</item>
+        <item>Skype</item>
+        <item>QQ</item>
+        <item>Google Talk</item>
+        <item>ICQ</item>
+        <item>Jabber</item>
+    </string-array>
+    <string-array name="organizationTypes">
+        <item>单位</item>
+        <item>其他</item>
+        <item>自定义</item>
+    </string-array>
+    <string-array name="phoneTypes">
+        <item>住宅</item>
+        <item>手机</item>
+        <item>单位电话</item>
+        <item>单位传真</item>
+        <item>住宅传真</item>
+        <item>寻呼机</item>
+        <item>其他</item>
+        <item>自定义</item>
+    </string-array>
+    <string-array name="postalAddressTypes">
+        <item>住宅</item>
+        <item>单位</item>
+        <item>其他</item>
+        <item>自定义</item>
+    </string-array>
+    <integer-array name="maps_starting_lat_lng">
+        <item>39937795</item>
+        <item>116387224</item>
+    </integer-array>
+    <integer-array name="maps_starting_zoom">
+        <item>2</item>
+    </integer-array>
+    <string-array name="imAddressTypes">
+        <item>住宅</item>
+        <item>单位</item>
+        <item>其他</item>
+        <item>自定义</item>
+    </string-array>
+    <string-array name="oppo_ptp_directories">
+        <item>我的照片</item>
+    </string-array>
+    <string-array name="oppo_permissions_prompt">
+        <item>拨打电话</item>
+        <item>读取通话记录</item>
+        <item>读取联系人</item>
+        <item>读取短信</item>
+        <item>发送短信</item>
+        <item>修改WLAN状态</item>
+        <item>修改数据网络状态</item>
+        <item>通过GPS获取位置信息</item>
+        <item>通过网络获取位置信息</item>
+        <item>录音</item>
+        <item>使用相机</item>
+        <item>启用或关闭蓝牙</item>
+        <item>连接蓝牙设备</item>
+        <item>使用NFC</item>
+        <item>访问网络</item>
+    </string-array>
+    <string-array name="select_ringtone_old">
+        <item>ringtone_001</item>
+        <item>ringtone_002</item>
+        <item>ringtone_003</item>
+        <item>ringtone_004</item>
+        <item>ringtone_005</item>
+        <item>ringtone_006</item>
+        <item>ringtone_007</item>
+        <item>ringtone_008</item>
+        <item>ringtone_009</item>
+        <item>ringtone_010</item>
+        <item>notification_001</item>
+        <item>notification_002</item>
+        <item>notification_003</item>
+        <item>notification_004</item>
+        <item>notification_005</item>
+        <item>alarm_001</item>
+        <item>alarm_002</item>
+    </string-array>
+    <string-array name="select_ringtone_new">
+        <item>旅途</item>
+        <item>悦动</item>
+        <item>光电精灵</item>
+        <item>欢乐时光</item>
+        <item>指尖跳跃</item>
+        <item>小小世界</item>
+        <item>俏皮啦啦</item>
+        <item>Real Me</item>
+        <item>巴黎阳光</item>
+        <item>彩虹岛</item>
+        <item>木琴</item>
+        <item>神秘</item>
+        <item>叮咚</item>
+        <item>风铃</item>
+        <item>波纹</item>
+        <item>美好时光</item>
+        <item>清晨小道</item>
+    </string-array>
+    <string-array name="dayofweek">
+        <item>星期日</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+    </string-array>
+    <string-array name="select_music_path_DefualtsItem">
+        <item>从本机</item>
+        <item>自定义</item>
+        <item>更多手机铃声</item>
+        <item>恢复默认铃声</item>
+    </string-array>
+    <string-array name="select_music_path_noDefualtItem">
+        <item>从本机</item>
+        <item>自定义</item>
+        <item>更多手机铃声</item>
+    </string-array>
+    <string-array name="two_list">
+        <item>从本机</item>
+        <item>自定义</item>
+    </string-array>
+    <string-array name="default_folder_names">
+        <item>我的课件</item>
+        <item>我的铃声</item>
+        <item>我的录音</item>
+        <item>我的视频</item>
+        <item>我的书籍</item>
+        <item>我的图片</item>
+        <item>我的下载</item>
+        <item>我的音乐</item>
+        <item>我的照片</item>
+        <item>我的主题</item>
+    </string-array>
+    <string-array name="select_dialog_items">
+        <item>详细信息模式</item>
+        <item>缩略图模式</item>
+    </string-array>
+    <string-array name="sort_dialog_items">
+        <item>按名称</item>
+        <item>按类型</item>
+        <item>按时间倒序</item>
+        <item>按时间顺序</item>
+        <item>按大小</item>
+    </string-array>
+    <string-array name="send_dialog_items_ofThree">
+        <item>蓝牙发送</item>
+        <item>彩信发送</item>
+        <item>邮件发送</item>
+    </string-array>
+    <string-array name="send_dialog_items_ofTwo">
+        <item>蓝牙发送</item>
+        <item>y邮件发送</item>
+    </string-array>
+    <string-array name="setting_titles">
+        <item>浏览模式</item>
+        <item>排序方式</item>
+        <item>加密开关</item>
+        <item>修改加密密码</item>
+        <item>删除前确认</item>
+        <item>存储状态</item>
+        <item>格式化</item>
+    </string-array>
+    <string-array name="setting_summarys">
+        <item>详细</item>
+        <item>按名字</item>
+        <item>加密启用</item>
+        <item>修改密码</item>
+        <item>启用</item>
+        <item>查看手机当前的存储状态</item>
+        <item>格式化将会删除所有的数据</item>
+    </string-array>
+    <string-array name="filebrowser_shortcutbar_title1">
+        <item>返回</item>
+        <item>新建</item>
+        <item>剪切板</item>
+        <item>标记</item>
+        <item>更多</item>
+    </string-array>
+    <string-array name="filebrowser_shortcutbar_title2">
+        <item>搜索</item>
+        <item>收藏夹</item>
+        <item>历史记录</item>
+        <item>设置</item>
+    </string-array>
+    <string-array name="file_select_shortcutbar_title">
+        <item>确定</item>
+        <item>取消</item>
+    </string-array>
+</resources>

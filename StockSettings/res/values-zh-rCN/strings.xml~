@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Find 5 高级设置</string>
+    <string name="category_gestures_title">黑屏手势</string>
+    <string name="double_tap_wake_title_head">双击亮屏</string>
+    <string name="double_tap_wake_summary_head">熄屏状态下双击屏幕唤醒</string>
+    <string name="camera_title_head">启动相机</string>
+    <string name="camera_summary_head">熄屏状态下通过画圈手势启动相机</string>
+    <string name="music_title_head">音乐控制</string>
+    <string name="music_summary_head">熄屏状态下通过手势控制音乐</string>
+    <string name="torch_title_head">启动手电</string>
+    <string name="torch_summary_head">熄屏状态下通过画V手势启动手电</string>
+    <string name="category_engineeringmode">工程模式</string>
+    <string name="engineeringmode_title_head">打开</string>
+    <string name="engineeringmode_summary_head">打开工程模式</string>
+    <string name="sound_effect_category">音效</string>
+    <string name="dolby_effect_title">杜比音效</string>
+    <string name="dolby_effect_on_summary">杜比音效(开启)</string>
+    <string name="dolby_effect_off_summary">杜比音效(关闭)</string>
+    <string name="dirac_effect_title">Dirac音效</string>
+    <string name="dirac_effect_summary">插入耳机时有效</string>
+    <string name="category_author">作者</string>
+    <string name="author_title_head">wuxianlin</string>
+    <string name="author_summary_head">微博：wuxianlin000000</string>
+</resources>

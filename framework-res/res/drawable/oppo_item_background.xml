@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true" android:state_enabled="false" android:state_pressed="true" android:drawable="@drawable/oppo_list_selector_background_disabled" />
+    <item android:state_focused="true" android:state_enabled="false" android:drawable="@drawable/oppo_list_selector_background_disabled" />
+    <item android:state_focused="true" android:drawable="@drawable/oppo_list_selector_background_focused" />
+    <item android:drawable="@color/transparent" />
+</selector>

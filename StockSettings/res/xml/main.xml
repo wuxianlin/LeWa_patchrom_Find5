@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/category_gestures_title">
+        <CheckBoxPreference android:title="@string/double_tap_wake_title_head" android:key="double_tap" android:summary="@string/double_tap_wake_summary_head" />
+        <CheckBoxPreference android:title="@string/camera_title_head" android:key="camera" android:summary="@string/camera_summary_head" />
+        <CheckBoxPreference android:title="@string/music_title_head" android:key="music" android:summary="@string/music_summary_head" />
+        <CheckBoxPreference android:title="@string/torch_title_head" android:key="torch" android:summary="@string/torch_summary_head" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/category_engineeringmode">
+        <Preference android:title="@string/engineeringmode_title_head" android:key="engineeringmode" android:summary="@string/engineeringmode_summary_head">
+            <intent android:targetPackage="com.oppo.engineeringmode" android:action="android.intent.action.VIEW" android:targetClass="com.oppo.engineeringmode.EngineeringMode" />
+        </Preference>
+    </PreferenceCategory>
+    <com.oppo.settings.SoundEffectPreferencesGroup android:title="@string/sound_effect_category" android:key="sound_effect_settings_category">
+        <Preference android:icon="@drawable/ic_oppo_dolby_settings" android:title="@string/dolby_effect_title" android:key="key_dolby">
+            <intent android:targetPackage="com.dolby.ds1appUI" android:action="android.intent.action.MAIN" android:targetClass="com.dolby.ds1appUI.MainActivity" />
+        </Preference>
+        <com.oppo.settings.OppoSwitchPreference android:icon="@drawable/ic_oppo_sound_effect" android:title="@string/dirac_effect_title" android:key="key_dirac" android:summary="@string/dirac_effect_summary" android:defaultValue="false" />
+    </com.oppo.settings.SoundEffectPreferencesGroup>
+    <PreferenceCategory android:title="@string/category_author">
+        <Preference android:title="@string/author_title_head" android:key="author" android:summary="@string/author_summary_head">
+            <intent android:action="android.intent.action.VIEW" android:data="http://weibo.com/wuxianlin000000" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>
