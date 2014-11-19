@@ -232,6 +232,15 @@
     throw v0
 .end method
 
+.method public getApnType()Ljava/lang/String;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/telephony/dataconnection/ApnContext;->mDataProfileType:Ljava/lang/String;
+
+    return-object v0
+.end method
+
 .method public getDataProfileType()Ljava/lang/String;
     .locals 1
 
