@@ -1387,6 +1387,8 @@
     const/4 v0, 0x0
 
     :try_start_0
+    invoke-direct {p0, v10}, Lcom/android/internal/telephony/SMSDispatcher;->setPackageNames([Ljava/lang/String;)V
+
     aget-object v0, v10, v0
 
     const/16 v1, 0x40
@@ -3171,6 +3173,8 @@
 
     .line 762
     :cond_6
+    invoke-direct {p0, v5}, Lcom/android/internal/telephony/SMSDispatcher;->setPackageNames([Ljava/lang/String;)V
+
     const/4 v10, 0x0
 
     :try_start_3

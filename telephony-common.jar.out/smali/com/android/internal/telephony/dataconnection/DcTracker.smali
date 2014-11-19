@@ -6293,7 +6293,11 @@
 
     if-eqz v6, :cond_8
 
-    invoke-direct {p0, v1}, Lcom/android/internal/telephony/dataconnection/DcTracker;->getAnyDataEnabled(Z)Z
+    invoke-static {p1}, Lcom/android/internal/telephony/dataconnection/DcTracker$Injector;->getEnableMmsData(Lcom/android/internal/telephony/dataconnection/ApnContext;)Z
+
+    move-result v6
+
+    invoke-static {v6, p0}, Lcom/android/internal/telephony/dataconnection/DcTracker$Injector;->getAnyDataEnabledExt(ZLcom/android/internal/telephony/dataconnection/DcTracker;)Z
 
     move-result v6
 
@@ -8361,7 +8365,7 @@
     .line 610
     const/4 v0, 0x0
 
-    invoke-direct {p0, v0}, Lcom/android/internal/telephony/dataconnection/DcTracker;->getAnyDataEnabled(Z)Z
+    invoke-static {v0, p0}, Lcom/android/internal/telephony/dataconnection/DcTracker$Injector;->getAnyDataEnabledExt(ZLcom/android/internal/telephony/dataconnection/DcTracker;)Z
 
     move-result v0
 
@@ -10190,7 +10194,7 @@
     goto/16 :goto_1
 .end method
 
-.method protected isDataAllowed(Lcom/android/internal/telephony/dataconnection/ApnContext;)Z
+.method public isDataAllowed(Lcom/android/internal/telephony/dataconnection/ApnContext;)Z
     .locals 3
     .parameter "apnContext"
 
