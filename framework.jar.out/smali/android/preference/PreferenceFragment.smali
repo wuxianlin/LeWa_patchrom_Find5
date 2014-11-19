@@ -487,8 +487,6 @@
 
     .prologue
     .line 162
-    const v0, 0x109007f
-
     const/4 v1, 0x0
 
     invoke-virtual {p0}, Landroid/preference/PreferenceFragment;->getActivity()Landroid/app/Activity;
@@ -511,6 +509,8 @@
     return-object v0
 
     :cond_lewa_0
+    const v0, 0x1090085
+
     invoke-virtual {p1, v0, p2, v1}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;Z)Landroid/view/View;
 
     move-result-object v0
