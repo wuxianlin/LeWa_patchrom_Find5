@@ -25,6 +25,10 @@
 .field private static final PRELOAD_GC_THRESHOLD:I = 0xc350
 
 .field private static final PRELOAD_RESOURCES:Z = false
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private static final PROPERTY_DISABLE_OPENGL_PRELOADING:Ljava/lang/String; = "ro.zygote.disable_gl_preload"
 
@@ -1499,6 +1503,9 @@
 
 .method private static preloadResources()V
     .locals 4
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 363
@@ -1530,6 +1537,13 @@
     invoke-virtual {v2}, Landroid/content/res/Resources;->startPreloading()V
 
     .line 390
+    invoke-static {}, Lcom/android/internal/os/ZygoteInit;->isPreloadResources()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_lewa_0
+
+    :cond_lewa_0
     sget-object v2, Lcom/android/internal/os/ZygoteInit;->mResources:Landroid/content/res/Resources;
 
     invoke-virtual {v2}, Landroid/content/res/Resources;->finishPreloading()V

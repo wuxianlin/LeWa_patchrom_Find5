@@ -469,7 +469,7 @@
     .prologue
     .line 123
     .local p5, rList:Ljava/util/List;,"Ljava/util/List<Landroid/content/pm/ResolveInfo;>;"
-    const v1, 0x103031c
+    const v1, 0x9030010
 
     invoke-virtual {p0, v1}, Lcom/android/internal/app/ResolverActivity;->setTheme(I)V
 

@@ -813,6 +813,8 @@
     iput-object v3, p0, Lcom/android/internal/app/ActionBarImpl;->mContainerView:Lcom/android/internal/widget/ActionBarContainer;
 
     .line 189
+    invoke-direct {p0}, Lcom/android/internal/app/ActionBarImpl;->initTopVisibilityView()V
+
     const v3, 0x102031c
 
     invoke-virtual {p1, v3}, Landroid/view/View;->findViewById(I)Landroid/view/View;

@@ -501,3 +501,5 @@
 .field public static final USSD_MODIFIED_TO_SS:I = 0x15
 
 .field public static final USSD_MODIFIED_TO_USSD:I = 0x16
+
+.field public static final PREFERRED_NETWORK_HUAWEI_CWPLUS_MODE:I = 0x1
