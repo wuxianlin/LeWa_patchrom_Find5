@@ -22440,38 +22440,6 @@
     goto :goto_1
 .end method
 
-.method public onRtlPropertiesChanged(I)V
-    .locals 1
-    .parameter "layoutDirection"
-
-    .prologue
-    .line 8667
-    invoke-super {p0, p1}, Landroid/view/View;->onRtlPropertiesChanged(I)V
-
-    .line 8669
-    invoke-virtual {p0}, Landroid/widget/TextView;->getTextDirectionHeuristic()Landroid/text/TextDirectionHeuristic;
-
-    move-result-object v0
-
-    iput-object v0, p0, Landroid/widget/TextView;->mTextDir:Landroid/text/TextDirectionHeuristic;
-
-    .line 8671
-    iget-object v0, p0, Landroid/widget/TextView;->mLayout:Landroid/text/Layout;
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Landroid/widget/TextView;->mLayoutParams:Landroid/view/ViewGroup$LayoutParams;
-
-    if-eqz v0, :cond_0
-
-    .line 8672
-    invoke-direct {p0}, Landroid/widget/TextView;->checkForRelayout()V
-
-    .line 8674
-    :cond_0
-    return-void
-.end method
-
 .method public onSaveInstanceState()Landroid/os/Parcelable;
     .locals 7
 

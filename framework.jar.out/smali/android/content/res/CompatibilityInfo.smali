@@ -49,8 +49,6 @@
 
 .field public final applicationScale:F
 
-.field public final isThemeable:Z
-
 .field public isThemeable:Z
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
@@ -105,13 +103,12 @@
     return-void
 .end method
 
-.method private constructor <init>(IIFFZ)V
+.method private constructor <init>(IIFF)V
     .locals 0
     .parameter "compFlags"
     .parameter "dens"
     .parameter "scale"
     .parameter "invertedScale"
-    .parameter "isThemeable"
 
     .prologue
     .line 251
@@ -128,9 +125,6 @@
 
     .line 255
     iput p4, p0, Landroid/content/res/CompatibilityInfo;->applicationInvertedScale:F
-
-    .line 256
-    iput-boolean p5, p0, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
 
     .line 257
     return-void
@@ -184,7 +178,7 @@
     .local v5, compatFlags:I
     iget-boolean v9, p1, Landroid/content/pm/ApplicationInfo;->isThemeable:Z
 
-    iput-boolean v9, p0, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
+    invoke-static {p0, v9}, Landroid/content/res/CompatibilityInfo$Injector;->setThemeable(Landroid/content/res/CompatibilityInfo;Z)V
 
     .line 105
     iget v9, p1, Landroid/content/pm/ApplicationInfo;->requiresSmallestWidthDp:I
@@ -553,20 +547,12 @@
     .end packed-switch
 .end method
 
-.method synthetic constructor <init>(Landroid/content/res/CompatibilityInfo$1;)V
-    .locals 0
-    .parameter "x0"
-
-    .prologue
-    .line 37
-    invoke-direct {p0}, Landroid/content/res/CompatibilityInfo;-><init>()V
-
-    return-void
-.end method
-
 .method private constructor <init>(Landroid/os/Parcel;)V
     .locals 2
     .parameter "source"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v0, 0x1
@@ -1188,13 +1174,13 @@
 
     .line 537
     :cond_5
-    iget-boolean v5, p0, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
-
-    iget-boolean v6, v2, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
+    invoke-static {p0, v2}, Landroid/content/res/CompatibilityInfo$Injector;->equals(Landroid/content/res/CompatibilityInfo;Landroid/content/res/CompatibilityInfo;)Z
     :try_end_0
     .catch Ljava/lang/ClassCastException; {:try_start_0 .. :try_end_0} :catch_0
 
-    if-eq v5, v6, :cond_0
+    move-result v5
+
+    if-nez v5, :cond_0
 
     move v3, v4
 

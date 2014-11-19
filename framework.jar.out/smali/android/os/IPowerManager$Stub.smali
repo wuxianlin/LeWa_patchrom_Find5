@@ -46,7 +46,7 @@
 
 .field static final TRANSACTION_reboot:I = 0xc
 
-.field static final TRANSACTION_rebootConfirm:I = 0x14
+.field static final TRANSACTION_rebootConfirm:I = 0x1a
 
 .field static final TRANSACTION_releaseWakeLock:I = 0x3
 
@@ -976,7 +976,7 @@
 
     goto/16 :goto_0
 
-    :sswitch_14
+    :sswitch_1a
     const-string v10, "android.os.IPowerManager"
 
     invoke-virtual {p2, v10}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
@@ -990,12 +990,12 @@
 
     move-result v10
 
-    if-eqz v10, :cond_9
+    if-eqz v10, :cond_lewa
 
     move v2, v9
 
     .local v2, _arg1:Z
-    :goto_8
+    :goto_lewa
     invoke-virtual {p0, v1, v2}, Landroid/os/IPowerManager$Stub;->rebootConfirm(Ljava/lang/String;Z)V
 
     invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
@@ -1003,10 +1003,10 @@
     goto/16 :goto_0
 
     .end local v2           #_arg1:Z
-    :cond_9
+    :cond_lewa
     move v2, v0
 
-    goto :goto_8
+    goto :goto_lewa
 
     :sswitch_data_0
     .sparse-switch
@@ -1035,6 +1035,7 @@
         0x17 -> :sswitch_17
         0x18 -> :sswitch_18
         0x19 -> :sswitch_19
+        0x1a -> :sswitch_1a
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method

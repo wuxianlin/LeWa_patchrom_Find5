@@ -2986,6 +2986,10 @@
 
     .line 779
     .local v8, r:Landroid/content/res/Resources;
+    invoke-direct {p0, p1}, Landroid/app/ApplicationPackageManager;->getLewaTopLevelResources(Landroid/content/pm/ApplicationInfo;)Landroid/content/res/Resources;
+
+    move-result-object v8
+
     if-nez v8, :cond_0
 
     .line 782

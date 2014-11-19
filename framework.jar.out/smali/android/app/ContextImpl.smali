@@ -3218,6 +3218,9 @@
 .method public createDisplayContext(Landroid/view/Display;)Landroid/content/Context;
     .locals 9
     .parameter "display"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1984

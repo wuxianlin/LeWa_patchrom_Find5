@@ -656,6 +656,15 @@
     .prologue
     .line 1708
     .local p1, cache:Landroid/util/LongSparseArray;,"Landroid/util/LongSparseArray<Ljava/lang/ref/WeakReference<Landroid/graphics/drawable/Drawable$ConstantState;>;>;"
+    invoke-static {p1, p2}, Landroid/content/res/Resources$Injector;->needNewResources(Landroid/util/LongSparseArray;I)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_lewa0
+
+    goto :cond_1
+
+    :cond_lewa0
     const/4 v4, 0x0
 
     invoke-static {p2, v4}, Landroid/content/res/Configuration;->needNewResources(II)Z

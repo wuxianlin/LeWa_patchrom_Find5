@@ -343,12 +343,19 @@
     .locals 2
     .parameter "configChanges"
     .parameter "interestingChanges"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1109
     const/high16 v0, 0x4000
 
     or-int/2addr v0, p1
+
+    const/high16 v1, 0x8
+
+    or-int/2addr v0, v1
 
     const v1, 0x8000
 
@@ -1237,6 +1244,16 @@
 
     .line 1094
     :cond_14
+    iget-object v2, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iget-object v3, p1, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v2, v3}, Llewa/content/res/ExtraConfiguration;->diff(Llewa/content/res/ExtraConfiguration;)I
+
+    move-result v2
+
+    or-int/2addr v0, v2
+
     return v0
 .end method
 
@@ -1531,13 +1548,34 @@
     add-int v0, v1, v2
 
     .line 1325
-    return v0
+    iget-object v1, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v1}, Llewa/content/res/ExtraConfiguration;->hashCode()I
+
+    move-result v1
+
+    add-int/2addr v1, v0
+
+    return v1
 
     :cond_1
     move v1, v2
 
     .line 1309
     goto :goto_0
+.end method
+
+.method public init()V
+    .locals 1
+
+    .prologue
+    new-instance v0, Llewa/content/res/ExtraConfiguration;
+
+    invoke-direct {v0}, Llewa/content/res/ExtraConfiguration;-><init>()V
+
+    iput-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    return-void
 .end method
 
 .method public isLayoutSizeAtLeast(I)Z
@@ -1642,6 +1680,9 @@
 .method public readFromParcel(Landroid/os/Parcel;)V
     .locals 5
     .parameter "source"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v0, 0x1
@@ -1838,6 +1879,10 @@
 
     iput-object v0, p0, Landroid/content/res/Configuration;->themeConfig:Landroid/content/res/ThemeConfig;
 
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v0, p1}, Llewa/content/res/ExtraConfiguration;->readFromParcel(Landroid/os/Parcel;)V
+
     .line 1214
     return-void
 
@@ -1846,6 +1891,43 @@
     const/4 v0, 0x0
 
     goto :goto_0
+.end method
+
+.method public setCustomTheme(Landroid/content/res/CustomTheme;)V
+    .locals 1
+    .parameter "customTheme"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iput-object p1, v0, Llewa/content/res/ExtraConfiguration;->customTheme:Landroid/content/res/CustomTheme;
+
+    :cond_0
+    return-void
+.end method
+
+.method public setFontChanged(I)V
+    .locals 1
+    .parameter "fontChanged"
+
+    .prologue
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iput p1, v0, Llewa/content/res/ExtraConfiguration;->fontChanged:I
+
+    :cond_0
+    return-void
 .end method
 
 .method public setLayoutDirection(Ljava/util/Locale;)V
@@ -1901,6 +1983,9 @@
 .method public setTo(Landroid/content/res/Configuration;)V
     .locals 1
     .parameter "o"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 641
@@ -2043,6 +2128,8 @@
 
     .line 668
     :cond_1
+    invoke-virtual {p0, p1}, Landroid/content/res/Configuration;->setToExtraConfiguration(Landroid/content/res/Configuration;)V
+
     return-void
 .end method
 
@@ -2107,13 +2194,32 @@
 
     iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
 
-    invoke-virtual {v0, p1}, Llewa/content/res/ExtraConfiguration;->readFromParcel(Landroid/os/Parcel;)V
+    invoke-virtual {v0}, Llewa/content/res/ExtraConfiguration;->setToDefaults()V
+
+    invoke-direct {p0}, Landroid/content/res/Configuration;->setDefaultFontScale()V
+
+    return-void
+.end method
+
+.method public setToExtraConfiguration(Landroid/content/res/Configuration;)V
+    .locals 2
+    .parameter "o"
+
+    .prologue
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iget-object v1, p1, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v0, v1}, Llewa/content/res/ExtraConfiguration;->setTo(Llewa/content/res/ExtraConfiguration;)V
 
     return-void
 .end method
 
 .method public toString()Ljava/lang/String;
     .locals 3
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 671
@@ -2494,6 +2600,14 @@
     iget-object v2, p0, Landroid/content/res/Configuration;->themeConfig:Landroid/content/res/ThemeConfig;
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    iget-object v2, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v2}, Llewa/content/res/ExtraConfiguration;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     .line 805
     const/16 v2, 0x7d
@@ -3598,6 +3712,16 @@
 
     .line 981
     :cond_1b
+    iget-object v2, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iget-object v3, p1, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v2, v3}, Llewa/content/res/ExtraConfiguration;->updateFrom(Llewa/content/res/ExtraConfiguration;)I
+
+    move-result v2
+
+    or-int/2addr v0, v2
+
     return v0
 
     .line 864

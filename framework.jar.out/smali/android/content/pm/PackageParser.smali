@@ -5668,7 +5668,7 @@
 
     iput-object v2, v14, Landroid/content/pm/PackageParser$Activity;->metaData:Landroid/os/Bundle;
 
-    if-nez v2, :cond_1c
+    if-nez v2, :cond_lewa_0
 
     .line 2938
     const/4 v14, 0x0
@@ -5676,6 +5676,13 @@
     goto/16 :goto_1
 
     .line 2942
+    :cond_lewa_0
+    move-object/from16 v0, p2
+
+    invoke-static {v0, v14}, Landroid/app/LewaThemeHelper;->changeThemeForLewa(Landroid/content/res/Resources;Landroid/content/pm/PackageParser$Activity;)V
+
+    goto/16 :goto_7
+
     :cond_29
     const-string v2, "PackageParser"
 
@@ -10169,6 +10176,10 @@
     .parameter "flags"
     .parameter "trustedOverlay"
     .parameter "outError"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Lorg/xmlpull/v1/XmlPullParserException;,
@@ -10372,6 +10383,12 @@
     move-object/from16 v0, v40
 
     invoke-static {v0, v3}, Landroid/content/pm/PackageParser;->validateName(Ljava/lang/String;Z)Ljava/lang/String;
+
+    move-result-object v3
+
+    move-object/from16 v0, v36
+
+    invoke-static {v0, v3}, Landroid/content/pm/PackageParser$Injector;->filterNameError(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v31
 
@@ -12144,7 +12161,7 @@
 
     move-result v3
 
-    if-eqz v3, :cond_37
+    if-eqz v3, :cond_lewa_0
 
     .line 1722
     invoke-static/range {p2 .. p2}, Lcom/android/internal/util/XmlUtils;->skipCurrentTag(Lorg/xmlpull/v1/XmlPullParser;)V
@@ -12222,6 +12239,27 @@
     goto/16 :goto_1
 
     .line 1740
+    :cond_lewa_0
+    const-string v3, "theme"
+
+    move-object/from16 v0, v45
+
+    invoke-virtual {v0, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_39
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p1
+
+    move-object/from16 v2, p2
+
+    invoke-direct {v0, v4, v1, v2, v7}, Landroid/content/pm/PackageParser;->setThemeApk(Landroid/content/pm/PackageParser$Package;Landroid/content/res/Resources;Landroid/content/res/XmlResourceParser;Landroid/util/AttributeSet;)V
+
+    goto/16 :goto_1
+
     :cond_39
     const-string v3, "PackageParser"
 
@@ -12726,7 +12764,7 @@
 
     const/16 v5, 0x12
 
-    if-ge v3, v5, :cond_52
+    if-ge v3, v5, :cond_lewa_1
 
     .line 1833
     const/16 v22, 0x0
@@ -12741,7 +12779,7 @@
 
     move/from16 v0, v22
 
-    if-ge v0, v3, :cond_52
+    if-ge v0, v3, :cond_lewa_1
 
     .line 1834
     iget-object v3, v4, Landroid/content/pm/PackageParser$Package;->requestedPermissionsRequired:Ljava/util/ArrayList;
@@ -12816,6 +12854,9 @@
     const/4 v3, 0x1
 
     iput v3, v4, Landroid/content/pm/PackageParser$Package;->mOverlayPriority:I
+
+    :cond_lewa_1
+    invoke-static {v4}, Landroid/content/pm/PackageParser$Injector;->setThemeable(Landroid/content/pm/PackageParser$Package;)V
 
     goto/16 :goto_0
 .end method
@@ -13094,6 +13135,10 @@
     move-result-object v10
 
     .line 1217
+    invoke-static {v12, v10}, Landroid/content/pm/PackageParser$Injector;->filterNameError(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v10
+
     .local v10, nameError:Ljava/lang/String;
     if-eqz v10, :cond_6
 
@@ -13560,7 +13605,7 @@
     invoke-virtual/range {v28 .. v28}, Landroid/util/DisplayMetrics;->setToDefaults()V
 
     .line 1101
-    new-instance v31, Landroid/content/res/Resources;
+    new-instance v31, Landroid/content/res/LewaResources;
 
     const/4 v6, 0x0
 
@@ -13568,7 +13613,7 @@
 
     move-object/from16 v1, v28
 
-    invoke-direct {v0, v5, v1, v6}, Landroid/content/res/Resources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
+    invoke-direct {v0, v5, v1, v6}, Landroid/content/res/LewaResources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
 
     .line 1102
     .local v31, res:Landroid/content/res/Resources;
@@ -13831,6 +13876,10 @@
     .parameter "attrs"
     .parameter "flags"
     .parameter "outError"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/io/IOException;,
@@ -13921,6 +13970,10 @@
     .line 1181
     :cond_5
     invoke-static {v1, v7}, Landroid/content/pm/PackageParser;->validateName(Ljava/lang/String;Z)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-static {v1, v4}, Landroid/content/pm/PackageParser$Injector;->filterNameError(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
@@ -17396,6 +17449,34 @@
     goto :goto_1
 .end method
 
+.method private setThemeApk(Landroid/content/pm/PackageParser$Package;Landroid/content/res/Resources;Landroid/content/res/XmlResourceParser;Landroid/util/AttributeSet;)V
+    .locals 2
+    .parameter "pkg"
+    .parameter "res"
+    .parameter "parser"
+    .parameter "attrs"
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Lorg/xmlpull/v1/XmlPullParserException;
+        }
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x1
+
+    iput-boolean v0, p1, Landroid/content/pm/PackageParser$Package;->mIsThemeApk:Z
+
+    iget-object v0, p1, Landroid/content/pm/PackageParser$Package;->mThemeInfos:Ljava/util/ArrayList;
+
+    new-instance v1, Landroid/content/pm/ThemeInfo;
+
+    invoke-direct {v1, p3, p2, p4}, Landroid/content/pm/ThemeInfo;-><init>(Lorg/xmlpull/v1/XmlPullParser;Landroid/content/res/Resources;Landroid/util/AttributeSet;)V
+
+    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    return-void
+.end method
+
 .method private scanPackageRedirections(Ljava/io/File;Landroid/content/res/Resources;Ljava/lang/String;)Ljava/util/Map;
     .locals 12
     .parameter "originalFile"
@@ -17434,7 +17515,7 @@
     invoke-virtual {v0, v10}, Landroid/content/res/AssetManager;->addAssetPath(Ljava/lang/String;)I
 
     .line 711
-    new-instance v9, Landroid/content/res/Resources;
+    new-instance v9, Landroid/content/res/LewaResources;
 
     invoke-virtual {p2}, Landroid/content/res/Resources;->getDisplayMetrics()Landroid/util/DisplayMetrics;
 
@@ -17444,7 +17525,7 @@
 
     move-result-object v11
 
-    invoke-direct {v9, v0, v10, v11}, Landroid/content/res/Resources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
+    invoke-direct {v9, v0, v10, v11}, Landroid/content/res/LewaResources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
 
     .line 712
     .local v9, themeResources:Landroid/content/res/Resources;
@@ -18960,6 +19041,9 @@
     .parameter "metrics"
     .parameter "flags"
     .parameter "trustedOverlay"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 543
@@ -19020,6 +19104,7 @@
 
     const/16 v30, 0x0
 
+    :cond_0
     :goto_0
     return-object v30
 
@@ -19125,7 +19210,7 @@
     if-eqz v22, :cond_5
 
     .line 573
-    new-instance v31, Landroid/content/res/Resources;
+    new-instance v31, Landroid/content/res/LewaResources;
 
     const/4 v3, 0x0
 
@@ -19133,7 +19218,7 @@
 
     move-object/from16 v1, p3
 
-    invoke-direct {v0, v2, v1, v3}, Landroid/content/res/Resources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
+    invoke-direct {v0, v2, v1, v3}, Landroid/content/res/LewaResources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;)V
     :try_end_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_2
 
@@ -19336,12 +19421,6 @@
     invoke-direct/range {v3 .. v8}, Landroid/content/pm/PackageParser;->parsePackage(Landroid/content/res/Resources;Landroid/content/res/XmlResourceParser;IZ[Ljava/lang/String;)Landroid/content/pm/PackageParser$Package;
     :try_end_4
     .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_4} :catch_1
-
-    move-result-object v3
-
-    move-object/from16 v0, v35
-
-    invoke-static {v0, v3}, Landroid/content/pm/PackageParser$Injector;->filterNameError(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v30
 

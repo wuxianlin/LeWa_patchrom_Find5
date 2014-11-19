@@ -2032,12 +2032,17 @@
 .method public getResources(Landroid/app/ActivityThread;)Landroid/content/res/Resources;
     .locals 8
     .parameter "mainThread"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 486
     iget-object v0, p0, Landroid/app/LoadedApk;->mResources:Landroid/content/res/Resources;
 
     if-nez v0, :cond_0
+
+    invoke-direct {p0, p1}, Landroid/app/LoadedApk;->setMainThread(Landroid/app/ActivityThread;)V
 
     .line 487
     iget-object v1, p0, Landroid/app/LoadedApk;->mResDir:Ljava/lang/String;
@@ -2058,7 +2063,7 @@
 
     move-object v5, p0
 
-    invoke-virtual/range {v0 .. v7}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;[Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/app/LoadedApk;Landroid/content/Context;Ljava/lang/String;)Landroid/content/res/Resources;
+    invoke-virtual {p0, v1, v3, v4, p0}, Landroid/app/LoadedApk;->getLewaTopLevelResources(Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
 
     move-result-object v0
 

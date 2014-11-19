@@ -808,6 +808,18 @@
 
     .prologue
     .line 332
+    invoke-static {}, Landroid/hardware/Camera;->checkLewaPermission()Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    const/4 v0, 0x0
+
+    :goto_0
+    return-object v0
+
+    :cond_0
     const/4 v0, 0x1
 
     invoke-static {p0, v0}, Landroid/hardware/Camera;->notifyTorch(IZ)V
@@ -817,7 +829,7 @@
 
     invoke-direct {v0, p0}, Landroid/hardware/Camera;-><init>(I)V
 
-    return-object v0
+    goto :goto_0
 .end method
 
 .method private static postEventFromNative(Ljava/lang/Object;IIILjava/lang/Object;)V

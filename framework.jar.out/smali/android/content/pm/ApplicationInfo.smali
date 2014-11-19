@@ -374,6 +374,8 @@
     .line 657
     invoke-direct {p0, p1}, Landroid/content/pm/PackageItemInfo;-><init>(Landroid/os/Parcel;)V
 
+    iput-boolean v2, p0, Landroid/content/pm/ApplicationInfo;->isThemeable:Z
+
     .line 99
     iput v2, p0, Landroid/content/pm/ApplicationInfo;->uiOptions:I
 

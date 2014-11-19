@@ -4808,11 +4808,14 @@
     :goto_1
     if-nez v0, :cond_0
 
-    if-eqz v1, :cond_1
+    if-eqz v1, :cond_lewa_0
 
     .line 3963
     :cond_0
     invoke-static {}, Landroid/graphics/Canvas;->freeTextLayoutCaches()V
+
+    :cond_lewa_0
+    invoke-static {p0}, Landroid/app/ActivityThread$Injector;->FreeCanvasCaches(I)V
 
     .line 3964
     invoke-static {}, Landroid/graphics/Typeface;->recreateDefaults()V
@@ -5458,7 +5461,7 @@
 
     iget-object v5, v0, Landroid/app/ActivityThread$AppBindData;->compatInfo:Landroid/content/res/CompatibilityInfo;
 
-    invoke-virtual {v2, v4, v5}, Landroid/app/ResourcesManager;->applyConfigurationToResourcesLocked(Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;)I
+    invoke-virtual {v2, v4, v5}, Landroid/app/ResourcesManager;->applyLewaConfigurationToResourcesLocked(Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;)I
 
     .line 4274
     move-object/from16 v0, p1
@@ -14502,7 +14505,7 @@
 
     const/4 v2, 0x0
 
-    invoke-virtual {v0, p1, v2}, Landroid/app/ResourcesManager;->applyConfigurationToResourcesLocked(Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;)I
+    invoke-virtual {v0, p1, v2}, Landroid/app/ResourcesManager;->applyLewaConfigurationToResourcesLocked(Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;)I
 
     .line 3879
     monitor-exit v1
@@ -15694,27 +15697,21 @@
 
     .prologue
     .line 1543
-    iget-object v0, p0, Landroid/app/ActivityThread;->mResourcesManager:Landroid/app/ResourcesManager;
-
     invoke-virtual {p5}, Landroid/app/LoadedApk;->getCompatibilityInfo()Landroid/content/res/CompatibilityInfo;
 
-    move-result-object v6
+    move-result-object v4
 
-    const/4 v7, 0x0
+    const/4 v5, 0x0
+
+    move-object v0, p0
 
     move-object v1, p1
 
-    move-object v2, p2
+    move v2, p3
 
-    move v3, p3
+    move-object v3, p4
 
-    move-object/from16 v4, p7
-
-    move-object v5, p4
-
-    move-object v8, p6
-
-    invoke-virtual/range {v0 .. v8}, Landroid/app/ResourcesManager;->getTopLevelResources(Ljava/lang/String;[Ljava/lang/String;ILjava/lang/String;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;Landroid/content/Context;)Landroid/content/res/Resources;
+    invoke-virtual/range {v0 .. v5}, Landroid/app/ActivityThread;->getLewaTopLevelResources(Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
 
     move-result-object v0
 

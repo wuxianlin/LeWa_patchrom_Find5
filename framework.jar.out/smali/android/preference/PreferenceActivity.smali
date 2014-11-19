@@ -1779,7 +1779,13 @@
     invoke-super/range {p0 .. p1}, Landroid/app/ListActivity;->onCreate(Landroid/os/Bundle;)V
 
     .line 525
-    const v17, 0x109007d
+    invoke-static/range {p0 .. p0}, Llewa/util/LewaUiUtil;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v17
+
+    if-eqz v17, :cond_lewa0
+
+    const v17, 0x909003b
 
     move-object/from16 v0, p0
 
@@ -1788,6 +1794,7 @@
     invoke-virtual {v0, v1}, Landroid/preference/PreferenceActivity;->setContentView(I)V
 
     .line 527
+    :goto_lewa0
     const v17, 0x10202f9
 
     move-object/from16 v0, p0
@@ -2293,7 +2300,7 @@
     .end local v15           #intent:Landroid/content/Intent;
     
     :cond_lewa0
-    const v17, 0x109007b
+    const v17, 0x109007d
 
     move-object/from16 v0, p0
 

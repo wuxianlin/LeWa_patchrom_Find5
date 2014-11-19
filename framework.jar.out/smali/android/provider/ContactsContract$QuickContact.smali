@@ -258,10 +258,19 @@
 
     .line 8044
     .local v0, intent:Landroid/content/Intent;
+    :try_start_0
     invoke-static {p0, v0}, Landroid/provider/ContactsContract$QuickContact;->startActivityWithErrorToast(Landroid/content/Context;Landroid/content/Intent;)V
+    :try_end_0
+    .catch Landroid/content/ActivityNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
 
     .line 8045
+    :goto_0
     return-void
+
+    :catch_0
+    move-exception v1
+
+    goto :goto_0
 .end method
 
 .method public static showQuickContact(Landroid/content/Context;Landroid/view/View;Landroid/net/Uri;I[Ljava/lang/String;)V
