@@ -741,15 +741,6 @@
     .line 2074
     iput-object p3, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
 
-    .line 2075
-    new-instance v1, Landroid/app/ContextImpl$ApplicationContentResolver;
-
-    move-object/from16 v0, p5
-
-    invoke-direct {v1, p0, p2, v0}, Landroid/app/ContextImpl$ApplicationContentResolver;-><init>(Landroid/content/Context;Landroid/app/ActivityThread;Landroid/os/UserHandle;)V
-
-    iput-object v1, p0, Landroid/app/ContextImpl;->mContentResolver:Landroid/app/ContextImpl$ApplicationContentResolver;
-
     .line 2076
     invoke-static {}, Landroid/app/ResourcesManager;->getInstance()Landroid/app/ResourcesManager;
 
@@ -893,6 +884,14 @@
 
     .line 2123
     :goto_1
+    new-instance v1, Landroid/app/ContextImpl$ApplicationContentResolver;
+
+    move-object/from16 v0, p5
+
+    invoke-direct {v1, p0, p2, v0}, Landroid/app/ContextImpl$ApplicationContentResolver;-><init>(Landroid/content/Context;Landroid/app/ActivityThread;Landroid/os/UserHandle;)V
+
+    iput-object v1, p0, Landroid/app/ContextImpl;->mContentResolver:Landroid/app/ContextImpl$ApplicationContentResolver;
+
     return-void
 
     .line 2098

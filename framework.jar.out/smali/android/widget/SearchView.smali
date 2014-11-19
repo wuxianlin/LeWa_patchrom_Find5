@@ -276,10 +276,6 @@
 
     iput-object v7, p0, Landroid/widget/SearchView;->mSearchEditFrame:Landroid/view/View;
 
-    iget-object v7, p0, Landroid/widget/SearchView;->mCloseButton:Landroid/widget/ImageView;
-
-    invoke-static {p1, v7}, Landroid/widget/SearchView$Injector;->setCloseButtonBackground(Landroid/content/Context;Landroid/view/View;)V
-
     .line 256
     const v7, 0x1020325
 
@@ -319,6 +315,10 @@
     iput-object v7, p0, Landroid/widget/SearchView;->mCloseButton:Landroid/widget/ImageView;
 
     .line 260
+    iget-object v7, p0, Landroid/widget/SearchView;->mCloseButton:Landroid/widget/ImageView;
+
+    invoke-static {p1, v7}, Landroid/widget/SearchView$Injector;->setCloseButtonBackground(Landroid/content/Context;Landroid/view/View;)V
+
     const v7, 0x102032a
 
     invoke-virtual {p0, v7}, Landroid/widget/SearchView;->findViewById(I)Landroid/view/View;

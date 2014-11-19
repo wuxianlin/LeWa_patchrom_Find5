@@ -1953,15 +1953,6 @@
     .prologue
     const/4 v1, 0x0
 
-    invoke-virtual {p0}, Landroid/telephony/TelephonyManager;->checkPermission()Z
-
-    move-result v2
-
-    if-nez v2, :cond_lewa_0
-    
-    goto :goto_0
-    
-    :cond_lewa_0
     :try_start_0
     invoke-direct {p0}, Landroid/telephony/TelephonyManager;->getSubscriberInfo()Lcom/android/internal/telephony/IPhoneSubInfo;
 
@@ -2161,6 +2152,15 @@
     .prologue
     const/4 v1, 0x0
 
+    invoke-virtual {p0}, Landroid/telephony/TelephonyManager;->checkPermission()Z
+
+    move-result v2
+
+    if-nez v2, :cond_lewa_0
+    
+    goto :goto_0
+    
+    :cond_lewa_0
     .line 1198
     :try_start_0
     invoke-direct {p0}, Landroid/telephony/TelephonyManager;->getSubscriberInfo()Lcom/android/internal/telephony/IPhoneSubInfo;
@@ -2583,24 +2583,6 @@
     .prologue
     const/4 v1, 0x0
 
-    invoke-virtual {p0}, Landroid/telephony/TelephonyManager;->checkPermission()Z
-
-    move-result v2
-
-    if-nez v2, :cond_lewa_0
-	
-    goto :goto_0
-    
-    :cond_lewa_0
-    invoke-virtual {p0}, Landroid/telephony/TelephonyManager;->checkPermission()Z
-
-    move-result v2
-
-    if-nez v2, :cond_lewa_0
-    
-    goto :goto_0
-    
-    :cond_lewa_0
     :try_start_0
     invoke-direct {p0}, Landroid/telephony/TelephonyManager;->getSubscriberInfo()Lcom/android/internal/telephony/IPhoneSubInfo;
 
@@ -2849,6 +2831,15 @@
     .prologue
     const/4 v1, 0x0
 
+    invoke-virtual {p0}, Landroid/telephony/TelephonyManager;->checkPermission()Z
+
+    move-result v2
+
+    if-nez v2, :cond_lewa_0
+	
+    goto :goto_0
+    
+    :cond_lewa_0
     :try_start_0
     invoke-direct {p0}, Landroid/telephony/TelephonyManager;->getSubscriberInfo()Lcom/android/internal/telephony/IPhoneSubInfo;
 
@@ -2985,6 +2976,15 @@
     .prologue
     const/4 v1, 0x0
 
+    invoke-virtual {p0}, Landroid/telephony/TelephonyManager;->checkPermission()Z
+
+    move-result v2
+
+    if-nez v2, :cond_lewa_0
+    
+    goto :goto_0
+    
+    :cond_lewa_0
     :try_start_0
     invoke-direct {p0}, Landroid/telephony/TelephonyManager;->getSubscriberInfo()Lcom/android/internal/telephony/IPhoneSubInfo;
 
