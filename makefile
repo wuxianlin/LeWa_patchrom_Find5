@@ -59,4 +59,5 @@ pre_install_data_packages := $(TMP_DIR)/pre_install_apk_pkgname.txt
 local-pre-zip-misc: add-prebuilt-lewa-sqlite-library
 	cp other/boot.img $(ZIP_DIR)/boot.img
 	cp other/build.prop $(ZIP_DIR)/system/build.prop
+	cp -rf other/priv-app/* $(ZIP_DIR)/system/priv-app/
 
