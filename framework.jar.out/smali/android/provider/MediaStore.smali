@@ -6,6 +6,11 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Landroid/provider/MediaStore$FileExtensionColumns;,
+        Landroid/provider/MediaStore$ArtistExtensionColumns;,
+        Landroid/provider/MediaStore$AlbumExtensionColumns;,
+        Landroid/provider/MediaStore$PlaylistsExtensionColumns;,
+        Landroid/provider/MediaStore$AudioExtensionColumns;,
         Landroid/provider/MediaStore$Video;,
         Landroid/provider/MediaStore$Audio;,
         Landroid/provider/MediaStore$Images;,
@@ -75,6 +80,12 @@
 .field public static final MEDIA_IGNORE_FILENAME:Ljava/lang/String; = ".nomedia"
 
 .field public static final MEDIA_SCANNER_VOLUME:Ljava/lang/String; = "volume"
+
+.field public static final MTP_TRANSFER_FILE_PATH:Ljava/lang/String; = "mtp_transfer_file_path"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field public static final PARAM_DELETE_DATA:Ljava/lang/String; = "deletedata"
 
@@ -180,4 +191,20 @@
     invoke-interface {v6}, Landroid/database/Cursor;->close()V
 
     throw v0
+.end method
+
+.method public static getMtpTransferFileUri()Landroid/net/Uri;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const-string v0, "content://media/none/mtp_transfer_file"
+
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    return-object v0
 .end method

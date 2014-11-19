@@ -26,3 +26,27 @@
 .field public static final STARRED:Ljava/lang/String; = "starred"
 
 .field public static final TIMES_CONTACTED:Ljava/lang/String; = "times_contacted"
+
+.field public static final SIM:Ljava/lang/String; = "sim"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final CONTACT_TYPE:Ljava/lang/String; = "contact_type"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final YL_REMARK:Ljava/lang/String; = "yl_remark"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final YL_STATUS:Ljava/lang/String; = "yl_status"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field

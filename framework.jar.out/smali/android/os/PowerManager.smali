@@ -812,3 +812,28 @@
 
     goto :goto_0
 .end method
+
+.method public rebootConfirm(Ljava/lang/String;Z)V
+    .locals 1
+    .parameter "reason"
+    .parameter "confirm"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    :try_start_0
+    iget-object v0, p0, Landroid/os/PowerManager;->mService:Landroid/os/IPowerManager;
+
+    invoke-interface {v0, p1, p2}, Landroid/os/IPowerManager;->rebootConfirm(Ljava/lang/String;Z)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    :goto_0
+    return-void
+
+    :catch_0
+    move-exception v0
+
+    goto :goto_0
+.end method

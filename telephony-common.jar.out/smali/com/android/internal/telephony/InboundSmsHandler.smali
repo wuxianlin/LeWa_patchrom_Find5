@@ -6,6 +6,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lcom/android/internal/telephony/InboundSmsHandler$LewaSmsBroadcastReceiver;,
         Lcom/android/internal/telephony/InboundSmsHandler$SmsBroadcastReceiver;,
         Lcom/android/internal/telephony/InboundSmsHandler$WaitingState;,
         Lcom/android/internal/telephony/InboundSmsHandler$DeliveringState;,
@@ -42,6 +43,8 @@
 .field static final EVENT_UPDATE_PHONE_OBJECT:I = 0x7
 
 .field static final ID_COLUMN:I = 0x7
+
+.field private static final LEWA_SMS_RECEIVED_ACTION:Ljava/lang/String; = "android.provider.Telephony.LEWA_SMS_RECEIVED"
 
 .field static final PDU_COLUMN:I = 0x0
 
@@ -1782,7 +1785,7 @@
     .local v25, pdus:[[B
     :cond_0
     :goto_0
-    new-instance v29, Lcom/android/internal/telephony/InboundSmsHandler$SmsBroadcastReceiver;
+    new-instance v29, Lcom/android/internal/telephony/InboundSmsHandler$LewaSmsBroadcastReceiver;
 
     move-object/from16 v0, v29
 
@@ -1790,7 +1793,7 @@
 
     move-object/from16 v2, p1
 
-    invoke-direct {v0, v1, v2}, Lcom/android/internal/telephony/InboundSmsHandler$SmsBroadcastReceiver;-><init>(Lcom/android/internal/telephony/InboundSmsHandler;Lcom/android/internal/telephony/InboundSmsTracker;)V
+    invoke-direct {v0, v1, v2}, Lcom/android/internal/telephony/InboundSmsHandler$LewaSmsBroadcastReceiver;-><init>(Lcom/android/internal/telephony/InboundSmsHandler;Lcom/android/internal/telephony/InboundSmsTracker;)V
 
     .line 715
     .local v29, resultReceiver:Landroid/content/BroadcastReceiver;

@@ -11,6 +11,25 @@
 .end annotation
 
 
+# static fields
+.field public static final SELECT_ALL:I = 0x1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final SELECT_NONE:I = 0x2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field protected selectAll:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 # instance fields
 .field private mTag:Ljava/lang/Object;
 
@@ -19,13 +38,15 @@
 
 # direct methods
 .method public constructor <init>()V
-    .locals 0
+    .locals 1
 
     .prologue
-    .line 31
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 229
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Landroid/view/ActionMode;->selectAll:Z
+
     return-void
 .end method
 
@@ -129,4 +150,67 @@
 
     .line 124
     return-void
+.end method
+
+.method public getSelectionMode()I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-boolean v0, p0, Landroid/view/ActionMode;->selectAll:Z
+
+    if-eqz v0, :cond_0
+
+    const/4 v0, 0x1
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x2
+
+    goto :goto_0
+.end method
+
+.method public abstract setRightActionButtonDrawable(Landroid/graphics/drawable/Drawable;)V
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end method
+
+.method public abstract setRightActionButtonResource(I)V
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end method
+
+.method public abstract setRightActionButtonVisibility(I)V
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end method
+
+.method public setSelectionMode(I)V
+    .locals 1
+    .parameter "mode"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x1
+
+    if-ne v0, p1, :cond_0
+
+    :goto_0
+    iput-boolean v0, p0, Landroid/view/ActionMode;->selectAll:Z
+
+    return-void
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method

@@ -84,6 +84,12 @@
 
 .field public static final SUBSCRIPTION:Ljava/lang/String; = "subscription"
 
+.field public static final SUBSCRIPTION:Ljava/lang/String; = "simid"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final TYPE:Ljava/lang/String; = "type"
 
 .field public static final VOICEMAIL_TYPE:I = 0x4
@@ -630,6 +636,26 @@
     invoke-interface {v7}, Landroid/database/Cursor;->close()V
 
     throw v2
+.end method
+
+.method public static addCall(Lcom/android/internal/telephony/CallerInfo;Landroid/content/Context;Ljava/lang/String;IIJIII)Landroid/net/Uri;
+    .locals 1
+    .parameter "ci"
+    .parameter "context"
+    .parameter "number"
+    .parameter "presentation"
+    .parameter "callType"
+    .parameter "start"
+    .parameter "duration"
+    .parameter "subscription"
+    .parameter "durationType"
+
+    .prologue
+    invoke-static/range {p0 .. p7}, Landroid/provider/CallLog$Calls;->addCall(Lcom/android/internal/telephony/CallerInfo;Landroid/content/Context;Ljava/lang/String;IIJI)Landroid/net/Uri;
+
+    move-result-object v0
+
+    return-object v0
 .end method
 
 .method public static getLastOutgoingCall(Landroid/content/Context;)Ljava/lang/String;

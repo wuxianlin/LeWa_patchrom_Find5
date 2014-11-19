@@ -38,6 +38,12 @@
 
 .field private static mColl:Ljava/text/Collator;
 
+.field private static mLocale:Ljava/util/Locale;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 
 # direct methods
 .method static constructor <clinit>()V
@@ -48,6 +54,8 @@
     const/4 v0, 0x0
 
     sput-object v0, Landroid/database/DatabaseUtils;->mColl:Ljava/text/Collator;
+
+    sput-object v0, Landroid/database/DatabaseUtils;->mLocale:Ljava/util/Locale;
 
     return-void
 .end method
@@ -3054,4 +3062,55 @@
     invoke-static {v2, v3, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
     goto :goto_1
+.end method
+
+.method public static getCollatorLocale()Ljava/util/Locale;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    sget-object v0, Landroid/database/DatabaseUtils;->mLocale:Ljava/util/Locale;
+
+    return-object v0
+.end method
+
+.method public static setCollatorLocale(Ljava/util/Locale;)V
+    .locals 2
+    .parameter "locale"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    if-eqz p0, :cond_0
+
+    sput-object p0, Landroid/database/DatabaseUtils;->mLocale:Ljava/util/Locale;
+
+    sget-object v0, Landroid/database/DatabaseUtils;->mLocale:Ljava/util/Locale;
+
+    invoke-static {v0}, Ljava/text/Collator;->getInstance(Ljava/util/Locale;)Ljava/text/Collator;
+
+    move-result-object v0
+
+    sput-object v0, Landroid/database/DatabaseUtils;->mColl:Ljava/text/Collator;
+
+    sget-object v0, Landroid/database/DatabaseUtils;->mColl:Ljava/text/Collator;
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Ljava/text/Collator;->setStrength(I)V
+
+    :goto_0
+    return-void
+
+    :cond_0
+    const-string v0, "DatabaseUtils"
+
+    const-string v1, "setCollatorLocale error, locale=null!"
+
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_0
 .end method

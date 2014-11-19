@@ -549,6 +549,12 @@
 
     if-nez v7, :cond_2
 
+    invoke-static {}, Lcom/android/server/AssetAtlasService;->getFalse()Z
+
+    move-result v7
+
+    if-eqz v7, :cond_lewa_0
+
     const/4 v7, 0x0
 
     .line 443
@@ -1789,4 +1795,13 @@
     .prologue
     .line 190
     return-void
+.end method
+
+.method public static getFalse()Z
+    .locals 1
+
+    .prologue
+    const/4 v0, 0x0
+
+    return v0
 .end method

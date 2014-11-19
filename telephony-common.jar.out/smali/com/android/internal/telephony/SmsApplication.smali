@@ -17,6 +17,8 @@
 
 .field static final LOG_TAG:Ljava/lang/String; = "SmsApplication"
 
+.field private static final NETMGR_PACKAGE_NAME:Ljava/lang/String; = "com.lewa.netmgr.adjust"
+
 .field private static final PHONE_PACKAGE_NAME:Ljava/lang/String; = "com.android.phone"
 
 .field private static final SCHEME_MMS:Ljava/lang/String; = "mms"
@@ -1619,6 +1621,14 @@
     if-nez v4, :cond_4
 
     :cond_3
+    const-string v4, "com.lewa.netmgr.adjust"
+
+    invoke-virtual {p0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_4
+
     const-string v4, "com.android.bluetooth"
 
     invoke-virtual {p0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z

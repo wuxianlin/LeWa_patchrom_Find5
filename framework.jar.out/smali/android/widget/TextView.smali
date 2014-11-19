@@ -19,7 +19,8 @@
         Landroid/widget/TextView$SavedState;,
         Landroid/widget/TextView$BufferType;,
         Landroid/widget/TextView$OnEditorActionListener;,
-        Landroid/widget/TextView$Drawables;
+        Landroid/widget/TextView$Drawables;,
+        Landroid/widget/TextView$Injector;
     }
 .end annotation
 
@@ -76,6 +77,18 @@
 .field private static final UNKNOWN_BORING:Landroid/text/BoringLayout$Metrics; = null
 
 .field private static final VERY_WIDE:I = 0x100000
+
+.field private static isTextChanged:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field static mTypeface:Landroid/graphics/Typeface;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 
 # instance fields
@@ -255,6 +268,12 @@
     const/4 v4, 0x1
 
     const/4 v3, 0x0
+
+    sput-boolean v3, Landroid/widget/TextView;->isTextChanged:Z
+
+    const/4 v1, 0x0
+
+    sput-object v1, Landroid/widget/TextView;->mTypeface:Landroid/graphics/Typeface;
 
     .line 263
     new-instance v1, Landroid/graphics/RectF;
@@ -8293,6 +8312,9 @@
     .parameter "type"
     .parameter "notifyBefore"
     .parameter "oldlen"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 3680
@@ -8316,6 +8338,8 @@
 
     .line 3689
     :cond_1
+    invoke-direct/range {p0 .. p1}, Landroid/widget/TextView;->setTextChanged(Ljava/lang/CharSequence;)V
+
     move-object/from16 v0, p0
 
     iget-boolean v4, v0, Landroid/widget/TextView;->mUserSetTextScaleX:Z
@@ -9009,6 +9033,11 @@
 
     .line 3816
     :cond_19
+    sget-boolean v4, Landroid/widget/TextView;->isTextChanged:Z
+
+    if-eqz v4, :cond_lewa_0
+
+    .line 3817
     const/4 v4, 0x0
 
     move-object/from16 v0, p0
@@ -9021,7 +9050,7 @@
 
     invoke-virtual {v0, v1, v4, v2, v3}, Landroid/widget/TextView;->sendOnTextChanged(Ljava/lang/CharSequence;III)V
 
-    .line 3817
+    :cond_lewa_0
     const/4 v4, 0x0
 
     move-object/from16 v0, p0
@@ -9074,61 +9103,54 @@
     .parameter "familyName"
     .parameter "typefaceIndex"
     .parameter "styleIndex"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
-    .line 1319
     const/4 v0, 0x0
 
-    .line 1320
     .local v0, tf:Landroid/graphics/Typeface;
     if-eqz p1, :cond_0
 
-    .line 1321
     invoke-static {p1, p3}, Landroid/graphics/Typeface;->create(Ljava/lang/String;I)Landroid/graphics/Typeface;
 
     move-result-object v0
 
-    .line 1322
     if-eqz v0, :cond_0
 
-    .line 1323
     invoke-virtual {p0, v0}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
-    .line 1342
     :goto_0
     return-void
 
-    .line 1327
     :cond_0
     packed-switch p2, :pswitch_data_0
 
-    .line 1341
     :goto_1
+    invoke-static {v0, p2, p3}, Landroid/graphics/LewaTypeface;->getChangedTypeface(Landroid/graphics/Typeface;II)Landroid/graphics/Typeface;
+
+    move-result-object v0
+
     invoke-virtual {p0, v0, p3}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;I)V
 
     goto :goto_0
 
-    .line 1329
     :pswitch_0
     sget-object v0, Landroid/graphics/Typeface;->SANS_SERIF:Landroid/graphics/Typeface;
 
-    .line 1330
     goto :goto_1
 
-    .line 1333
     :pswitch_1
     sget-object v0, Landroid/graphics/Typeface;->SERIF:Landroid/graphics/Typeface;
 
-    .line 1334
     goto :goto_1
 
-    .line 1337
     :pswitch_2
     sget-object v0, Landroid/graphics/Typeface;->MONOSPACE:Landroid/graphics/Typeface;
 
     goto :goto_1
 
-    .line 1327
     nop
 
     :pswitch_data_0
@@ -28619,6 +28641,9 @@
     .locals 6
     .parameter "tf"
     .parameter "style"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v3, 0x0
@@ -28715,12 +28740,14 @@
 
     invoke-virtual {v4, v2}, Landroid/text/TextPaint;->setFakeBoldText(Z)V
 
-    .line 1440
     iget-object v2, p0, Landroid/widget/TextView;->mTextPaint:Landroid/text/TextPaint;
 
     invoke-virtual {v2, v3}, Landroid/text/TextPaint;->setTextSkewX(F)V
 
-    .line 1441
+    invoke-static {p0, p1}, Landroid/widget/TextView$Injector;->getDefaultTypeface(Landroid/widget/TextView;Landroid/graphics/Typeface;)Landroid/graphics/Typeface;
+
+    move-result-object p1
+
     invoke-virtual {p0, p1}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;)V
 
     goto :goto_3
@@ -29488,5 +29515,147 @@
 
     .line 6984
     :cond_0
+    return v0
+.end method
+
+.method public viewportToContentVerticalOffsetWrap()I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Landroid/widget/TextView;->viewportToContentVerticalOffset()I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private setTextChanged(Ljava/lang/CharSequence;)V
+    .locals 1
+    .parameter "text"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/TextView;->mText:Ljava/lang/CharSequence;
+
+    invoke-virtual {p1, v0}, Ljava/lang/Object;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    const/4 v0, 0x1
+
+    sput-boolean v0, Landroid/widget/TextView;->isTextChanged:Z
+
+    :goto_0
+    return-void
+
+    :cond_0
+    const/4 v0, 0x0
+
+    sput-boolean v0, Landroid/widget/TextView;->isTextChanged:Z
+
+    goto :goto_0
+.end method
+
+.method public canSelectTextWrap()Z
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-direct {p0}, Landroid/widget/TextView;->canSelectText()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public final setSoftInputShownOnFocus(Z)V
+    .locals 0
+    .parameter "show"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0, p1}, Landroid/widget/TextView;->setShowSoftInputOnFocus(Z)V
+
+    return-void
+.end method
+
+.method public setCursorDrawableRes(I)V
+    .locals 3
+    .parameter "cursorDrawableRes"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput p1, p0, Landroid/widget/TextView;->mCursorDrawableRes:I
+
+    const/4 v0, 0x0
+
+    .local v0, i:I
+    :goto_0
+    iget-object v1, p0, Landroid/widget/TextView;->mEditor:Landroid/widget/Editor;
+
+    iget v1, v1, Landroid/widget/Editor;->mCursorCount:I
+
+    if-ge v0, v1, :cond_0
+
+    iget-object v1, p0, Landroid/widget/TextView;->mEditor:Landroid/widget/Editor;
+
+    iget-object v1, v1, Landroid/widget/Editor;->mCursorDrawable:[Landroid/graphics/drawable/Drawable;
+
+    const/4 v2, 0x0
+
+    aput-object v2, v1, v0
+
+    add-int/lit8 v0, v0, 0x1
+
+    goto :goto_0
+
+    :cond_0
+    iget-object v1, p0, Landroid/widget/TextView;->mEditor:Landroid/widget/Editor;
+
+    const/4 v2, 0x0
+
+    iput v2, v1, Landroid/widget/Editor;->mCursorCount:I
+
+    return-void
+.end method
+
+.method public isInBatchEditModeWrap()Z
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Landroid/widget/TextView;->isInBatchEditMode()Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public viewportToContentHorizontalOffsetWrap()I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Landroid/widget/TextView;->viewportToContentHorizontalOffset()I
+
+    move-result v0
+
     return v0
 .end method

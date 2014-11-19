@@ -186,10 +186,9 @@
     .locals 1
 
     .prologue
-    .line 68
-    new-instance v0, Lcom/android/internal/policy/impl/PhoneWindowManager;
+    new-instance v0, Lcom/android/internal/policy/impl/LewaPhoneWindowManager;
 
-    invoke-direct {v0}, Lcom/android/internal/policy/impl/PhoneWindowManager;-><init>()V
+    invoke-direct {v0}, Lcom/android/internal/policy/impl/LewaPhoneWindowManager;-><init>()V
 
     return-object v0
 .end method

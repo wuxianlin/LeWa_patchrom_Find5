@@ -37,6 +37,7 @@
         Landroid/view/View$MeasureSpec;,
         Landroid/view/View$DragShadowBuilder;,
         Landroid/view/View$OnLayoutChangeListener;,
+        Landroid/view/View$Injector;,
         Landroid/view/View$ListenerInfo;,
         Landroid/view/View$TransformationInfo;
     }
@@ -566,6 +567,14 @@
 
 .field public static final SYSTEM_UI_FLAG_SHOW_NAVIGATION_IN_EXPANDED_DESKTOP:I = 0x8000
 
+.field public static final SYSTEM_UI_FLAG_TRANSIENT_BAR:I = 0x1000000
+
+.field public static final SYSTEM_UI_FLAG_TRANSPARENT_MASK:I = -0x10000000
+
+.field public static final SYSTEM_UI_FLAG_TRANSPARENT_NAVIGATION:I = 0x20000000
+
+.field public static final SYSTEM_UI_FLAG_TRANSPARENT_STATUS_BAR:I = 0x10000000
+
 .field public static final SYSTEM_UI_FLAG_VISIBLE:I = 0x0
 
 .field public static final SYSTEM_UI_LAYOUT_FLAGS:I = 0x600
@@ -720,6 +729,12 @@
 .field mAccessibilityDelegate:Landroid/view/View$AccessibilityDelegate;
 
 .field mAccessibilityViewId:I
+
+.field mAdditionalState:I
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private mAnimator:Landroid/view/ViewPropertyAnimator;
 
@@ -1828,85 +1843,62 @@
 
     const/4 v0, -0x1
 
-    .line 3975
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1537
     iput-object v1, p0, Landroid/view/View;->mCurrentAnimation:Landroid/view/animation/Animation;
 
-    .line 1562
     iput-boolean v2, p0, Landroid/view/View;->mRecreateDisplayList:Z
 
-    .line 1571
     iput v0, p0, Landroid/view/View;->mID:I
 
-    .line 1577
     iput v0, p0, Landroid/view/View;->mAccessibilityViewId:I
 
-    .line 1579
     iput v0, p0, Landroid/view/View;->mAccessibilityCursorPosition:I
 
-    .line 2785
     iput v2, p0, Landroid/view/View;->mTransientStateCount:I
 
-    .line 2943
     iput-object v1, p0, Landroid/view/View;->mClipBounds:Landroid/graphics/Rect;
 
-    .line 3002
     iput v2, p0, Landroid/view/View;->mPaddingLeft:I
 
-    .line 3009
     iput v2, p0, Landroid/view/View;->mPaddingRight:I
 
-    .line 3041
     iput v0, p0, Landroid/view/View;->mLabelForId:I
 
-    .line 3114
+    iput v2, p0, Landroid/view/View;->mUserPaddingLeftInitial:I
+
+    iput v2, p0, Landroid/view/View;->mUserPaddingRightInitial:I
+
     iput-boolean v2, p0, Landroid/view/View;->mLeftPaddingDefined:Z
 
-    .line 3119
     iput-boolean v2, p0, Landroid/view/View;->mRightPaddingDefined:Z
 
-    .line 3124
     iput v3, p0, Landroid/view/View;->mOldWidthMeasureSpec:I
 
-    .line 3128
     iput v3, p0, Landroid/view/View;->mOldHeightMeasureSpec:I
 
-    .line 3203
     iput-object v1, p0, Landroid/view/View;->mDrawableState:[I
 
-    .line 3209
     iput v0, p0, Landroid/view/View;->mNextFocusLeftId:I
 
-    .line 3215
     iput v0, p0, Landroid/view/View;->mNextFocusRightId:I
 
-    .line 3221
     iput v0, p0, Landroid/view/View;->mNextFocusUpId:I
 
-    .line 3227
     iput v0, p0, Landroid/view/View;->mNextFocusDownId:I
 
-    .line 3233
     iput v0, p0, Landroid/view/View;->mNextFocusForwardId:I
 
-    .line 3236
     iput-object v1, p0, Landroid/view/View;->mPendingCheckForTap:Landroid/view/View$CheckForTap;
 
-    .line 3268
     iput-object v1, p0, Landroid/view/View;->mTouchDelegate:Landroid/view/TouchDelegate;
 
-    .line 3274
     iput v2, p0, Landroid/view/View;->mDrawingCacheBackgroundColor:I
 
-    .line 3289
     iput-object v1, p0, Landroid/view/View;->mAnimator:Landroid/view/ViewPropertyAnimator;
 
-    .line 3389
     iput v2, p0, Landroid/view/View;->mLayerType:I
 
-    .line 3431
     invoke-static {}, Landroid/view/InputEventConsistencyVerifier;->isInstrumentationEnabled()Z
 
     move-result v0
@@ -1919,6 +1911,8 @@
 
     :goto_0
     iput-object v0, p0, Landroid/view/View;->mInputEventConsistencyVerifier:Landroid/view/InputEventConsistencyVerifier;
+
+    iput v2, p0, Landroid/view/View;->mAdditionalState:I
 
     .line 3976
     iput-object v1, p0, Landroid/view/View;->mResources:Landroid/content/res/Resources;
@@ -1948,85 +1942,62 @@
 
     const/4 v4, 0x0
 
-    .line 3443
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1537
     iput-object v2, p0, Landroid/view/View;->mCurrentAnimation:Landroid/view/animation/Animation;
 
-    .line 1562
     iput-boolean v4, p0, Landroid/view/View;->mRecreateDisplayList:Z
 
-    .line 1571
     iput v1, p0, Landroid/view/View;->mID:I
 
-    .line 1577
     iput v1, p0, Landroid/view/View;->mAccessibilityViewId:I
 
-    .line 1579
     iput v1, p0, Landroid/view/View;->mAccessibilityCursorPosition:I
 
-    .line 2785
     iput v4, p0, Landroid/view/View;->mTransientStateCount:I
 
-    .line 2943
     iput-object v2, p0, Landroid/view/View;->mClipBounds:Landroid/graphics/Rect;
 
-    .line 3002
     iput v4, p0, Landroid/view/View;->mPaddingLeft:I
 
-    .line 3009
     iput v4, p0, Landroid/view/View;->mPaddingRight:I
 
-    .line 3041
     iput v1, p0, Landroid/view/View;->mLabelForId:I
 
-    .line 3114
+    iput v4, p0, Landroid/view/View;->mUserPaddingLeftInitial:I
+
+    iput v4, p0, Landroid/view/View;->mUserPaddingRightInitial:I
+
     iput-boolean v4, p0, Landroid/view/View;->mLeftPaddingDefined:Z
 
-    .line 3119
     iput-boolean v4, p0, Landroid/view/View;->mRightPaddingDefined:Z
 
-    .line 3124
     iput v5, p0, Landroid/view/View;->mOldWidthMeasureSpec:I
 
-    .line 3128
     iput v5, p0, Landroid/view/View;->mOldHeightMeasureSpec:I
 
-    .line 3203
     iput-object v2, p0, Landroid/view/View;->mDrawableState:[I
 
-    .line 3209
     iput v1, p0, Landroid/view/View;->mNextFocusLeftId:I
 
-    .line 3215
     iput v1, p0, Landroid/view/View;->mNextFocusRightId:I
 
-    .line 3221
     iput v1, p0, Landroid/view/View;->mNextFocusUpId:I
 
-    .line 3227
     iput v1, p0, Landroid/view/View;->mNextFocusDownId:I
 
-    .line 3233
     iput v1, p0, Landroid/view/View;->mNextFocusForwardId:I
 
-    .line 3236
     iput-object v2, p0, Landroid/view/View;->mPendingCheckForTap:Landroid/view/View$CheckForTap;
 
-    .line 3268
     iput-object v2, p0, Landroid/view/View;->mTouchDelegate:Landroid/view/TouchDelegate;
 
-    .line 3274
     iput v4, p0, Landroid/view/View;->mDrawingCacheBackgroundColor:I
 
-    .line 3289
     iput-object v2, p0, Landroid/view/View;->mAnimator:Landroid/view/ViewPropertyAnimator;
 
-    .line 3389
     iput v4, p0, Landroid/view/View;->mLayerType:I
 
-    .line 3431
     invoke-static {}, Landroid/view/InputEventConsistencyVerifier;->isInstrumentationEnabled()Z
 
     move-result v1
@@ -2039,6 +2010,8 @@
 
     :goto_0
     iput-object v1, p0, Landroid/view/View;->mInputEventConsistencyVerifier:Landroid/view/InputEventConsistencyVerifier;
+
+    iput v4, p0, Landroid/view/View;->mAdditionalState:I
 
     .line 3444
     iput-object p1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
@@ -2160,6 +2133,9 @@
     .parameter "context"
     .parameter "attrs"
     .parameter "defStyleAttr"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 3512
@@ -3974,14 +3950,19 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setScrollContainer(Z)V
 
-    .line 3969
     :cond_11
     invoke-virtual/range {p0 .. p0}, Landroid/view/View;->computeOpaqueFlags()V
 
-    .line 3970
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, p2
+
+    move/from16 v2, p3
+
+    invoke-static {v0, v1, v2}, Landroid/view/View$Injector;->initializeChildrenSequenceStates(Landroid/view/View;Landroid/util/AttributeSet;I)V
+
     return-void
 
-    .line 3909
     .restart local v9       #bottomPadding:I
     .restart local v38       #topPadding:I
     :cond_12
@@ -16467,14 +16448,14 @@
 
     if-eqz v1, :cond_0
 
-    .line 15144
     invoke-virtual {p0}, Landroid/view/View;->getDrawableState()[I
 
     move-result-object v1
 
     invoke-virtual {v0, v1}, Landroid/graphics/drawable/Drawable;->setState([I)Z
 
-    .line 15146
+    invoke-static {p0, v0}, Landroid/view/View$Injector;->onDrawableStateChanged(Landroid/view/View;Landroid/graphics/drawable/Drawable;)V
+
     :cond_0
     return-void
 .end method
@@ -25828,6 +25809,9 @@
 .method protected onCreateDrawableState(I)[I
     .locals 8
     .parameter "extraSpace"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/high16 v7, 0x40
@@ -25976,27 +25960,26 @@
 
     or-int/lit16 v4, v4, 0x200
 
-    .line 15231
     :cond_b
     sget-object v5, Landroid/view/View;->VIEW_STATE_SETS:[[I
 
     aget-object v0, v5, v4
 
-    .line 15245
     .local v0, drawableState:[I
+    invoke-virtual {p0, v0}, Landroid/view/View;->fillAdditionalState([I)[I
+
+    move-result-object v0
+
     if-eqz p1, :cond_0
 
-    .line 15250
     if-eqz v0, :cond_c
 
-    .line 15251
     array-length v5, v0
 
     add-int/2addr v5, p1
 
     new-array v1, v5, [I
 
-    .line 15252
     .local v1, fullState:[I
     array-length v5, v0
 
@@ -40116,4 +40099,53 @@
     const/4 v0, 0x0
 
     goto :goto_0
+.end method
+
+.method fillAdditionalState([I)[I
+    .locals 2
+    .parameter "states"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    move-object v0, p1
+
+    .local v0, newStates:[I
+    iget v1, p0, Landroid/view/View;->mAdditionalState:I
+
+    if-eqz v1, :cond_0
+
+    iget v1, p0, Landroid/view/View;->mAdditionalState:I
+
+    invoke-static {v0, v1}, Llewa/util/LewaUiUtil;->getViewStates([II)[I
+
+    move-result-object v0
+
+    :cond_0
+    return-object v0
+.end method
+
+.method public setAdditionalState(I)V
+    .locals 1
+    .parameter "state"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget v0, p0, Landroid/view/View;->mAdditionalState:I
+
+    if-eq p1, v0, :cond_0
+
+    iput p1, p0, Landroid/view/View;->mAdditionalState:I
+
+    const/4 v0, 0x1
+
+    invoke-virtual {p0, v0}, Landroid/view/View;->invalidate(Z)V
+
+    invoke-virtual {p0}, Landroid/view/View;->refreshDrawableState()V
+
+    :cond_0
+    return-void
 .end method

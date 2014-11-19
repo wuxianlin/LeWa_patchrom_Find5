@@ -15,14 +15,15 @@
 
 
 # direct methods
-.method constructor <init>()V
+.method constructor <init>(Z)V
     .locals 1
+    .parameter "x0"
 
     .prologue
     .line 39
     const/4 v0, 0x0
 
-    invoke-direct {p0, v0}, Landroid/content/res/CompatibilityInfo;-><init>(Landroid/content/res/CompatibilityInfo$1;)V
+    invoke-direct {p0, p1, v0}, Landroid/content/res/CompatibilityInfo;-><init>(ZLandroid/content/res/CompatibilityInfo$1;)V
 
     return-void
 .end method

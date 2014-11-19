@@ -6,6 +6,12 @@
 # static fields
 .field public static final DISABLE_BACK:I = 0x400000
 
+.field public static final DISABLE_BACKGROUND:I = 0x2000000
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final DISABLE_CLOCK:I = 0x800000
 
 .field public static final DISABLE_EXPAND:I = 0x10000
@@ -13,6 +19,10 @@
 .field public static final DISABLE_HOME:I = 0x200000
 
 .field public static final DISABLE_MASK:I = 0x3ff0000
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field public static final DISABLE_NAVIGATION:I = 0x1200000
     .annotation runtime Ljava/lang/Deprecated;

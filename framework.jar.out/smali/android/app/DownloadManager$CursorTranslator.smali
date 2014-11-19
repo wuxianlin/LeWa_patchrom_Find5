@@ -4,12 +4,16 @@
 
 
 # annotations
+.annotation build Landroid/annotation/LewaHook;
+    value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_ACCESS:Landroid/annotation/LewaHook$LewaHookType;
+.end annotation
+
 .annotation system Ldalvik/annotation/EnclosingClass;
     value = Landroid/app/DownloadManager;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0xa
+    accessFlags = 0x8
     name = "CursorTranslator"
 .end annotation
 
@@ -275,42 +279,40 @@
 .method private getPausedReason(I)J
     .locals 2
     .parameter "status"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_ACCESS:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
-    .line 1389
     packed-switch p1, :pswitch_data_0
 
-    .line 1403
-    const-wide/16 v0, 0x4
+    invoke-static {p1}, Landroid/app/DownloadManager$Injector;->getPausedReason(I)J
+
+    move-result-wide v0
 
     :goto_0
     return-wide v0
 
-    .line 1391
     :pswitch_0
     const-wide/16 v0, 0x1
 
     goto :goto_0
 
-    .line 1394
     :pswitch_1
     const-wide/16 v0, 0x2
 
     goto :goto_0
 
-    .line 1397
     :pswitch_2
     const-wide/16 v0, 0x3
 
     goto :goto_0
 
-    .line 1400
     :pswitch_3
     const-wide/16 v0, 0x5
 
     goto :goto_0
 
-    .line 1389
     :pswitch_data_0
     .packed-switch 0xc2
         :pswitch_0
@@ -325,20 +327,17 @@
     .parameter "status"
 
     .prologue
-    .line 1376
-    invoke-direct {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
+    invoke-static {p1}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
 
     move-result v0
 
     sparse-switch v0, :sswitch_data_0
 
-    .line 1384
     const-wide/16 v0, 0x0
 
     :goto_0
     return-wide v0
 
-    .line 1378
     :sswitch_0
     invoke-direct {p0, p1}, Landroid/app/DownloadManager$CursorTranslator;->getErrorCode(I)J
 
@@ -362,21 +361,22 @@
     .end sparse-switch
 .end method
 
-.method private translateStatus(I)I
+.method static translateStatus(I)I
     .locals 1
     .parameter "status"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE_AND_ACCESS:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
-    .line 1446
-    packed-switch p1, :pswitch_data_0
+    packed-switch p0, :pswitch_data_0
 
-    .line 1464
     :pswitch_0
     sget-boolean v0, Landroid/app/DownloadManager$CursorTranslator;->$assertionsDisabled:Z
 
     if-nez v0, :cond_0
 
-    invoke-static {p1}, Landroid/provider/Downloads$Impl;->isStatusError(I)Z
+    invoke-static {p0}, Landroid/provider/Downloads$Impl;->isStatusError(I)Z
 
     move-result v0
 
@@ -388,39 +388,34 @@
 
     throw v0
 
-    .line 1448
     :pswitch_1
     const/4 v0, 0x1
 
-    .line 1465
     :goto_0
     return v0
 
-    .line 1451
     :pswitch_2
     const/4 v0, 0x2
 
     goto :goto_0
 
-    .line 1458
     :pswitch_3
     const/4 v0, 0x4
 
     goto :goto_0
 
-    .line 1461
     :pswitch_4
     const/16 v0, 0x8
 
     goto :goto_0
 
-    .line 1465
     :cond_0
-    const/16 v0, 0x10
+    invoke-static {p0}, Landroid/app/DownloadManager$Injector;->translateStatus(I)I
+
+    move-result v0
 
     goto :goto_0
 
-    .line 1446
     nop
 
     :pswitch_data_0
@@ -518,7 +513,7 @@
 
     move-result v0
 
-    invoke-direct {p0, v0}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
+    invoke-static {v0}, Landroid/app/DownloadManager$CursorTranslator;->translateStatus(I)I
 
     move-result v0
 

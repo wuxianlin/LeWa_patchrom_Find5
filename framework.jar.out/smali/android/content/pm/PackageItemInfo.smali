@@ -6,7 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Landroid/content/pm/PackageItemInfo$DisplayNameComparator;
+        Landroid/content/pm/PackageItemInfo$DisplayNameComparator;,
+        Landroid/content/pm/PackageItemInfo$Injector;
     }
 .end annotation
 
@@ -390,6 +391,9 @@
 .method public loadIcon(Landroid/content/pm/PackageManager;)Landroid/graphics/drawable/Drawable;
     .locals 4
     .parameter "pm"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 147
@@ -406,7 +410,7 @@
 
     move-result-object v3
 
-    invoke-virtual {p1, v1, v2, v3}, Landroid/content/pm/PackageManager;->getDrawable(Ljava/lang/String;ILandroid/content/pm/ApplicationInfo;)Landroid/graphics/drawable/Drawable;
+    invoke-static {p0, p1, v1, v2, v3}, Landroid/content/pm/PackageItemInfo$Injector;->getIconDrawable(Landroid/content/pm/PackageItemInfo;Landroid/content/pm/PackageManager;Ljava/lang/String;ILandroid/content/pm/ApplicationInfo;)Landroid/graphics/drawable/Drawable;
 
     move-result-object v0
 

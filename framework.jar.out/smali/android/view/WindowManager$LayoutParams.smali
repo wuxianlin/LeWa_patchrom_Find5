@@ -177,6 +177,8 @@
 
 .field public static final PRIVATE_FLAG_SET_NEEDS_MENU_KEY:I = 0x8
 
+.field public static final PRIVATE_FLAG_SHOW_DESKTOP:I = 0x40000000
+
 .field public static final PRIVATE_FLAG_SHOW_FOR_ALL_USERS:I = 0x10
 
 .field public static final PRIVATE_FLAG_SYSTEM_ERROR:I = 0x100

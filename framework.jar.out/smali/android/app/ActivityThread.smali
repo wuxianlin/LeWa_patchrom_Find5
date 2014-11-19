@@ -31,7 +31,8 @@
         Landroid/app/ActivityThread$NewIntentData;,
         Landroid/app/ActivityThread$ProviderClientRecord;,
         Landroid/app/ActivityThread$ActivityClientRecord;,
-        Landroid/app/ActivityThread$ProviderKey;
+        Landroid/app/ActivityThread$ProviderKey;,
+        Landroid/app/ActivityThread$Injector;
     }
 .end annotation
 
@@ -76,6 +77,12 @@
 .field static final localLOGV:Z
 
 .field static mSystemContext:Landroid/app/ContextImpl;
+
+.field static sAssetRedirectionManager:Lcom/android/internal/app/IAssetRedirectionManager;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private static sCurrentActivityThread:Landroid/app/ActivityThread;
 
@@ -146,6 +153,18 @@
 .field mCurDefaultDisplayDpi:I
 
 .field mDensityCompatMode:Z
+
+.field final mDisplayMetrics:Ljava/util/HashMap;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/HashMap",
+            "<",
+            "Landroid/content/res/CompatibilityInfo;",
+            "Landroid/util/DisplayMetrics;",
+            ">;"
+        }
+    .end annotation
+.end field
 
 .field final mGcIdler:Landroid/app/ActivityThread$GcIdler;
 
@@ -349,184 +368,154 @@
 
     const/4 v1, 0x0
 
-    .line 1684
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 168
+    new-instance v0, Ljava/util/HashMap;
+
+    invoke-direct {v0}, Ljava/util/HashMap;-><init>()V
+
+    iput-object v0, p0, Landroid/app/ActivityThread;->mDisplayMetrics:Ljava/util/HashMap;
+
     new-instance v0, Landroid/app/ActivityThread$ApplicationThread;
 
     invoke-direct {v0, p0, v1}, Landroid/app/ActivityThread$ApplicationThread;-><init>(Landroid/app/ActivityThread;Landroid/app/ActivityThread$1;)V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mAppThread:Landroid/app/ActivityThread$ApplicationThread;
 
-    .line 169
     invoke-static {}, Landroid/os/Looper;->myLooper()Landroid/os/Looper;
 
     move-result-object v0
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mLooper:Landroid/os/Looper;
 
-    .line 170
     new-instance v0, Landroid/app/ActivityThread$H;
 
     invoke-direct {v0, p0, v1}, Landroid/app/ActivityThread$H;-><init>(Landroid/app/ActivityThread;Landroid/app/ActivityThread$1;)V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mH:Landroid/app/ActivityThread$H;
 
-    .line 171
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mActivities:Landroid/util/ArrayMap;
 
-    .line 175
     iput-object v1, p0, Landroid/app/ActivityThread;->mNewActivities:Landroid/app/ActivityThread$ActivityClientRecord;
 
-    .line 177
     iput v2, p0, Landroid/app/ActivityThread;->mNumVisibleActivities:I
 
-    .line 178
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mServices:Landroid/util/ArrayMap;
 
-    .line 187
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mAllApplications:Ljava/util/ArrayList;
 
-    .line 190
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mBackupAgents:Landroid/util/ArrayMap;
 
-    .line 194
     iput-object v1, p0, Landroid/app/ActivityThread;->mInstrumentationAppDir:Ljava/lang/String;
 
-    .line 195
     iput-object v1, p0, Landroid/app/ActivityThread;->mInstrumentationAppLibraryDir:Ljava/lang/String;
 
-    .line 196
     iput-object v1, p0, Landroid/app/ActivityThread;->mInstrumentationAppPackage:Ljava/lang/String;
 
-    .line 197
     iput-object v1, p0, Landroid/app/ActivityThread;->mInstrumentedAppDir:Ljava/lang/String;
 
-    .line 198
     iput-object v1, p0, Landroid/app/ActivityThread;->mInstrumentedAppLibraryDir:Ljava/lang/String;
 
-    .line 199
     iput-boolean v2, p0, Landroid/app/ActivityThread;->mSystemThread:Z
 
-    .line 200
     iput-boolean v2, p0, Landroid/app/ActivityThread;->mJitEnabled:Z
 
-    .line 210
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mPackages:Landroid/util/ArrayMap;
 
-    .line 212
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mResourcePackages:Landroid/util/ArrayMap;
 
-    .line 214
     new-instance v0, Ljava/util/ArrayList;
 
     invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mRelaunchingActivities:Ljava/util/ArrayList;
 
-    .line 216
     iput-object v1, p0, Landroid/app/ActivityThread;->mPendingConfiguration:Landroid/content/res/Configuration;
 
-    .line 245
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mProviderMap:Landroid/util/ArrayMap;
 
-    .line 247
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mProviderRefCountMap:Landroid/util/ArrayMap;
 
-    .line 249
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mLocalProviders:Landroid/util/ArrayMap;
 
-    .line 251
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mLocalProvidersByName:Landroid/util/ArrayMap;
 
-    .line 254
     new-instance v0, Landroid/util/ArrayMap;
 
     invoke-direct {v0}, Landroid/util/ArrayMap;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mOnPauseListeners:Landroid/util/ArrayMap;
 
-    .line 257
     new-instance v0, Landroid/app/ActivityThread$GcIdler;
 
     invoke-direct {v0, p0}, Landroid/app/ActivityThread$GcIdler;-><init>(Landroid/app/ActivityThread;)V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mGcIdler:Landroid/app/ActivityThread$GcIdler;
 
-    .line 258
     iput-boolean v2, p0, Landroid/app/ActivityThread;->mGcIdlerScheduled:Z
 
-    .line 262
     iput-object v1, p0, Landroid/app/ActivityThread;->mCoreSettings:Landroid/os/Bundle;
 
-    .line 1523
     new-instance v0, Landroid/content/res/Configuration;
 
     invoke-direct {v0}, Landroid/content/res/Configuration;-><init>()V
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mMainThreadConfig:Landroid/content/res/Configuration;
 
-    .line 2945
     iput v3, p0, Landroid/app/ActivityThread;->mThumbnailWidth:I
 
-    .line 2946
     iput v3, p0, Landroid/app/ActivityThread;->mThumbnailHeight:I
 
-    .line 2947
     iput-object v1, p0, Landroid/app/ActivityThread;->mAvailThumbnailBitmap:Landroid/graphics/Bitmap;
 
-    .line 2948
     iput-object v1, p0, Landroid/app/ActivityThread;->mThumbnailCanvas:Landroid/graphics/Canvas;
 
-    .line 1685
     invoke-static {}, Landroid/app/ResourcesManager;->getInstance()Landroid/app/ResourcesManager;
 
     move-result-object v0
 
     iput-object v0, p0, Landroid/app/ActivityThread;->mResourcesManager:Landroid/app/ResourcesManager;
 
-    .line 1686
     return-void
 .end method
 
@@ -4786,6 +4775,9 @@
 .method static freeTextLayoutCachesIfNeeded(I)V
     .locals 4
     .parameter "configDiff"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v1, 0x1
@@ -19016,4 +19008,116 @@
 
     .line 1758
     return-void
+.end method
+
+.method getLewaTopLevelResources(Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+    .locals 7
+    .parameter "resDir"
+    .parameter "displayId"
+    .parameter "overrideConfiguration"
+    .parameter "compatInfo"
+    .parameter "token"
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ActivityThread;->mResourcesManager:Landroid/app/ResourcesManager;
+
+    const/4 v6, 0x0
+
+    move-object v1, p0
+
+    move-object v2, p1
+
+    move v3, p2
+
+    move-object v4, p3
+
+    move-object v5, p4
+
+    invoke-virtual/range {v0 .. v6}, Landroid/app/ResourcesManager;->getTopLevelResources(Landroid/app/ActivityThread;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
+    .locals 7
+    .parameter "packageName"
+    .parameter "resDir"
+    .parameter "displayId"
+    .parameter "overrideConfiguration"
+    .parameter "pkgInfo"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p5}, Landroid/app/LoadedApk;->getCompatibilityInfo()Landroid/content/res/CompatibilityInfo;
+
+    move-result-object v5
+
+    const/4 v6, 0x0
+
+    move-object v0, p0
+
+    move-object v1, p1
+
+    move-object v2, p2
+
+    move v3, p3
+
+    move-object v4, p4
+
+    invoke-virtual/range {v0 .. v6}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+    .locals 9
+    .parameter "packageName"
+    .parameter "resDir"
+    .parameter "displayId"
+    .parameter "overrideConfiguration"
+    .parameter "compInfo"
+    .parameter "token"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ActivityThread;->mResourcesManager:Landroid/app/ResourcesManager;
+
+    move-object v1, p0
+
+    move-object v2, p2
+
+    move v3, p3
+
+    move-object v4, p4
+
+    move-object v5, p5
+
+    move-object v6, p6
+
+    invoke-virtual/range {v0 .. v6}, Landroid/app/ResourcesManager;->getTopLevelResources(Landroid/app/ActivityThread;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+
+    move-result-object v8
+
+    .local v8, resources:Landroid/content/res/Resources;
+    const/4 v7, 0x0
+
+    .local v7, isThemeCompatibilityModeEnabled:Z
+    if-eqz v8, :cond_0
+
+    move-object v0, v8
+
+    check-cast v0, Landroid/content/res/LewaResources;
+
+    invoke-virtual {v0, p1}, Landroid/content/res/LewaResources;->init(Ljava/lang/String;)V
+
+    :cond_0
+    return-object v8
 .end method

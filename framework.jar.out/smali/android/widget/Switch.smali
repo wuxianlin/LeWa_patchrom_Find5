@@ -3,6 +3,14 @@
 .source "Switch.java"
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Landroid/widget/Switch$Injector;
+    }
+.end annotation
+
+
 # static fields
 .field private static final CHECKED_STATE_SET:[I = null
 
@@ -20,6 +28,12 @@
 
 
 # instance fields
+.field mExtraThumbPadding:I
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field private mMinFlingVelocity:I
 
 .field private mOffLayout:Landroid/text/Layout;
@@ -54,7 +68,11 @@
 
 .field private mTextPaint:Landroid/text/TextPaint;
 
-.field private mThumbDrawable:Landroid/graphics/drawable/Drawable;
+.field mThumbDrawable:Landroid/graphics/drawable/Drawable;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_ACCESS:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private mThumbPosition:F
 
@@ -130,6 +148,9 @@
     .parameter "context"
     .parameter "attrs"
     .parameter "defStyle"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v7, 0x1
@@ -286,24 +307,26 @@
 
     iput v4, p0, Landroid/widget/Switch;->mTouchSlop:I
 
-    .line 176
     invoke-virtual {v2}, Landroid/view/ViewConfiguration;->getScaledMinimumFlingVelocity()I
 
     move-result v4
 
     iput v4, p0, Landroid/widget/Switch;->mMinFlingVelocity:I
 
-    .line 179
+    iget v4, p0, Landroid/widget/Switch;->mExtraThumbPadding:I
+
+    iget-object v5, p0, Landroid/widget/Switch;->mTextPaint:Landroid/text/TextPaint;
+
+    invoke-static {v4, v5, v3}, Landroid/widget/Switch$Injector;->setExtraThumbPadding(ILandroid/text/TextPaint;Landroid/content/res/Resources;)V
+
     invoke-virtual {p0}, Landroid/widget/Switch;->refreshDrawableState()V
 
-    .line 180
     invoke-virtual {p0}, Landroid/widget/Switch;->isChecked()Z
 
     move-result v4
 
     invoke-virtual {p0, v4}, Landroid/widget/Switch;->setChecked(Z)V
 
-    .line 181
     return-void
 .end method
 
@@ -1124,6 +1147,9 @@
 .method protected onDraw(Landroid/graphics/Canvas;)V
     .locals 17
     .parameter "canvas"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 717
@@ -1284,9 +1310,7 @@
     .local v12, thumbRight:I
     move-object/from16 v0, p0
 
-    iget-object v13, v0, Landroid/widget/Switch;->mThumbDrawable:Landroid/graphics/drawable/Drawable;
-
-    invoke-virtual {v13, v10, v9, v12, v1}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
+    invoke-static {v0, v10, v9, v12, v1}, Landroid/widget/Switch$Injector;->setThumbDrawableBounds(Landroid/widget/Switch;IIII)V
 
     .line 743
     move-object/from16 v0, p0

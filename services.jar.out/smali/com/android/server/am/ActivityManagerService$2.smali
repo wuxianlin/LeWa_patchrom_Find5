@@ -37,6 +37,9 @@
 .method public handleMessage(Landroid/os/Message;)V
     .locals 63
     .parameter "msg"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1096
@@ -868,7 +871,9 @@
 
     iget-object v4, v0, Lcom/android/server/am/ActivityManagerService$2;->this$0:Lcom/android/server/am/ActivityManagerService;
 
-    iget-object v4, v4, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
+    invoke-virtual {v4}, Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
+
+    move-result-object v4
 
     invoke-virtual {v4}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -2006,7 +2011,9 @@
 
     iget-object v4, v0, Lcom/android/server/am/ActivityManagerService$2;->this$0:Lcom/android/server/am/ActivityManagerService;
 
-    iget-object v4, v4, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
+    invoke-virtual {v4}, Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
+
+    move-result-object v4
 
     move-object/from16 v0, v52
 
@@ -2793,7 +2800,9 @@
 
     iget-object v4, v0, Lcom/android/server/am/ActivityManagerService$2;->this$0:Lcom/android/server/am/ActivityManagerService;
 
-    iget-object v4, v4, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
+    invoke-virtual {v4}, Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
+
+    move-result-object v4
 
     const v5, 0x1040081
 
@@ -2880,6 +2889,14 @@
     iput-object v4, v0, Landroid/app/Notification;->vibrate:[J
 
     .line 1712
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/server/am/ActivityManagerService$2;->this$0:Lcom/android/server/am/ActivityManagerService;
+
+    invoke-virtual {v4}, Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
+
+    move-result-object v29
+
     move-object/from16 v0, p0
 
     iget-object v4, v0, Lcom/android/server/am/ActivityManagerService$2;->this$0:Lcom/android/server/am/ActivityManagerService;

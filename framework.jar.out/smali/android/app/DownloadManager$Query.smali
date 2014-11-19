@@ -296,6 +296,9 @@
     .parameter "resolver"
     .parameter "projection"
     .parameter "baseUri"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 853
@@ -383,6 +386,16 @@
     const-string v0, "="
 
     const/16 v2, 0xc0
+
+    invoke-direct {p0, v0, v2}, Landroid/app/DownloadManager$Query;->statusClause(Ljava/lang/String;I)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-interface {v7, v0}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    const-string v0, "="
+
+    const/16 v2, 0xc6
 
     invoke-direct {p0, v0, v2}, Landroid/app/DownloadManager$Query;->statusClause(Ljava/lang/String;I)Ljava/lang/String;
 

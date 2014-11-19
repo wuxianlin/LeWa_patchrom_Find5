@@ -6,7 +6,8 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Landroid/app/ApplicationPackageManager$ResourceName;
+        Landroid/app/ApplicationPackageManager$ResourceName;,
+        Landroid/app/ApplicationPackageManager$Injector;
     }
 .end annotation
 
@@ -2327,6 +2328,10 @@
     .locals 4
     .parameter "packageName"
     .parameter "flags"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/content/pm/PackageManager$NameNotFoundException;
@@ -2350,19 +2355,17 @@
 
     move-result-object v1
 
-    .line 74
     .local v1, pi:Landroid/content/pm/PackageInfo;
     if-eqz v1, :cond_0
 
-    .line 75
+    invoke-static {p1, v1}, Landroid/app/ApplicationPackageManager$Injector;->registerUmengAnalytic(Ljava/lang/String;Landroid/content/pm/PackageInfo;)V
+  
     return-object v1
 
-    .line 77
     .end local v1           #pi:Landroid/content/pm/PackageInfo;
     :catch_0
     move-exception v0
 
-    .line 78
     .local v0, e:Landroid/os/RemoteException;
     new-instance v2, Ljava/lang/RuntimeException;
 
@@ -2907,6 +2910,10 @@
 .method public getResourcesForApplication(Landroid/content/pm/ApplicationInfo;)Landroid/content/res/Resources;
     .locals 9
     .parameter "app"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Landroid/content/pm/PackageManager$NameNotFoundException;
@@ -5441,6 +5448,99 @@
     .line 1137
     :catch_0
     move-exception v0
+
+    goto :goto_0
+.end method
+
+.method private getLewaTopLevelResources(Landroid/content/pm/ApplicationInfo;)Landroid/content/res/Resources;
+    .locals 6
+    .parameter "app"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ApplicationPackageManager;->mContext:Landroid/app/ContextImpl;
+
+    iget-object v0, v0, Landroid/app/ContextImpl;->mMainThread:Landroid/app/ActivityThread;
+
+    invoke-static {p1}, Landroid/app/ApplicationPackageManager$Injector;->getPackageName(Landroid/content/pm/ApplicationInfo;)Ljava/lang/String;
+
+    move-result-object v1
+
+    iget v2, p1, Landroid/content/pm/ApplicationInfo;->uid:I
+
+    invoke-static {}, Landroid/os/Process;->myUid()I
+
+    move-result v3
+
+    if-ne v2, v3, :cond_0
+
+    iget-object v2, p1, Landroid/content/pm/ApplicationInfo;->sourceDir:Ljava/lang/String;
+
+    :goto_0
+    const/4 v3, 0x0
+
+    const/4 v4, 0x0
+
+    iget-object v5, p0, Landroid/app/ApplicationPackageManager;->mContext:Landroid/app/ContextImpl;
+
+    iget-object v5, v5, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    invoke-virtual/range {v0 .. v5}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    return-object v0
+
+    :cond_0
+    iget-object v2, p1, Landroid/content/pm/ApplicationInfo;->publicSourceDir:Ljava/lang/String;
+
+    goto :goto_0
+.end method
+
+.method private getTopLevelResources(Landroid/content/pm/ApplicationInfo;)Landroid/content/res/Resources;
+    .locals 6
+    .parameter "app"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v1, p0, Landroid/app/ApplicationPackageManager;->mContext:Landroid/app/ContextImpl;
+
+    iget-object v0, v1, Landroid/app/ContextImpl;->mMainThread:Landroid/app/ActivityThread;
+
+    .local v0, activitythread:Landroid/app/ActivityThread;
+    iget-object v1, p1, Landroid/content/pm/ApplicationInfo;->packageName:Ljava/lang/String;
+
+    iget v2, p1, Landroid/content/pm/ApplicationInfo;->uid:I
+
+    invoke-static {}, Landroid/os/Process;->myUid()I
+
+    move-result v3
+
+    if-ne v2, v3, :cond_0
+
+    iget-object v2, p1, Landroid/content/pm/ApplicationInfo;->sourceDir:Ljava/lang/String;
+
+    :goto_0
+    const/4 v3, 0x0
+
+    const/4 v4, 0x0
+
+    iget-object v5, p0, Landroid/app/ApplicationPackageManager;->mContext:Landroid/app/ContextImpl;
+
+    iget-object v5, v5, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    invoke-virtual/range {v0 .. v5}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    return-object v1
+
+    :cond_0
+    iget-object v2, p1, Landroid/content/pm/ApplicationInfo;->publicSourceDir:Ljava/lang/String;
 
     goto :goto_0
 .end method

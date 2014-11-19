@@ -15,7 +15,8 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Landroid/graphics/drawable/DrawableContainer$DrawableContainerState$ConstantStateFuture;
+        Landroid/graphics/drawable/DrawableContainer$DrawableContainerState$ConstantStateFuture;,
+        Landroid/graphics/drawable/DrawableContainer$DrawableContainerState$Injector;
     }
 .end annotation
 
@@ -93,6 +94,9 @@
     .parameter "orig"
     .parameter "owner"
     .parameter "res"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v5, 0x1
@@ -269,7 +273,7 @@
 
     .local v1, i:I
     :goto_1
-    if-ge v1, v0, :cond_3
+    if-ge v1, v0, :cond_lewa0
 
     .line 562
     aget-object v4, v3, v1
@@ -309,9 +313,17 @@
 
     goto :goto_0
 
-    .line 567
+    .restart local v0       #N:I
+    .restart local v1       #i:I
+    :cond_lewa0
+    invoke-static {p0, p1}, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState$Injector;->init(Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;)V
+
+    .end local v0           #N:I
+    .end local v1           #i:I
     .end local v2           #origDf:Landroid/util/SparseArray;,"Landroid/util/SparseArray<Landroid/graphics/drawable/DrawableContainer$DrawableContainerState$ConstantStateFuture;>;"
     .end local v3           #origDr:[Landroid/graphics/drawable/Drawable;
+    goto :cond_3
+
     :cond_2
     const/16 v4, 0xa
 
@@ -1143,6 +1155,18 @@
     iput v3, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mOpacity:I
 
     goto :goto_0
+.end method
+
+.method public final getVariablePadding()Z
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-boolean v0, p0, Landroid/graphics/drawable/DrawableContainer$DrawableContainerState;->mVariablePadding:Z
+
+    return v0
 .end method
 
 .method public growArray(II)V

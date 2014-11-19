@@ -6,6 +6,14 @@
 .implements Landroid/os/Parcelable;
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Landroid/content/pm/PackageInfo$Injector;
+    }
+.end annotation
+
+
 # static fields
 .field public static final CREATOR:Landroid/os/Parcelable$Creator; = null
     .annotation system Ldalvik/annotation/Signature;
@@ -17,6 +25,25 @@
         }
     .end annotation
 .end field
+
+.field public isThemeApk:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field lockedZipFilePath:Ljava/lang/String;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field mDrmProtectedThemeApk:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 
 .field public static final INSTALL_LOCATION_AUTO:I = 0x0
 
@@ -116,6 +143,12 @@
 
 .field public themeInfos:[Landroid/content/pm/ThemeInfo;
 
+.field public themeInfos:[Landroid/content/pm/ThemeInfo;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public versionCode:I
 
 .field public versionName:Ljava/lang/String;
@@ -169,6 +202,9 @@
 .method private constructor <init>(Landroid/os/Parcel;)V
     .locals 6
     .parameter "source"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v2, 0x1
@@ -494,6 +530,8 @@
 
     iput-object v1, p0, Landroid/content/pm/PackageInfo;->legacyThemeInfos:[Landroid/content/pm/LegacyThemeInfo;
 
+    invoke-static {p1, p0}, Landroid/content/pm/PackageInfo$Injector;->readFromParcel(Landroid/os/Parcel;Landroid/content/pm/PackageInfo;)V
+
     .line 411
     return-void
 
@@ -808,6 +846,9 @@
     .locals 5
     .parameter "dest"
     .parameter "parcelableFlags"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v1, 0x1
@@ -996,18 +1037,16 @@
     :goto_5
     invoke-virtual {p1, v1}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 357
     invoke-direct {p0, p1}, Landroid/content/pm/PackageInfo;->writeRedirectionsMap(Landroid/os/Parcel;)V
 
-    .line 358
     iget-object v0, p0, Landroid/content/pm/PackageInfo;->legacyThemeInfos:[Landroid/content/pm/LegacyThemeInfo;
 
     invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeTypedArray([Landroid/os/Parcelable;I)V
 
-    .line 359
+    invoke-static {p1, p2, p0}, Landroid/content/pm/PackageInfo$Injector;->writeToParcel(Landroid/os/Parcel;ILandroid/content/pm/PackageInfo;)V
+
     return-void
 
-    .line 328
     :cond_0
     invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeInt(I)V
 
@@ -1042,4 +1081,54 @@
 
     .line 356
     goto :goto_5
+.end method
+
+.method public getLockedZipFilePath()Ljava/lang/String;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/content/pm/PackageInfo;->lockedZipFilePath:Ljava/lang/String;
+
+    return-object v0
+.end method
+
+.method public isDrmProtectedThemeApk()Z
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-boolean v0, p0, Landroid/content/pm/PackageInfo;->mDrmProtectedThemeApk:Z
+
+    return v0
+.end method
+
+.method public setDrmProtectedThemeApk(Z)V
+    .locals 0
+    .parameter "value"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-boolean p1, p0, Landroid/content/pm/PackageInfo;->mDrmProtectedThemeApk:Z
+
+    return-void
+.end method
+
+.method public setLockedZipFilePath(Ljava/lang/String;)V
+    .locals 0
+    .parameter "value"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-object p1, p0, Landroid/content/pm/PackageInfo;->lockedZipFilePath:Ljava/lang/String;
+
+    return-void
 .end method

@@ -9,6 +9,14 @@
 .implements Lcom/android/internal/view/menu/ActionMenuView$ActionMenuChildView;
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/internal/view/menu/ActionMenuItemView$Injector;
+    }
+.end annotation
+
+
 # static fields
 .field private static final MAX_ICON_SIZE:I = 0x20
 
@@ -443,64 +451,57 @@
 .method public onLongClick(Landroid/view/View;)Z
     .locals 12
     .parameter "v"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v9, 0x1
 
     const/4 v8, 0x0
 
-    .line 224
     invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->hasText()Z
 
     move-result v10
 
     if-eqz v10, :cond_0
 
-    .line 250
     :goto_0
     return v8
 
-    .line 229
     :cond_0
     const/4 v10, 0x2
 
     new-array v5, v10, [I
 
-    .line 230
     .local v5, screenPos:[I
     new-instance v2, Landroid/graphics/Rect;
 
     invoke-direct {v2}, Landroid/graphics/Rect;-><init>()V
 
-    .line 231
     .local v2, displayFrame:Landroid/graphics/Rect;
     invoke-virtual {p0, v5}, Lcom/android/internal/view/menu/ActionMenuItemView;->getLocationOnScreen([I)V
 
-    .line 232
     invoke-virtual {p0, v2}, Lcom/android/internal/view/menu/ActionMenuItemView;->getWindowVisibleDisplayFrame(Landroid/graphics/Rect;)V
 
-    .line 234
     invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getContext()Landroid/content/Context;
 
     move-result-object v1
 
-    .line 235
     .local v1, context:Landroid/content/Context;
     invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getWidth()I
 
     move-result v7
 
-    .line 236
     .local v7, width:I
-    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getHeight()I
+    invoke-direct {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getHeightExt()I
 
     move-result v3
 
-    .line 237
     .local v3, height:I
     aget v10, v5, v9
 
-    div-int/lit8 v11, v3, 0x2
+    div-int/lit8 v11, v3, 0x1
 
     add-int v4, v10, v11
 
@@ -571,6 +572,9 @@
     .locals 13
     .parameter "widthMeasureSpec"
     .parameter "heightMeasureSpec"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/high16 v12, -0x8000
@@ -718,13 +722,15 @@
 
     invoke-super {p0, v7, v8, v9, v10}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 287
     .end local v0           #dw:I
     .end local v4           #w:I
     :cond_3
+    invoke-direct {p0, v3}, Lcom/android/internal/view/menu/ActionMenuItemView;->makelayoutLocation(Z)V
+
+    invoke-static {p0}, Lcom/android/internal/view/menu/ActionMenuItemView$Injector;->setIconColorFilter(Lcom/android/internal/view/menu/ActionMenuItemView;)V
+
     return-void
 
-    .line 271
     .end local v2           #targetWidth:I
     :cond_4
     iget v2, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mMinWidth:I
@@ -987,3 +993,198 @@
 
     return v0
 .end method
+
+.method getIcon()Landroid/graphics/drawable/Drawable;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mIcon:Landroid/graphics/drawable/Drawable;
+
+    return-object v0
+.end method
+
+.method private getHeightExt()I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {v0}, Llewa/util/LewaUiUtil;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getParent()Landroid/view/ViewParent;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/view/View;
+
+    invoke-virtual {v0}, Landroid/view/View;->getHeight()I
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getHeight()I
+
+    move-result v0
+
+    goto :goto_0
+.end method
+
+.method private makelayoutLocation(Z)V
+    .locals 10
+    .parameter "textVisible"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/16 v7, 0x11
+
+    invoke-virtual {p0, v7}, Lcom/android/internal/view/menu/ActionMenuItemView;->setGravity(I)V
+
+    iget-boolean v7, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mAllowTextWithIcon:Z
+
+    if-eqz v7, :cond_0
+
+    if-eqz p1, :cond_0
+
+    iget-object v7, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mIcon:Landroid/graphics/drawable/Drawable;
+
+    if-eqz v7, :cond_0
+
+    iget-object v7, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mItemData:Lcom/android/internal/view/menu/MenuItemImpl;
+
+    invoke-virtual {v7}, Lcom/android/internal/view/menu/MenuItemImpl;->requiresActionButton()Z
+
+    move-result v7
+
+    if-eqz v7, :cond_0
+
+    iget-object v7, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mItemData:Lcom/android/internal/view/menu/MenuItemImpl;
+
+    invoke-virtual {v7}, Lcom/android/internal/view/menu/MenuItemImpl;->showsTextAsAction()Z
+
+    move-result v7
+
+    if-eqz v7, :cond_0
+
+    const/16 v7, 0x10
+
+    invoke-virtual {p0, v7}, Lcom/android/internal/view/menu/ActionMenuItemView;->setGravity(I)V
+
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getMeasuredWidth()I
+
+    move-result v6
+
+    .local v6, w:I
+    iget-object v7, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mIcon:Landroid/graphics/drawable/Drawable;
+
+    invoke-virtual {v7}, Landroid/graphics/drawable/Drawable;->getIntrinsicWidth()I
+
+    move-result v0
+
+    .local v0, dw:I
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getPaint()Landroid/text/TextPaint;
+
+    move-result-object v4
+
+    .local v4, textPaint:Landroid/text/TextPaint;
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getContext()Landroid/content/Context;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v2
+
+    .local v2, res:Landroid/content/res/Resources;
+    iget-object v7, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mTitle:Ljava/lang/CharSequence;
+
+    const/4 v8, 0x0
+
+    iget-object v9, p0, Lcom/android/internal/view/menu/ActionMenuItemView;->mTitle:Ljava/lang/CharSequence;
+
+    invoke-interface {v9}, Ljava/lang/CharSequence;->length()I
+
+    move-result v9
+
+    invoke-virtual {v4, v7, v8, v9}, Landroid/text/TextPaint;->measureText(Ljava/lang/CharSequence;II)F
+
+    move-result v7
+
+    float-to-int v5, v7
+
+    .local v5, tw:I
+    const/4 v7, 0x1
+
+    const/high16 v8, 0x4100
+
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getContext()Landroid/content/Context;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Landroid/content/res/Resources;->getDisplayMetrics()Landroid/util/DisplayMetrics;
+
+    move-result-object v9
+
+    invoke-static {v7, v8, v9}, Landroid/util/TypedValue;->applyDimension(IFLandroid/util/DisplayMetrics;)F
+
+    move-result v7
+
+    float-to-int v3, v7
+
+    .local v3, spacing:I
+    sub-int v7, v6, v0
+
+    sub-int/2addr v7, v5
+
+    sub-int/2addr v7, v3
+
+    div-int/lit8 v1, v7, 0x2
+
+    .local v1, paddingLeft:I
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getPaddingTop()I
+
+    move-result v7
+
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getPaddingRight()I
+
+    move-result v8
+
+    invoke-virtual {p0}, Lcom/android/internal/view/menu/ActionMenuItemView;->getPaddingBottom()I
+
+    move-result v9
+
+    invoke-super {p0, v1, v7, v8, v9}, Landroid/widget/TextView;->setPadding(IIII)V
+
+    invoke-virtual {p0, v3}, Lcom/android/internal/view/menu/ActionMenuItemView;->setCompoundDrawablePadding(I)V
+
+    .end local v0           #dw:I
+    .end local v1           #paddingLeft:I
+    .end local v2           #res:Landroid/content/res/Resources;
+    .end local v3           #spacing:I
+    .end local v4           #textPaint:Landroid/text/TextPaint;
+    .end local v5           #tw:I
+    .end local v6           #w:I
+    :cond_0
+    return-void
+.end method
+

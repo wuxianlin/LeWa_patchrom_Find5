@@ -3,8 +3,34 @@
 .source "CallerInfo.java"
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/internal/telephony/CallerInfo$Injector;
+    }
+.end annotation
+
+
 # static fields
+.field public static final PAYPHONE_NUMBER:Ljava/lang/String; = "-3"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final PRIVATE_NUMBER:Ljava/lang/String; = "-2"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field private static final TAG:Ljava/lang/String; = "CallerInfo"
+
+.field public static final UNKNOWN_NUMBER:Ljava/lang/String; = "-1"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private static final VDBG:Z
 
@@ -26,6 +52,12 @@
 
 .field public isCachedPhotoCurrent:Z
 
+.field public isSmallCachedPhotoCurrent:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field private mIsEmergency:Z
 
 .field private mIsVoiceMail:Z
@@ -37,6 +69,12 @@
 .field public needUpdate:Z
 
 .field public normalizedNumber:Ljava/lang/String;
+
+.field public note:Ljava/lang/String;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field public numberLabel:Ljava/lang/String;
 
@@ -52,7 +90,25 @@
 
 .field public photoResource:I
 
+.field public photoUriResource:Ljava/lang/String;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public shouldSendToVoicemail:Z
+
+.field public smallCachedPhoto:Landroid/graphics/drawable/Drawable;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public smallPhotoResource:J
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 
 # direct methods
@@ -239,34 +295,27 @@
 
     const/4 v9, -0x1
 
-    .line 156
     new-instance v1, Lcom/android/internal/telephony/CallerInfo;
 
     invoke-direct {v1}, Lcom/android/internal/telephony/CallerInfo;-><init>()V
 
-    .line 157
     .local v1, info:Lcom/android/internal/telephony/CallerInfo;
     iput v5, v1, Lcom/android/internal/telephony/CallerInfo;->photoResource:I
 
-    .line 158
+    invoke-static {v1}, Lcom/android/internal/telephony/CallerInfo$Injector;->initSmallPhoto(Lcom/android/internal/telephony/CallerInfo;)V
+
     iput-object v10, v1, Lcom/android/internal/telephony/CallerInfo;->phoneLabel:Ljava/lang/String;
 
-    .line 159
     iput v5, v1, Lcom/android/internal/telephony/CallerInfo;->numberType:I
 
-    .line 160
     iput-object v10, v1, Lcom/android/internal/telephony/CallerInfo;->numberLabel:Ljava/lang/String;
 
-    .line 161
     iput-object v10, v1, Lcom/android/internal/telephony/CallerInfo;->cachedPhoto:Landroid/graphics/drawable/Drawable;
 
-    .line 162
     iput-boolean v5, v1, Lcom/android/internal/telephony/CallerInfo;->isCachedPhotoCurrent:Z
 
-    .line 163
     iput-boolean v5, v1, Lcom/android/internal/telephony/CallerInfo;->contactExists:Z
 
-    .line 165
     sget-boolean v3, Lcom/android/internal/telephony/CallerInfo;->VDBG:Z
 
     if-eqz v3, :cond_0
@@ -277,36 +326,32 @@
 
     invoke-static {v3, v6}, Landroid/telephony/Rlog;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 167
     :cond_0
     if-eqz p2, :cond_7
 
-    .line 168
     invoke-interface {p2}, Landroid/database/Cursor;->moveToFirst()Z
 
     move-result v3
 
     if-eqz v3, :cond_6
 
-    .line 176
+    invoke-static {p2, v1}, Lcom/android/internal/telephony/CallerInfo$Injector;->lookForSmallPhoto(Landroid/database/Cursor;Lcom/android/internal/telephony/CallerInfo;)V
+
     const-string v3, "display_name"
 
     invoke-interface {p2, v3}, Landroid/database/Cursor;->getColumnIndex(Ljava/lang/String;)I
 
     move-result v0
 
-    .line 177
     .local v0, columnIndex:I
     if-eq v0, v9, :cond_1
 
-    .line 178
     invoke-interface {p2, v0}, Landroid/database/Cursor;->getString(I)Ljava/lang/String;
 
     move-result-object v3
 
     iput-object v3, v1, Lcom/android/internal/telephony/CallerInfo;->name:Ljava/lang/String;
 
-    .line 182
     :cond_1
     const-string v3, "number"
 
@@ -511,13 +556,12 @@
 
     iput-object v3, v1, Lcom/android/internal/telephony/CallerInfo;->name:Ljava/lang/String;
 
-    .line 240
     iput-object p1, v1, Lcom/android/internal/telephony/CallerInfo;->contactRefUri:Landroid/net/Uri;
 
-    .line 242
+    invoke-static {p0, p1, v1}, Lcom/android/internal/telephony/CallerInfo$Injector;->makeSmallPhoto(Landroid/content/Context;Landroid/net/Uri;Lcom/android/internal/telephony/CallerInfo;)V
+
     return-object v1
 
-    .line 213
     .restart local v0       #columnIndex:I
     :cond_8
     const-string v3, "CallerInfo"

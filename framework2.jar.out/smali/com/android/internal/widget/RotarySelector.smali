@@ -10,6 +10,24 @@
     }
 .end annotation
 
+.field private mCustomAppDimple:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field private mLenseMode:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field private mRevampedMode:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 
 # static fields
 .field private static final ARROW_SCRUNCH_DIP:I = 0x6
@@ -146,53 +164,48 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 171
     invoke-direct {p0, p1, p2}, Landroid/view/View;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 77
+    iput-boolean v4, p0, Lcom/android/internal/widget/RotarySelector;->mCustomAppDimple:Z
+
+    iput-boolean v4, p0, Lcom/android/internal/widget/RotarySelector;->mLenseMode:Z
+
+    iput-boolean v4, p0, Lcom/android/internal/widget/RotarySelector;->mRevampedMode:Z
+
     iput v4, p0, Lcom/android/internal/widget/RotarySelector;->mRotaryOffsetX:I
 
-    .line 81
     iput-boolean v4, p0, Lcom/android/internal/widget/RotarySelector;->mAnimating:Z
 
-    .line 89
     new-instance v3, Landroid/graphics/Paint;
 
     invoke-direct {v3}, Landroid/graphics/Paint;-><init>()V
 
     iput-object v3, p0, Lcom/android/internal/widget/RotarySelector;->mPaint:Landroid/graphics/Paint;
 
-    .line 92
     new-instance v3, Landroid/graphics/Matrix;
 
     invoke-direct {v3}, Landroid/graphics/Matrix;-><init>()V
 
     iput-object v3, p0, Lcom/android/internal/widget/RotarySelector;->mBgMatrix:Landroid/graphics/Matrix;
 
-    .line 93
     new-instance v3, Landroid/graphics/Matrix;
 
     invoke-direct {v3}, Landroid/graphics/Matrix;-><init>()V
 
     iput-object v3, p0, Lcom/android/internal/widget/RotarySelector;->mArrowMatrix:Landroid/graphics/Matrix;
 
-    .line 98
     iput v4, p0, Lcom/android/internal/widget/RotarySelector;->mGrabbedState:I
 
-    .line 107
     iput-boolean v4, p0, Lcom/android/internal/widget/RotarySelector;->mTriggered:Z
 
-    .line 155
     iput v4, p0, Lcom/android/internal/widget/RotarySelector;->mDimplesOfFling:I
 
-    .line 173
     sget-object v3, Lcom/android/internal/R$styleable;->RotarySelector:[I
 
     invoke-virtual {p1, p2, v3}, Landroid/content/Context;->obtainStyledAttributes(Landroid/util/AttributeSet;[I)Landroid/content/res/TypedArray;
 
     move-result-object v0
 
-    .line 175
     .local v0, a:Landroid/content/res/TypedArray;
     invoke-virtual {v0, v4, v4}, Landroid/content/res/TypedArray;->getInt(II)I
 
@@ -2501,16 +2514,14 @@
 
     if-nez v8, :cond_0
 
-    .line 557
     iput-boolean v11, p0, Lcom/android/internal/widget/RotarySelector;->mTriggered:Z
 
-    .line 558
-    invoke-direct {p0, v9}, Lcom/android/internal/widget/RotarySelector;->dispatchTriggerEvent(I)V
+    const/4 v8, 0x3
 
-    .line 559
+    invoke-direct {p0, v8}, Lcom/android/internal/widget/RotarySelector;->dispatchTriggerEvent(I)V
+
     iget-object v7, p0, Lcom/android/internal/widget/RotarySelector;->mVelocityTracker:Landroid/view/VelocityTracker;
 
-    .line 560
     .restart local v7       #velocityTracker:Landroid/view/VelocityTracker;
     const/16 v8, 0x3e8
 
@@ -2763,3 +2774,103 @@
     .line 266
     return-void
 .end method
+
+.method public enableCustomAppDimple(Z)V
+    .locals 0
+    .parameter "newState"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-boolean p1, p0, Lcom/android/internal/widget/RotarySelector;->mCustomAppDimple:Z
+
+    return-void
+.end method
+
+.method public setRevamped(Z)V
+    .locals 1
+    .parameter "newState"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    if-eqz p1, :cond_0
+
+    iget-boolean v0, p0, Lcom/android/internal/widget/RotarySelector;->mCustomAppDimple:Z
+
+    if-eqz v0, :cond_1
+
+    const v0, 0x908004e
+
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/RotarySelector;->getBitmapFor(I)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/internal/widget/RotarySelector;->mBackground:Landroid/graphics/Bitmap;
+
+    :goto_0
+    const v0, 0x9080050
+
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/RotarySelector;->getBitmapFor(I)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/internal/widget/RotarySelector;->mDimple:Landroid/graphics/Bitmap;
+
+    const v0, 0x908004f
+
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/RotarySelector;->getBitmapFor(I)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/internal/widget/RotarySelector;->mDimpleDim:Landroid/graphics/Bitmap;
+
+    :cond_0
+    iput-boolean p1, p0, Lcom/android/internal/widget/RotarySelector;->mRevampedMode:Z
+
+    return-void
+
+    :cond_1
+    const v0, 0x908004d
+
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/RotarySelector;->getBitmapFor(I)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/internal/widget/RotarySelector;->mBackground:Landroid/graphics/Bitmap;
+
+    goto :goto_0
+.end method
+
+.method public setLenseSquare(Z)V
+    .locals 1
+    .parameter "newState"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x0
+
+    iput-boolean v0, p0, Lcom/android/internal/widget/RotarySelector;->mLenseMode:Z
+
+    if-eqz p1, :cond_0
+
+    const/4 v0, 0x1
+
+    iput-boolean v0, p0, Lcom/android/internal/widget/RotarySelector;->mLenseMode:Z
+
+    const v0, 0x9080051
+
+    invoke-direct {p0, v0}, Lcom/android/internal/widget/RotarySelector;->getBitmapFor(I)Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/internal/widget/RotarySelector;->mBackground:Landroid/graphics/Bitmap;
+
+    :cond_0
+    return-void
+.end method
+

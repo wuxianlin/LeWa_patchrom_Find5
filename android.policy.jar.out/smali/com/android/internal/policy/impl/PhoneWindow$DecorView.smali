@@ -53,6 +53,8 @@
 
 .field private mSettingsObserver:Lcom/android/internal/policy/impl/PhoneWindow$SettingsObserver;
 
+.field mRoundedCorners:Lcom/android/internal/policy/impl/RoundedCorners;
+
 .field private mShowActionModePopup:Ljava/lang/Runnable;
 
 .field private mStatusGuard:Landroid/view/View;
@@ -1218,6 +1220,94 @@
 
 
 # virtual methods
+.method protected dispatchDraw(Landroid/graphics/Canvas;)V
+    .locals 6
+    .parameter "canvas"
+
+    .prologue
+    invoke-super {p0, p1}, Landroid/widget/FrameLayout;->dispatchDraw(Landroid/graphics/Canvas;)V
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->this$0:Lcom/android/internal/policy/impl/PhoneWindow;
+
+    invoke-virtual {v0}, Lcom/android/internal/policy/impl/PhoneWindow;->lewaGetKeyguardManager()Landroid/app/KeyguardManager;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :cond_1
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mRoundedCorners:Lcom/android/internal/policy/impl/RoundedCorners;
+
+    if-nez v0, :cond_2
+
+    new-instance v0, Lcom/android/internal/policy/impl/RoundedCorners;
+
+    invoke-virtual {p0}, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Lcom/android/internal/policy/impl/RoundedCorners;-><init>(Landroid/content/Context;)V
+
+    iput-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mRoundedCorners:Lcom/android/internal/policy/impl/RoundedCorners;
+
+    :cond_2
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mFrameOffsets:Landroid/graphics/Rect;
+
+    iget v0, v0, Landroid/graphics/Rect;->left:I
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mFrameOffsets:Landroid/graphics/Rect;
+
+    iget v0, v0, Landroid/graphics/Rect;->right:I
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mFrameOffsets:Landroid/graphics/Rect;
+
+    iget v0, v0, Landroid/graphics/Rect;->bottom:I
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mRoundedCorners:Lcom/android/internal/policy/impl/RoundedCorners;
+
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mDrawingBounds:Landroid/graphics/Rect;
+
+    iget v2, v1, Landroid/graphics/Rect;->left:I
+
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mDrawingBounds:Landroid/graphics/Rect;
+
+    iget v1, v1, Landroid/graphics/Rect;->top:I
+
+    iget-object v3, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mFrameOffsets:Landroid/graphics/Rect;
+
+    iget v3, v3, Landroid/graphics/Rect;->top:I
+
+    add-int/2addr v3, v1
+
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mDrawingBounds:Landroid/graphics/Rect;
+
+    iget v4, v1, Landroid/graphics/Rect;->right:I
+
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindow$DecorView;->mDrawingBounds:Landroid/graphics/Rect;
+
+    iget v5, v1, Landroid/graphics/Rect;->bottom:I
+
+    move-object v1, p1
+
+    invoke-virtual/range {v0 .. v5}, Lcom/android/internal/policy/impl/RoundedCorners;->draw(Landroid/graphics/Canvas;IIII)V
+
+    goto :goto_0
+.end method
+
 .method public dispatchGenericMotionEvent(Landroid/view/MotionEvent;)Z
     .locals 2
     .parameter "ev"

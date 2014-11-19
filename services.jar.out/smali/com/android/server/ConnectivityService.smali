@@ -84,6 +84,8 @@
 
 .field private static final EVENT_SET_POLICY_DATA_ENABLE:I = 0xc
 
+.field private static final EVENT_SWITCH_3G_SLOT:I = 0x10
+
 .field private static final EVENT_VPN_STATE_CHANGED:I = 0xd
 
 .field protected static final EXEMPT:Z = true
@@ -14719,7 +14721,7 @@
 
     const-string v2, "mobile_data"
 
-    invoke-static {v1, v2, v0}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v1, v2, v0}, Landroid/provider/Settings$Secure;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v1
 
@@ -16947,28 +16949,35 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 1177
+    if-eqz p1, :cond_lewa0
+
+    invoke-virtual {p0}, Lcom/android/server/ConnectivityService;->checkPermission()Z
+
+    move-result v0
+
+    if-nez v0, :cond_lewa0
+
+    :goto_lewa_0
+    return-void
+
+    :cond_lewa0
     invoke-direct {p0}, Lcom/android/server/ConnectivityService;->enforceChangePermission()V
 
-    .line 1178
     invoke-static {p1}, Landroid/net/ConnectivityManager;->isNetworkTypeValid(I)Z
 
     move-result v2
 
     if-nez v2, :cond_1
 
-    .line 1182
     :cond_0
     :goto_0
     return v1
 
-    .line 1181
     :cond_1
     iget-object v2, p0, Lcom/android/server/ConnectivityService;->mNetTrackers:[Landroid/net/NetworkStateTracker;
 
     aget-object v0, v2, p1
 
-    .line 1182
     .local v0, tracker:Landroid/net/NetworkStateTracker;
     if-eqz v0, :cond_0
 
@@ -18943,4 +18952,68 @@
     invoke-direct {p0, v0}, Lcom/android/server/ConnectivityService;->setLockdownTracker(Lcom/android/server/net/LockdownVpnTracker;)V
 
     goto :goto_1
+.end method
+
+.method private getMobileDataEnabledExt()Z
+    .locals 3
+
+    .prologue
+    const/4 v0, 0x1
+
+    iget-object v1, p0, Lcom/android/server/ConnectivityService;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v1
+
+    const-string v2, "mobile_data"
+
+    invoke-static {v1, v2, v0}, Landroid/provider/Settings$Secure;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    if-ne v1, v0, :cond_0
+
+    .local v0, retVal:Z
+    :goto_0
+    return v0
+
+    .end local v0           #retVal:Z
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method public checkPermission()Z
+    .locals 7
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/ConnectivityService;->mContext:Landroid/content/Context;
+
+    invoke-static {}, Landroid/os/Binder;->getCallingPid()I
+
+    move-result v1
+
+    invoke-static {}, Landroid/os/Binder;->getCallingUid()I
+
+    move-result v2
+
+    const/high16 v3, 0x4000
+
+    const/4 v4, 0x1
+
+    new-array v4, v4, [Ljava/lang/String;
+
+    const/4 v5, 0x0
+
+    const-string v6, "android.permission.CHANGE_NETWORK_STATE"
+
+    aput-object v6, v4, v5
+
+    invoke-static {v0, v1, v2, v3, v4}, Llewa/content/PermissionHelper;->checkPermission(Landroid/content/Context;III[Ljava/lang/String;)Z
+
+    move-result v0
+
+    return v0
 .end method

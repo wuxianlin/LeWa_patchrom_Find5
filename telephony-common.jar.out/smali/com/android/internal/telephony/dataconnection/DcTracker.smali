@@ -7,7 +7,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/android/internal/telephony/dataconnection/DcTracker$1;,
-        Lcom/android/internal/telephony/dataconnection/DcTracker$ApnChangeObserver;
+        Lcom/android/internal/telephony/dataconnection/DcTracker$ApnChangeObserver;,
+        Lcom/android/internal/telephony/dataconnection/DcTracker$Injector;
     }
 .end annotation
 

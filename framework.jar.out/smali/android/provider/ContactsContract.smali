@@ -58,7 +58,17 @@
         Landroid/provider/ContactsContract$SyncStateColumns;,
         Landroid/provider/ContactsContract$Directory;,
         Landroid/provider/ContactsContract$Preferences;,
-        Landroid/provider/ContactsContract$Authorization;
+        Landroid/provider/ContactsContract$Authorization;,
+	Landroid/provider/ContactsContract$RosterData;,
+        Landroid/provider/ContactsContract$Roster;,
+        Landroid/provider/ContactsContract$User;,
+        Landroid/provider/ContactsContract$RosterDataColumns;,
+        Landroid/provider/ContactsContract$RosterColumns;,
+        Landroid/provider/ContactsContract$UserColumns;,
+        Landroid/provider/ContactsContract$DialerSearch;,
+        Landroid/provider/ContactsContract$ViewDialerSearchColumns;,
+        Landroid/provider/ContactsContract$DialerSearchColumns;,
+	 Landroid/provider/ContactsContract$StickerDisplayPhoto;
     }
 .end annotation
 

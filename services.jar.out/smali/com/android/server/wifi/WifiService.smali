@@ -1999,6 +1999,29 @@
     goto :goto_0
 .end method
 
+.method public checkPermission()Z
+    .locals 4
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/wifi/WifiService;->mContext:Landroid/content/Context;
+
+    invoke-static {}, Landroid/os/Binder;->getCallingPid()I
+
+    move-result v1
+
+    invoke-static {}, Landroid/os/Binder;->getCallingUid()I
+
+    move-result v2
+
+    const/high16 v3, 0x1000
+
+    invoke-static {v0, v1, v2, v3}, Llewa/content/PermissionHelper;->checkPermission(Landroid/content/Context;III)Z
+
+    move-result v0
+
+    return v0
+.end method
+
 .method public clearBlacklist()V
     .locals 1
 

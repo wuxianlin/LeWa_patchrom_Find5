@@ -703,6 +703,10 @@
 
     invoke-virtual {v1, v3, v7}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
 
+    move-result-object v3
+
+    invoke-direct {p0, v1, v3}, Landroid/app/ProgressDialog;->getProgressDialogView(Landroid/view/LayoutInflater;Landroid/view/View;)Landroid/view/View;
+
     move-result-object v2
 
     .line 167
@@ -1008,4 +1012,31 @@
     iput p1, p0, Landroid/app/ProgressDialog;->mSecondaryProgressVal:I
 
     goto :goto_0
+.end method
+
+.method private getProgressDialogView(Landroid/view/LayoutInflater;Landroid/view/View;)Landroid/view/View;
+    .locals 2
+    .parameter "inflater"
+    .parameter "view"
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ProgressDialog;->mContext:Landroid/content/Context;
+
+    invoke-static {v0}, Llewa/util/LewaUiUtil;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    const v0, 0x9090033
+
+    const/4 v1, 0x0
+
+    invoke-virtual {p1, v0, v1}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
+
+    move-result-object p2
+
+    .end local p2
+    :cond_0
+    return-object p2
 .end method

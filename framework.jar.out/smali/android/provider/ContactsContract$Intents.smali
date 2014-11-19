@@ -88,3 +88,23 @@
     .line 8401
     return-void
 .end method
+
+
+.field public static final EXTRA_BROADCAST_RESULT:Ljava/lang/String; = "broadcast_result"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+
+.field public static final UPDATE_FILTER_CONTACT:Ljava/lang/String; = "android.widget.mmswidget.UPDATE_FILTER_CONTACT"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final EXTRA_FILTER_SIM_CONTACT:Ljava/lang/String; = "filter_sim_contact"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field

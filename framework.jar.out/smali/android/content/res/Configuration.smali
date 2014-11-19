@@ -208,6 +208,12 @@
 
 .field public densityDpi:I
 
+.field public extraConfig:Llewa/content/res/ExtraConfiguration;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public fontScale:F
 
 .field public hardKeyboardHidden:I
@@ -273,13 +279,12 @@
     .locals 0
 
     .prologue
-    .line 629
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 630
+    invoke-virtual {p0}, Landroid/content/res/Configuration;->init()V
+
     invoke-virtual {p0}, Landroid/content/res/Configuration;->setToDefaults()V
 
-    .line 631
     return-void
 .end method
 
@@ -288,13 +293,12 @@
     .parameter "o"
 
     .prologue
-    .line 636
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 637
+    invoke-virtual {p0}, Landroid/content/res/Configuration;->init()V
+
     invoke-virtual {p0, p1}, Landroid/content/res/Configuration;->setTo(Landroid/content/res/Configuration;)V
 
-    .line 638
     return-void
 .end method
 
@@ -303,13 +307,12 @@
     .parameter "source"
 
     .prologue
-    .line 1230
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 1231
+    invoke-virtual {p0}, Landroid/content/res/Configuration;->init()V
+
     invoke-virtual {p0, p1}, Landroid/content/res/Configuration;->readFromParcel(Landroid/os/Parcel;)V
 
-    .line 1232
     return-void
 .end method
 
@@ -531,11 +534,28 @@
     return v0
 .end method
 
+.method private setDefaultFontScale()V
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/high16 v0, 0x3f80
+
+    iput v0, p0, Landroid/content/res/Configuration;->fontScale:F
+
+    return-void
+.end method
+
 
 # virtual methods
 .method public compareTo(Landroid/content/res/Configuration;)I
     .locals 7
     .parameter "that"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v3, -0x1
@@ -823,6 +843,14 @@
 
     move v2, v4
 
+    iget-object v3, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iget-object v4, p1, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v3, v4}, Llewa/content/res/ExtraConfiguration;->compareTo(Llewa/content/res/ExtraConfiguration;)I
+
+    move-result v2
+
     goto/16 :goto_0
 
     .line 1285
@@ -867,6 +895,9 @@
 .method public diff(Landroid/content/res/Configuration;)I
     .locals 4
     .parameter "delta"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1016
@@ -1269,6 +1300,51 @@
     move-exception v0
 
     .line 1301
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method public getCustomTheme()Landroid/content/res/CustomTheme;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iget-object v0, v0, Llewa/content/res/ExtraConfiguration;->customTheme:Landroid/content/res/CustomTheme;
+
+    :goto_0
+    return-object v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method public getFontChange()I
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    iget v0, v0, Llewa/content/res/ExtraConfiguration;->fontChanged:I
+
+    :goto_0
+    return v0
+
+    :cond_0
     const/4 v0, 0x0
 
     goto :goto_0
@@ -1972,80 +2048,67 @@
 
 .method public setToDefaults()V
     .locals 3
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v2, 0x0
 
     const/4 v1, 0x0
 
-    .line 813
     const/high16 v0, 0x3f80
 
     iput v0, p0, Landroid/content/res/Configuration;->fontScale:F
 
-    .line 814
     iput v1, p0, Landroid/content/res/Configuration;->mnc:I
 
     iput v1, p0, Landroid/content/res/Configuration;->mcc:I
 
-    .line 815
     iput-object v2, p0, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
 
-    .line 816
     iput-boolean v1, p0, Landroid/content/res/Configuration;->userSetLocale:Z
 
-    .line 817
     iput v1, p0, Landroid/content/res/Configuration;->touchscreen:I
 
-    .line 818
     iput v1, p0, Landroid/content/res/Configuration;->keyboard:I
 
-    .line 819
     iput v1, p0, Landroid/content/res/Configuration;->keyboardHidden:I
 
-    .line 820
     iput v1, p0, Landroid/content/res/Configuration;->hardKeyboardHidden:I
 
-    .line 821
     iput v1, p0, Landroid/content/res/Configuration;->navigation:I
 
-    .line 822
     iput v1, p0, Landroid/content/res/Configuration;->navigationHidden:I
 
-    .line 823
     iput v1, p0, Landroid/content/res/Configuration;->orientation:I
 
-    .line 824
     iput v1, p0, Landroid/content/res/Configuration;->screenLayout:I
 
-    .line 825
     iput v1, p0, Landroid/content/res/Configuration;->uiMode:I
 
-    .line 826
     iput v1, p0, Landroid/content/res/Configuration;->compatScreenWidthDp:I
 
     iput v1, p0, Landroid/content/res/Configuration;->screenWidthDp:I
 
-    .line 827
     iput v1, p0, Landroid/content/res/Configuration;->compatScreenHeightDp:I
 
     iput v1, p0, Landroid/content/res/Configuration;->screenHeightDp:I
 
-    .line 828
     iput v1, p0, Landroid/content/res/Configuration;->compatSmallestScreenWidthDp:I
 
     iput v1, p0, Landroid/content/res/Configuration;->smallestScreenWidthDp:I
 
-    .line 829
     iput v1, p0, Landroid/content/res/Configuration;->densityDpi:I
 
-    .line 830
     iput v1, p0, Landroid/content/res/Configuration;->seq:I
 
-    .line 831
     iput-object v2, p0, Landroid/content/res/Configuration;->themeConfig:Landroid/content/res/ThemeConfig;
 
-    .line 832
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v0, p1}, Llewa/content/res/ExtraConfiguration;->readFromParcel(Landroid/os/Parcel;)V
+
     return-void
 .end method
 
@@ -2846,9 +2909,6 @@
 
     goto/16 :goto_12
 
-    .line 694
-    nop
-
     :sswitch_data_0
     .sparse-switch
         0x0 -> :sswitch_2
@@ -2958,6 +3018,9 @@
 .method public updateFrom(Landroid/content/res/Configuration;)I
     .locals 4
     .parameter "delta"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 848
@@ -3558,143 +3621,122 @@
     .locals 3
     .parameter "dest"
     .parameter "flags"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v2, 0x1
 
     const/4 v1, 0x0
 
-    .line 1151
     iget v0, p0, Landroid/content/res/Configuration;->fontScale:F
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeFloat(F)V
 
-    .line 1152
     iget v0, p0, Landroid/content/res/Configuration;->mcc:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1153
     iget v0, p0, Landroid/content/res/Configuration;->mnc:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1154
     iget-object v0, p0, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
 
     if-nez v0, :cond_0
 
-    .line 1155
     invoke-virtual {p1, v1}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1162
     :goto_0
     iget-boolean v0, p0, Landroid/content/res/Configuration;->userSetLocale:Z
 
     if-eqz v0, :cond_1
 
-    .line 1163
     invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1167
     :goto_1
     iget v0, p0, Landroid/content/res/Configuration;->touchscreen:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1168
     iget v0, p0, Landroid/content/res/Configuration;->keyboard:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1169
     iget v0, p0, Landroid/content/res/Configuration;->keyboardHidden:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1170
     iget v0, p0, Landroid/content/res/Configuration;->hardKeyboardHidden:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1171
     iget v0, p0, Landroid/content/res/Configuration;->navigation:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1172
     iget v0, p0, Landroid/content/res/Configuration;->navigationHidden:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1173
     iget v0, p0, Landroid/content/res/Configuration;->orientation:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1174
     iget v0, p0, Landroid/content/res/Configuration;->screenLayout:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1175
     iget v0, p0, Landroid/content/res/Configuration;->uiMode:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1176
     iget v0, p0, Landroid/content/res/Configuration;->screenWidthDp:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1177
     iget v0, p0, Landroid/content/res/Configuration;->screenHeightDp:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1178
     iget v0, p0, Landroid/content/res/Configuration;->smallestScreenWidthDp:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1179
     iget v0, p0, Landroid/content/res/Configuration;->densityDpi:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1180
     iget v0, p0, Landroid/content/res/Configuration;->compatScreenWidthDp:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1181
     iget v0, p0, Landroid/content/res/Configuration;->compatScreenHeightDp:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1182
     iget v0, p0, Landroid/content/res/Configuration;->compatSmallestScreenWidthDp:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1183
     iget v0, p0, Landroid/content/res/Configuration;->seq:I
 
     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1184
     iget-object v0, p0, Landroid/content/res/Configuration;->themeConfig:Landroid/content/res/ThemeConfig;
 
     invoke-virtual {p1, v0, p2}, Landroid/os/Parcel;->writeParcelable(Landroid/os/Parcelable;I)V
 
-    .line 1185
+    iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Llewa/content/res/ExtraConfiguration;
+
+    invoke-virtual {v0, p1, p2}, Llewa/content/res/ExtraConfiguration;->writeToParcel(Landroid/os/Parcel;I)V
+
     return-void
 
-    .line 1157
     :cond_0
     invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeInt(I)V
 
-    .line 1158
     iget-object v0, p0, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
 
     invoke-virtual {v0}, Ljava/util/Locale;->getLanguage()Ljava/lang/String;

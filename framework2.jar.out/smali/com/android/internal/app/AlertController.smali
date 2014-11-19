@@ -8,7 +8,8 @@
     value = {
         Lcom/android/internal/app/AlertController$AlertParams;,
         Lcom/android/internal/app/AlertController$RecycleListView;,
-        Lcom/android/internal/app/AlertController$ButtonHandler;
+        Lcom/android/internal/app/AlertController$ButtonHandler;,
+        Lcom/android/internal/app/AlertController$Injector;
     }
 .end annotation
 
@@ -1015,6 +1016,9 @@
 
 .method private setupButtons()Z
     .locals 8
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/16 v7, 0x8
@@ -1162,6 +1166,10 @@
     .line 581
     :cond_0
     :goto_3
+    iget-object v4, p0, Lcom/android/internal/app/AlertController;->mContext:Landroid/content/Context;
+
+    invoke-static {p0, v4, v3}, Lcom/android/internal/app/AlertController$Injector;->setSingleButtonBackground(Lcom/android/internal/app/AlertController;Landroid/content/Context;I)V
+
     if-eqz v3, :cond_6
 
     const/4 v4, 0x1
@@ -1345,16 +1353,12 @@
 
     invoke-virtual {p1, v0}, Landroid/widget/LinearLayout;->removeView(Landroid/view/View;)V
 
-    .line 518
-    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mListView:Landroid/widget/ListView;
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mContext:Landroid/content/Context;
 
-    new-instance v1, Landroid/widget/LinearLayout$LayoutParams;
+    iget-object v1, p0, Lcom/android/internal/app/AlertController;->mListView:Landroid/widget/ListView;
 
-    invoke-direct {v1, v2, v2}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
+    invoke-static {v0, p1, v1, v2}, Lcom/android/internal/app/AlertController$Injector;->updateContentPanel(Landroid/content/Context;Landroid/widget/LinearLayout;Landroid/widget/ListView;I)V
 
-    invoke-virtual {p1, v0, v1}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 520
     new-instance v0, Landroid/widget/LinearLayout$LayoutParams;
 
     const/high16 v1, 0x3f80
@@ -1365,7 +1369,6 @@
 
     goto :goto_0
 
-    .line 522
     :cond_2
     invoke-virtual {p1, v4}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
@@ -1375,6 +1378,9 @@
 .method private setupTitle(Landroid/widget/LinearLayout;)Z
     .locals 10
     .parameter "topPanel"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const v6, 0x1020270
@@ -1383,16 +1389,13 @@
 
     const/16 v9, 0x8
 
-    .line 446
     const/4 v1, 0x1
 
-    .line 448
     .local v1, hasTitle:Z
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mCustomTitleView:Landroid/view/View;
 
     if-eqz v4, :cond_1
 
-    .line 450
     new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
 
     const/4 v4, -0x1
@@ -1401,31 +1404,28 @@
 
     invoke-direct {v2, v4, v5}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 453
     .local v2, lp:Landroid/widget/LinearLayout$LayoutParams;
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mCustomTitleView:Landroid/view/View;
 
     invoke-virtual {p1, v4, v0, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V
 
-    .line 456
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
     invoke-virtual {v4, v6}, Landroid/view/Window;->findViewById(I)Landroid/view/View;
 
     move-result-object v3
 
-    .line 457
     .local v3, titleTemplate:Landroid/view/View;
     invoke-virtual {v3, v9}, Landroid/view/View;->setVisibility(I)V
 
-    .line 497
     .end local v2           #lp:Landroid/widget/LinearLayout$LayoutParams;
     .end local v3           #titleTemplate:Landroid/view/View;
     :cond_0
     :goto_0
+    invoke-direct {p0}, Lcom/android/internal/app/AlertController;->setupTitleExt()V
+
     return v1
 
-    .line 459
     :cond_1
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mTitle:Ljava/lang/CharSequence;
 
@@ -1437,7 +1437,6 @@
 
     const/4 v0, 0x1
 
-    .line 461
     .local v0, hasTextTitle:Z
     :cond_2
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
@@ -1452,10 +1451,8 @@
 
     iput-object v4, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
-    .line 462
     if-eqz v0, :cond_5
 
-    .line 464
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
     const v5, 0x1020271
@@ -1468,19 +1465,16 @@
 
     iput-object v4, p0, Lcom/android/internal/app/AlertController;->mTitleView:Landroid/widget/TextView;
 
-    .line 466
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mTitleView:Landroid/widget/TextView;
 
     iget-object v5, p0, Lcom/android/internal/app/AlertController;->mTitle:Ljava/lang/CharSequence;
 
     invoke-virtual {v4, v5}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 472
     iget v4, p0, Lcom/android/internal/app/AlertController;->mIconId:I
 
     if-lez v4, :cond_3
 
-    .line 473
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
     iget v5, p0, Lcom/android/internal/app/AlertController;->mIconId:I
@@ -1489,13 +1483,11 @@
 
     goto :goto_0
 
-    .line 474
     :cond_3
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mIcon:Landroid/graphics/drawable/Drawable;
 
     if-eqz v4, :cond_4
 
-    .line 475
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
     iget-object v5, p0, Lcom/android/internal/app/AlertController;->mIcon:Landroid/graphics/drawable/Drawable;
@@ -1504,13 +1496,11 @@
 
     goto :goto_0
 
-    .line 476
     :cond_4
     iget v4, p0, Lcom/android/internal/app/AlertController;->mIconId:I
 
     if-nez v4, :cond_0
 
-    .line 481
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mTitleView:Landroid/widget/TextView;
 
     iget-object v5, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
@@ -1539,14 +1529,12 @@
 
     invoke-virtual {v4, v5, v6, v7, v8}, Landroid/widget/TextView;->setPadding(IIII)V
 
-    .line 485
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
     invoke-virtual {v4, v9}, Landroid/widget/ImageView;->setVisibility(I)V
 
     goto :goto_0
 
-    .line 490
     :cond_5
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
@@ -1554,19 +1542,15 @@
 
     move-result-object v3
 
-    .line 491
     .restart local v3       #titleTemplate:Landroid/view/View;
     invoke-virtual {v3, v9}, Landroid/view/View;->setVisibility(I)V
 
-    .line 492
     iget-object v4, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
     invoke-virtual {v4, v9}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 493
     invoke-virtual {p1, v9}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 494
     const/4 v1, 0x0
 
     goto :goto_0
@@ -1574,9 +1558,11 @@
 
 .method private setupView()V
     .locals 14
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
-    .line 394
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
     const v10, 0x1020276
@@ -1587,16 +1573,13 @@
 
     check-cast v2, Landroid/widget/LinearLayout;
 
-    .line 395
     .local v2, contentPanel:Landroid/widget/LinearLayout;
     invoke-direct {p0, v2}, Lcom/android/internal/app/AlertController;->setupContent(Landroid/widget/LinearLayout;)V
 
-    .line 396
     invoke-direct {p0}, Lcom/android/internal/app/AlertController;->setupButtons()Z
 
     move-result v4
 
-    .line 398
     .local v4, hasButtons:Z
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
@@ -1608,7 +1591,6 @@
 
     check-cast v1, Landroid/widget/LinearLayout;
 
-    .line 399
     .local v1, topPanel:Landroid/widget/LinearLayout;
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mContext:Landroid/content/Context;
 
@@ -1624,13 +1606,11 @@
 
     move-result-object v5
 
-    .line 401
     .local v5, a:Landroid/content/res/TypedArray;
     invoke-direct {p0, v1}, Lcom/android/internal/app/AlertController;->setupTitle(Landroid/widget/LinearLayout;)Z
 
     move-result v6
 
-    .line 403
     .local v6, hasTitle:Z
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
@@ -1640,33 +1620,27 @@
 
     move-result-object v7
 
-    .line 404
     .local v7, buttonPanel:Landroid/view/View;
     if-nez v4, :cond_0
 
-    .line 405
     const/16 v0, 0x8
 
     invoke-virtual {v7, v0}, Landroid/view/View;->setVisibility(I)V
 
-    .line 406
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
     const/4 v10, 0x1
 
     invoke-virtual {v0, v10}, Landroid/view/Window;->setCloseOnTouchOutsideIfNotSet(Z)V
 
-    .line 409
     :cond_0
     const/4 v3, 0x0
 
-    .line 410
     .local v3, customPanel:Landroid/widget/FrameLayout;
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mView:Landroid/view/View;
 
     if-eqz v0, :cond_5
 
-    .line 411
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
     const v10, 0x1020278
@@ -1678,7 +1652,6 @@
     .end local v3           #customPanel:Landroid/widget/FrameLayout;
     check-cast v3, Landroid/widget/FrameLayout;
 
-    .line 412
     .restart local v3       #customPanel:Landroid/widget/FrameLayout;
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mWindow:Landroid/view/Window;
 
@@ -1690,7 +1663,6 @@
 
     check-cast v8, Landroid/widget/FrameLayout;
 
-    .line 413
     .local v8, custom:Landroid/widget/FrameLayout;
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mView:Landroid/view/View;
 
@@ -1704,12 +1676,10 @@
 
     invoke-virtual {v8, v0, v10}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 414
     iget-boolean v0, p0, Lcom/android/internal/app/AlertController;->mViewSpacingSpecified:Z
 
     if-eqz v0, :cond_1
 
-    .line 415
     iget v0, p0, Lcom/android/internal/app/AlertController;->mViewSpacingLeft:I
 
     iget v10, p0, Lcom/android/internal/app/AlertController;->mViewSpacingTop:I
@@ -1720,13 +1690,11 @@
 
     invoke-virtual {v8, v0, v10, v11, v12}, Landroid/widget/FrameLayout;->setPadding(IIII)V
 
-    .line 418
     :cond_1
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mListView:Landroid/widget/ListView;
 
     if-eqz v0, :cond_2
 
-    .line 419
     invoke-virtual {v3}, Landroid/widget/FrameLayout;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v0
@@ -1737,16 +1705,13 @@
 
     iput v10, v0, Landroid/widget/LinearLayout$LayoutParams;->weight:F
 
-    .line 428
     .end local v8           #custom:Landroid/widget/FrameLayout;
     :cond_2
     :goto_0
     if-eqz v6, :cond_4
 
-    .line 429
     const/4 v9, 0x0
 
-    .line 430
     .local v9, divider:Landroid/view/View;
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mMessage:Ljava/lang/CharSequence;
 
@@ -1756,6 +1721,7 @@
 
     if-nez v0, :cond_3
 
+    .line 518
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mListView:Landroid/widget/ListView;
 
     if-eqz v0, :cond_6
@@ -1818,6 +1784,8 @@
     invoke-virtual {v0, v10}, Landroid/view/Window;->findViewById(I)Landroid/view/View;
 
     move-result-object v9
+
+    const/4 v9, 0x0
 
     goto :goto_1
 .end method
@@ -2132,36 +2100,38 @@
 .method public setIcon(I)V
     .locals 2
     .parameter "resId"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
-    .line 333
     iput p1, p0, Lcom/android/internal/app/AlertController;->mIconId:I
 
-    .line 334
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
+
+    iget-object v1, p0, Lcom/android/internal/app/AlertController;->mContext:Landroid/content/Context;
+
+    invoke-static {v0, v1}, Lcom/android/internal/app/AlertController$Injector;->setIconResExt(Landroid/widget/ImageView;Landroid/content/Context;)V
+
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_0
 
-    .line 335
     if-lez p1, :cond_1
 
-    .line 336
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
     iget v1, p0, Lcom/android/internal/app/AlertController;->mIconId:I
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageResource(I)V
 
-    .line 341
     :cond_0
     :goto_0
     return-void
 
-    .line 337
     :cond_1
     if-nez p1, :cond_0
 
-    .line 338
     iget-object v0, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
 
     const/16 v1, 0x8
@@ -2174,6 +2144,9 @@
 .method public setIcon(Landroid/graphics/drawable/Drawable;)V
     .locals 1
     .parameter "icon"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 344
@@ -2195,6 +2168,10 @@
 
     .line 348
     :cond_0
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
+
+    invoke-static {v0}, Lcom/android/internal/app/AlertController$Injector;->setIconDrawableExt(Landroid/widget/ImageView;)V
+
     return-void
 .end method
 
@@ -2305,3 +2282,190 @@
     .line 284
     return-void
 .end method
+
+.method private setupTitleExt()V
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Lcom/android/internal/app/AlertController;->getTitle()Ljava/lang/CharSequence;
+
+    move-result-object v0
+
+    invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/internal/app/AlertController;->getCustomTitleView()Landroid/view/View;
+
+    move-result-object v0
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mIconView:Landroid/widget/ImageView;
+
+    const/16 v1, 0x8
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    :cond_0
+    return-void
+.end method
+
+.method getButtonNegative()Landroid/widget/Button;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mButtonNegative:Landroid/widget/Button;
+
+    return-object v0
+.end method
+
+.method getButtonNegativeText()Ljava/lang/CharSequence;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mButtonNegativeText:Ljava/lang/CharSequence;
+
+    return-object v0
+.end method
+
+.method getButtonNeutral()Landroid/widget/Button;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mButtonNeutral:Landroid/widget/Button;
+
+    return-object v0
+.end method
+
+.method getButtonNeutralText()Ljava/lang/CharSequence;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mButtonNeutralText:Ljava/lang/CharSequence;
+
+    return-object v0
+.end method
+
+.method getButtonPositive()Landroid/widget/Button;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mButtonPositive:Landroid/widget/Button;
+
+    return-object v0
+.end method
+
+.method getButtonPositiveText()Ljava/lang/CharSequence;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mButtonPositiveText:Ljava/lang/CharSequence;
+
+    return-object v0
+.end method
+
+.method getContext()Landroid/content/Context;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method getCustomTitleView()Landroid/view/View;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mCustomTitleView:Landroid/view/View;
+
+    return-object v0
+.end method
+
+.method getIcon()Landroid/graphics/drawable/Drawable;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mIcon:Landroid/graphics/drawable/Drawable;
+
+    return-object v0
+.end method
+
+.method getIconId()I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget v0, p0, Lcom/android/internal/app/AlertController;->mIconId:I
+
+    return v0
+.end method
+
+.method getMessage()Ljava/lang/CharSequence;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mMessage:Ljava/lang/CharSequence;
+
+    return-object v0
+.end method
+
+.method getTitle()Ljava/lang/CharSequence;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mTitle:Ljava/lang/CharSequence;
+
+    return-object v0
+.end method
+
+.method getView()Landroid/view/View;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/AlertController;->mView:Landroid/view/View;
+
+    return-object v0
+.end method
+

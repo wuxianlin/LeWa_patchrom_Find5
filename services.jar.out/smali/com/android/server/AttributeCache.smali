@@ -393,7 +393,7 @@
 
     .line 87
     .local v0, changes:I
-    const v1, -0x400000a1
+    const v1, -0x400800a1
 
     and-int/2addr v1, v0
 

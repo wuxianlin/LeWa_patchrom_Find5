@@ -14,7 +14,8 @@
         Landroid/app/Instrumentation$EmptyRunnable;,
         Landroid/app/Instrumentation$InstrumentationThread;,
         Landroid/app/Instrumentation$ActivityResult;,
-        Landroid/app/Instrumentation$ActivityMonitor;
+        Landroid/app/Instrumentation$ActivityMonitor;,
+        Landroid/app/Instrumentation$Injector;
     }
 .end annotation
 
@@ -1363,6 +1364,9 @@
     .parameter "intent"
     .parameter "requestCode"
     .parameter "options"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1400
@@ -1472,30 +1476,43 @@
 
     goto :goto_1
 
-    .line 1404
     :cond_1
     add-int/lit8 v16, v16, 0x1
 
     goto :goto_0
 
-    .line 1414
     .end local v15           #am:Landroid/app/Instrumentation$ActivityMonitor;
     :cond_2
     monitor-exit v4
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 1417
     .end local v14           #N:I
     .end local v16           #i:I
     :cond_3
+    :try_start_lewa0
+    move-object/from16 v0, p1
+
+    move-object/from16 v1, p5
+
+    invoke-static {v0, v1}, Landroid/app/Instrumentation$Injector;->checkPermission(Landroid/content/Context;Landroid/content/Intent;)Z
+    :try_end_lewa0
+    .catch Landroid/os/RemoteException; {:try_start_lewa0 .. :try_end_lewa0} :catch_0
+
+    move-result v2
+
+    if-nez v2, :cond_lewa0
+
+    const/4 v2, 0x0
+
+    goto :goto_2
+    
+    :cond_lewa0
     :try_start_1
     invoke-virtual/range {p5 .. p5}, Landroid/content/Intent;->migrateExtraStreamToClipData()Z
 
-    .line 1418
     invoke-virtual/range {p5 .. p5}, Landroid/content/Intent;->prepareToLeaveProcess()V
 
-    .line 1419
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
     move-result-object v2
@@ -1707,30 +1724,43 @@
 
     goto :goto_1
 
-    .line 1581
     :cond_1
     add-int/lit8 v18, v18, 0x1
 
     goto :goto_0
 
-    .line 1591
     .end local v17           #am:Landroid/app/Instrumentation$ActivityMonitor;
     :cond_2
     monitor-exit v5
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 1594
     .end local v16           #N:I
     .end local v18           #i:I
     :cond_3
+    :try_start_lewa0
+    move-object/from16 v0, p1
+
+    move-object/from16 v1, p5
+
+    invoke-static {v0, v1}, Landroid/app/Instrumentation$Injector;->checkPermission(Landroid/content/Context;Landroid/content/Intent;)Z
+    :try_end_lewa0
+    .catch Landroid/os/RemoteException; {:try_start_lewa0 .. :try_end_lewa0} :catch_0
+
+    move-result v3
+
+    if-nez v3, :cond_lewa0
+
+    const/4 v3, 0x0
+
+    goto :goto_2
+    
+    :cond_lewa0
     :try_start_1
     invoke-virtual/range {p5 .. p5}, Landroid/content/Intent;->migrateExtraStreamToClipData()Z
 
-    .line 1595
     invoke-virtual/range {p5 .. p5}, Landroid/content/Intent;->prepareToLeaveProcess()V
 
-    .line 1596
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
     move-result-object v3
@@ -1828,6 +1858,9 @@
     .parameter "intent"
     .parameter "requestCode"
     .parameter "options"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1517
@@ -1937,30 +1970,43 @@
 
     goto :goto_1
 
-    .line 1521
     :cond_1
     add-int/lit8 v16, v16, 0x1
 
     goto :goto_0
 
-    .line 1531
     .end local v15           #am:Landroid/app/Instrumentation$ActivityMonitor;
     :cond_2
     monitor-exit v4
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 1534
     .end local v14           #N:I
     .end local v16           #i:I
     :cond_3
+    :try_start_lewa0
+    move-object/from16 v0, p1
+
+    move-object/from16 v1, p5
+
+    invoke-static {v0, v1}, Landroid/app/Instrumentation$Injector;->checkPermission(Landroid/content/Context;Landroid/content/Intent;)Z
+    :try_end_lewa0
+    .catch Landroid/os/RemoteException; {:try_start_lewa0 .. :try_end_lewa0} :catch_0
+
+    move-result v2
+
+    if-nez v2, :cond_lewa0
+
+    const/4 v2, 0x0
+
+    goto :goto_2
+
+    :cond_lewa0
     :try_start_1
     invoke-virtual/range {p5 .. p5}, Landroid/content/Intent;->migrateExtraStreamToClipData()Z
 
-    .line 1535
     invoke-virtual/range {p5 .. p5}, Landroid/content/Intent;->prepareToLeaveProcess()V
 
-    .line 1536
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
     move-result-object v2

@@ -48,6 +48,12 @@
 
 .field private final mOverlayDirs:[Ljava/lang/String;
 
+.field mMainThread:Landroid/app/ActivityThread;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field final mPackageName:Ljava/lang/String;
 
 .field private final mReceivers:Landroid/util/ArrayMap;
@@ -2795,4 +2801,52 @@
 
     .line 187
     return-void
+.end method
+
+.method private setMainThread(Landroid/app/ActivityThread;)V
+    .locals 0
+    .parameter "mainThread"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-object p1, p0, Landroid/app/LoadedApk;->mMainThread:Landroid/app/ActivityThread;
+
+    return-void
+.end method
+
+.method public getLewaTopLevelResources(Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
+    .locals 7
+    .parameter "resDir"
+    .parameter "displayId"
+    .parameter "overrideConfiguration"
+    .parameter "pkgInfo"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/app/LoadedApk;->mMainThread:Landroid/app/ActivityThread;
+
+    iget-object v1, p0, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
+
+    move-object v2, p1
+
+    move v3, p2
+
+    move-object v4, p3
+
+    move-object v5, p4
+
+    invoke-virtual/range {v0 .. v5}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/app/LoadedApk;)Landroid/content/res/Resources;
+
+    move-result-object v6
+
+    .local v6, resource:Landroid/content/res/Resources;
+    const/4 v0, 0x0
+
+    iput-object v0, p0, Landroid/app/LoadedApk;->mMainThread:Landroid/app/ActivityThread;
+
+    return-object v6
 .end method

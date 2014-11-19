@@ -22,3 +22,5 @@
 .field public static final SYNC3:Ljava/lang/String; = "sync3"
 
 .field public static final SYNC4:Ljava/lang/String; = "sync4"
+
+.field public static final IS_RESTRICTED:Ljava/lang/String; = "is_restricted"

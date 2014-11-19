@@ -10,6 +10,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Landroid/preference/PreferenceScreen$Injector;,
         Landroid/preference/PreferenceScreen$SavedState;
     }
 .end annotation
@@ -42,6 +43,9 @@
 .method private showDialog(Landroid/os/Bundle;)V
     .locals 7
     .parameter "state"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v6, 0x0
@@ -82,6 +86,8 @@
 
     .line 169
     .local v0, childPrefScreen:Landroid/view/View;
+    invoke-virtual {p0, v0, v1}, Landroid/preference/PreferenceScreen;->initChildPrefScreen(Landroid/view/View;Landroid/content/Context;)V
+
     const v5, 0x102000a
 
     invoke-virtual {v0, v5}, Landroid/view/View;->findViewById(I)Landroid/view/View;
@@ -104,13 +110,9 @@
 
     .line 174
     .local v4, title:Ljava/lang/CharSequence;
-    new-instance v2, Landroid/app/Dialog;
+    invoke-static {v1}, Landroid/preference/PreferenceScreen$Injector;->createPreferenceDialog(Landroid/content/Context;)Landroid/app/Dialog;
 
-    invoke-virtual {v1}, Landroid/content/Context;->getThemeResId()I
-
-    move-result v5
-
-    invoke-direct {v2, v1, v5}, Landroid/app/Dialog;-><init>(Landroid/content/Context;I)V
+    move-result-object v2
 
     iput-object v2, p0, Landroid/preference/PreferenceScreen;->mDialog:Landroid/app/Dialog;
 
@@ -146,19 +148,24 @@
 
     .line 187
     :cond_1
+    invoke-virtual {v2}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v5
+
+    invoke-static {v1, v5}, Landroid/preference/PreferenceScreen$Injector;->setContentViewForeground(Landroid/content/Context;Landroid/view/Window;)V
+
     invoke-virtual {p0}, Landroid/preference/PreferenceScreen;->getPreferenceManager()Landroid/preference/PreferenceManager;
 
     move-result-object v5
 
     invoke-virtual {v5, v2}, Landroid/preference/PreferenceManager;->addPreferencesScreen(Landroid/content/DialogInterface;)V
 
-    .line 189
     invoke-virtual {v2}, Landroid/app/Dialog;->show()V
 
-    .line 190
+    invoke-static {v1, v2}, Landroid/preference/PreferenceScreen$Injector;->setDisplayHomeAsUpEnabled(Landroid/content/Context;Landroid/app/Dialog;)V
+
     return-void
 
-    .line 178
     :cond_2
     invoke-virtual {v2, v4}, Landroid/app/Dialog;->setTitle(Ljava/lang/CharSequence;)V
 
@@ -220,6 +227,51 @@
     iget-object v0, p0, Landroid/preference/PreferenceScreen;->mRootAdapter:Landroid/widget/ListAdapter;
 
     return-object v0
+.end method
+
+.method public initChildPrefScreen(Landroid/view/View;Landroid/content/Context;)V
+    .locals 3
+    .parameter "view"
+    .parameter "context"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v2, 0x0
+
+    const-string v1, "layout_inflater"
+
+    invoke-virtual {p2, v1}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/view/LayoutInflater;
+
+    .local v0, inflater:Landroid/view/LayoutInflater;
+    invoke-static {p2}, Llewa/util/LewaUiUtil;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    const v1, 0x9090036
+
+    invoke-virtual {v0, v1, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
+
+    move-result-object p1
+
+    :goto_0
+    return-void
+
+    :cond_0
+    const v1, 0x109007d
+
+    invoke-virtual {v0, v1, v2}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
+
+    move-result-object p1
+
+    goto :goto_0
 .end method
 
 .method protected isOnSameScreenAsChildren()Z

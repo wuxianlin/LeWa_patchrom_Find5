@@ -346,3 +346,27 @@
     .line 109
     return-void
 .end method
+
+.method public setRightActionButtonDrawable(Landroid/graphics/drawable/Drawable;)V
+    .locals 0
+    .parameter "drawable"
+
+    .prologue
+    return-void
+.end method
+
+.method public setRightActionButtonResource(I)V
+    .locals 0
+    .parameter "resId"
+
+    .prologue
+    return-void
+.end method
+
+.method public setRightActionButtonVisibility(I)V
+    .locals 0
+    .parameter "visibility"
+
+    .prologue
+    return-void
+.end method

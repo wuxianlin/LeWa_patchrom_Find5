@@ -66,5 +66,11 @@
 
     .line 1151
     :cond_0
+    iget-object v1, p0, Landroid/widget/Spinner$DropdownPopup$3;->this$1:Landroid/widget/Spinner$DropdownPopup;
+
+    iget-object v1, v1, Landroid/widget/Spinner$DropdownPopup;->this$0:Landroid/widget/Spinner;
+
+    invoke-static {v1}, Landroid/widget/Spinner$Injector;->setSpinnerBackGround(Landroid/widget/Spinner;)V
+
     return-void
 .end method

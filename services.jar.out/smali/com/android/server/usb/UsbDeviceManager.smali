@@ -7,7 +7,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/android/server/usb/UsbDeviceManager$UsbHandler;,
-        Lcom/android/server/usb/UsbDeviceManager$AdbSettingsObserver;
+        Lcom/android/server/usb/UsbDeviceManager$AdbSettingsObserver;,
+        Lcom/android/server/usb/UsbDeviceManager$ThemeChangeReceiver;
     }
 .end annotation
 
@@ -102,7 +103,11 @@
     .end annotation
 .end field
 
+.field private mThemeChangeReceiver:Landroid/content/BroadcastReceiver;
+
 .field private final mUEventObserver:Landroid/os/UEventObserver;
+
+.field private mUiContext:Landroid/content/Context;
 
 .field private mUseUsbNotification:Z
 
@@ -172,46 +177,46 @@
     .parameter "context"
 
     .prologue
-    .line 168
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 103
     const-wide/16 v3, 0x0
 
     iput-wide v3, p0, Lcom/android/server/usb/UsbDeviceManager;->mAccessoryModeRequestTime:J
 
-    .line 114
     new-instance v3, Ljava/lang/Object;
 
     invoke-direct {v3}, Ljava/lang/Object;-><init>()V
 
     iput-object v3, p0, Lcom/android/server/usb/UsbDeviceManager;->mLock:Ljava/lang/Object;
 
-    .line 145
+    new-instance v3, Lcom/android/server/usb/UsbDeviceManager$ThemeChangeReceiver;
+
+    const/4 v4, 0x0
+
+    invoke-direct {v3, p0, v4}, Lcom/android/server/usb/UsbDeviceManager$ThemeChangeReceiver;-><init>(Lcom/android/server/usb/UsbDeviceManager;Lcom/android/server/usb/UsbDeviceManager$1;)V
+
+    iput-object v3, p0, Lcom/android/server/usb/UsbDeviceManager;->mThemeChangeReceiver:Landroid/content/BroadcastReceiver;
+
     new-instance v3, Lcom/android/server/usb/UsbDeviceManager$1;
 
     invoke-direct {v3, p0}, Lcom/android/server/usb/UsbDeviceManager$1;-><init>(Lcom/android/server/usb/UsbDeviceManager;)V
 
     iput-object v3, p0, Lcom/android/server/usb/UsbDeviceManager;->mUEventObserver:Landroid/os/UEventObserver;
 
-    .line 169
     iput-object p1, p0, Lcom/android/server/usb/UsbDeviceManager;->mContext:Landroid/content/Context;
 
-    .line 170
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v3
 
     iput-object v3, p0, Lcom/android/server/usb/UsbDeviceManager;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 171
     iget-object v3, p0, Lcom/android/server/usb/UsbDeviceManager;->mContext:Landroid/content/Context;
 
     invoke-virtual {v3}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v1
 
-    .line 172
     .local v1, pm:Landroid/content/pm/PackageManager;
     const-string v3, "android.hardware.usb.accessory"
 
@@ -748,6 +753,38 @@
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
     throw v0
+.end method
+
+.method private getUiContext()Landroid/content/Context;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/usb/UsbDeviceManager;->mUiContext:Landroid/content/Context;
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/server/usb/UsbDeviceManager;->mContext:Landroid/content/Context;
+
+    invoke-static {v0}, Lcom/android/internal/app/ThemeUtils;->createUiContext(Landroid/content/Context;)Landroid/content/Context;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/android/server/usb/UsbDeviceManager;->mUiContext:Landroid/content/Context;
+
+    :cond_0
+    iget-object v0, p0, Lcom/android/server/usb/UsbDeviceManager;->mUiContext:Landroid/content/Context;
+
+    if-eqz v0, :cond_1
+
+    iget-object v0, p0, Lcom/android/server/usb/UsbDeviceManager;->mUiContext:Landroid/content/Context;
+
+    :goto_0
+    return-object v0
+
+    :cond_1
+    iget-object v0, p0, Lcom/android/server/usb/UsbDeviceManager;->mContext:Landroid/content/Context;
+
+    goto :goto_0
 .end method
 
 .method private static initRndisAddress()V
@@ -1748,6 +1785,16 @@
     invoke-static {v1, v2}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
 
     goto :goto_0
+.end method
+
+.method public setUiContext(Landroid/content/Context;)V
+    .locals 0
+    .parameter "mUiContext"
+
+    .prologue
+    iput-object p1, p0, Lcom/android/server/usb/UsbDeviceManager;->mUiContext:Landroid/content/Context;
+
+    return-void
 .end method
 
 .method public systemReady()V

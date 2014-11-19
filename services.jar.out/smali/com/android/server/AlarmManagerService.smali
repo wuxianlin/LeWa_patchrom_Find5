@@ -5124,3 +5124,34 @@
 
     throw v1
 .end method
+
+.method lewaRemovePkg(Ljava/lang/String;)V
+    .locals 1
+    .parameter "pkg"
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/AlarmManagerService;->mContext:Landroid/content/Context;
+
+    invoke-static {v0}, Llewa/content/AlarmPersists;->getInstance(Landroid/content/Context;)Llewa/content/AlarmPersists;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Llewa/content/AlarmPersists;->getPackages()Ljava/util/Set;
+
+    move-result-object v0
+
+    invoke-interface {v0, p1}, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {p0, p1}, Lcom/android/server/AlarmManagerService;->removeLocked(Ljava/lang/String;)V
+
+    iget-object v0, p0, Lcom/android/server/AlarmManagerService;->mBroadcastStats:Ljava/util/HashMap;
+
+    invoke-virtual {v0, p1}, Ljava/util/HashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
+
+    :cond_0
+    return-void
+.end method

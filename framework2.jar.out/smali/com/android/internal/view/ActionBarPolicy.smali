@@ -246,8 +246,7 @@
     .locals 1
 
     .prologue
-    .line 48
-    const/4 v0, 0x1
+    const/4 v0, 0x0
 
     return v0
 .end method

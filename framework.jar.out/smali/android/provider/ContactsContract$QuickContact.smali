@@ -243,7 +243,7 @@
 .end method
 
 .method public static showQuickContact(Landroid/content/Context;Landroid/graphics/Rect;Landroid/net/Uri;I[Ljava/lang/String;)V
-    .locals 1
+    .locals 2
     .parameter "context"
     .parameter "target"
     .parameter "lookupUri"

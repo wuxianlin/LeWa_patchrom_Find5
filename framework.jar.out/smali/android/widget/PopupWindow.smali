@@ -7,7 +7,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Landroid/widget/PopupWindow$PopupViewContainer;,
-        Landroid/widget/PopupWindow$OnDismissListener;
+        Landroid/widget/PopupWindow$OnDismissListener;,
+        Landroid/widget/PopupWindow$Injector;
     }
 .end annotation
 
@@ -25,6 +26,12 @@
 
 
 # instance fields
+.field private isSpinnerV5Style:Z
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field private mAboveAnchor:Z
 
 .field private mAboveAnchorBackgroundDrawable:Landroid/graphics/drawable/Drawable;
@@ -225,6 +232,9 @@
     .parameter "attrs"
     .parameter "defStyleAttr"
     .parameter "defStyleRes"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 182
@@ -442,6 +452,12 @@
     :cond_2
     :goto_1
     invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
+
+    invoke-static {p1, p2}, Landroid/widget/PopupWindow$Injector;->isSpinnerV5Style(Landroid/content/Context;Landroid/util/AttributeSet;)Z
+
+    move-result v7
+
+    iput-boolean v7, p0, Landroid/widget/PopupWindow;->isSpinnerV5Style:Z
 
     .line 234
     return-void
@@ -751,42 +767,39 @@
     .locals 2
 
     .prologue
-    .line 1108
     iget v0, p0, Landroid/widget/PopupWindow;->mAnimationStyle:I
 
     const/4 v1, -0x1
 
     if-ne v0, v1, :cond_2
 
-    .line 1109
     iget-boolean v0, p0, Landroid/widget/PopupWindow;->mIsDropdown:Z
 
     if-eqz v0, :cond_1
 
-    .line 1110
+    iget-boolean v0, p0, Landroid/widget/PopupWindow;->isSpinnerV5Style:Z
+
+    if-nez v0, :cond_1
+
     iget-boolean v0, p0, Landroid/widget/PopupWindow;->mAboveAnchor:Z
 
     if-eqz v0, :cond_0
 
     const v0, 0x10301f0
 
-    .line 1116
     :goto_0
     return v0
 
-    .line 1110
     :cond_0
     const v0, 0x10301ef
 
     goto :goto_0
 
-    .line 1114
     :cond_1
     const/4 v0, 0x0
 
     goto :goto_0
 
-    .line 1116
     :cond_2
     iget v0, p0, Landroid/widget/PopupWindow;->mAnimationStyle:I
 
@@ -1039,6 +1052,9 @@
     .parameter "xoff"
     .parameter "yoff"
     .parameter "gravity"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1136
@@ -1388,18 +1404,21 @@
 
     const/4 v5, 0x1
 
-    .line 1188
     :goto_0
     if-eqz v5, :cond_9
 
-    .line 1189
+    move-object/from16 v0, p0
+
+    iget-boolean v13, v0, Landroid/widget/PopupWindow;->isSpinnerV5Style:Z
+
+    if-nez v13, :cond_9
+
     const/16 v13, 0x53
 
     move-object/from16 v0, p2
 
     iput v13, v0, Landroid/view/WindowManager$LayoutParams;->gravity:I
 
-    .line 1190
     invoke-virtual {v9}, Landroid/view/View;->getHeight()I
 
     move-result v13
@@ -1495,11 +1514,15 @@
 
     iput v13, v0, Landroid/view/WindowManager$LayoutParams;->width:I
 
-    .line 1208
     :cond_6
+    move-object/from16 v0, p0
+
+    iget-boolean v13, v0, Landroid/widget/PopupWindow;->isSpinnerV5Style:Z
+
+    if-nez v13, :cond_7
+
     if-eqz v5, :cond_a
 
-    .line 1209
     move-object/from16 v0, p0
 
     iget-object v13, v0, Landroid/widget/PopupWindow;->mScreenLocation:[I
@@ -1549,16 +1572,13 @@
 
     iput v13, v0, Landroid/view/WindowManager$LayoutParams;->gravity:I
 
-    .line 1220
     return v5
 
-    .line 1186
     :cond_8
     const/4 v5, 0x0
 
-    goto :goto_0
+    goto/16 :goto_0
 
-    .line 1192
     :cond_9
     move-object/from16 v0, p0
 
@@ -2489,6 +2509,9 @@
     .parameter "anchor"
     .parameter "yOffset"
     .parameter "ignoreBottomDecorations"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v9, 0x1
@@ -2558,26 +2581,29 @@
 
     add-int v4, v7, p2
 
-    .line 1285
     .local v4, distanceToTop:I
     invoke-static {v3, v4}, Ljava/lang/Math;->max(II)I
 
     move-result v6
 
-    .line 1286
     .local v6, returnedHeight:I
+    iget-boolean v7, p0, Landroid/widget/PopupWindow;->isSpinnerV5Style:Z
+
+    if-eqz v7, :cond_lewa0
+
+    move v6, v3
+
+    :cond_lewa0
     iget-object v7, p0, Landroid/widget/PopupWindow;->mBackground:Landroid/graphics/drawable/Drawable;
 
     if-eqz v7, :cond_1
 
-    .line 1287
     iget-object v7, p0, Landroid/widget/PopupWindow;->mBackground:Landroid/graphics/drawable/Drawable;
 
     iget-object v8, p0, Landroid/widget/PopupWindow;->mTempRect:Landroid/graphics/Rect;
 
     invoke-virtual {v7, v8}, Landroid/graphics/drawable/Drawable;->getPadding(Landroid/graphics/Rect;)Z
 
-    .line 1288
     iget-object v7, p0, Landroid/widget/PopupWindow;->mTempRect:Landroid/graphics/Rect;
 
     iget v7, v7, Landroid/graphics/Rect;->top:I

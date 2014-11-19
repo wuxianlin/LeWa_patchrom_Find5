@@ -6725,22 +6725,22 @@
 
     if-eqz v1, :cond_1
 
-    .line 1630
     const-string v0, "removed"
 
-    .line 1636
     :cond_0
+    :goto_lewa_0
     monitor-exit v2
 
     return-object v0
 
-    .line 1632
     :cond_1
     new-instance v1, Ljava/lang/IllegalArgumentException;
 
     invoke-direct {v1}, Ljava/lang/IllegalArgumentException;-><init>()V
 
-    throw v1
+    const-string v0, "not_present"
+
+    goto :goto_lewa_0
 
     .line 1637
     .end local v0           #state:Ljava/lang/String;

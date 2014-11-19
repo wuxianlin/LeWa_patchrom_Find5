@@ -26,6 +26,12 @@
 
 .field public static final BACKGROUND_COLOR_SPAN:I = 0xc
 
+.field public static final BACKGROUND_IMAGE_SPAN:I = 0x18
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final BULLET_SPAN:I = 0x8
 
 .field public static final CAP_MODE_CHARACTERS:I = 0x1000

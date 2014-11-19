@@ -393,6 +393,27 @@
     goto :goto_0
 .end method
 
+.method public static addMessageToUri(Landroid/content/ContentResolver;Landroid/net/Uri;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;ZZJI)Landroid/net/Uri;
+    .locals 1
+    .parameter "resolver"
+    .parameter "uri"
+    .parameter "address"
+    .parameter "body"
+    .parameter "subject"
+    .parameter "date"
+    .parameter "read"
+    .parameter "deliveryReport"
+    .parameter "threadId"
+    .parameter "subId"
+
+    .prologue
+    invoke-static/range {p0 .. p9}, Landroid/provider/Telephony$Sms;->addMessageToUri(Landroid/content/ContentResolver;Landroid/net/Uri;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;ZZJ)Landroid/net/Uri;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
 .method public static getDefaultSmsPackage(Landroid/content/Context;)Ljava/lang/String;
     .locals 2
     .parameter "context"

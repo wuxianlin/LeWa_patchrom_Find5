@@ -929,11 +929,11 @@
 
     move-result-object v0
 
-    .line 204
+    .end local p3
     :goto_0
     return-object v0
 
-    .line 198
+    .restart local p3
     :cond_0
     iget-object v0, p0, Landroid/content/ContentProvider$Transport;->this$0:Landroid/content/ContentProvider;
 
@@ -944,6 +944,76 @@
 
     .line 200
     .local v7, original:Ljava/lang/String;
+    :try_start_lewa0
+    const-string v0, "com.lewa.permmanager"
+
+    invoke-virtual {p2}, Landroid/net/Uri;->getHost()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_2
+
+    iget-object v0, p0, Landroid/content/ContentProvider$Transport;->this$0:Landroid/content/ContentProvider;
+
+    invoke-virtual {v0}, Landroid/content/ContentProvider;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {}, Landroid/content/ContentProvider$Transport;->getCallingPid()I
+
+    move-result v1
+
+    invoke-static {}, Landroid/content/ContentProvider$Transport;->getCallingUid()I
+
+    move-result v2
+
+    iget-object v3, p0, Landroid/content/ContentProvider$Transport;->this$0:Landroid/content/ContentProvider;
+
+    invoke-virtual {v3}, Landroid/content/ContentProvider;->getReadPermission()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v0, v1, v2, v3, p2}, Llewa/content/PermissionHelper;->checkPermission(Landroid/content/Context;IILjava/lang/String;Landroid/net/Uri;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_2
+
+    new-instance v0, Landroid/database/MatrixCursor;
+
+    if-nez p3, :cond_1
+
+    const/4 v1, 0x1
+
+    new-array p3, v1, [Ljava/lang/String;
+
+    .end local p3
+    const/4 v1, 0x0
+
+    const-string v2, "fake"
+
+    aput-object v2, p3, v1
+
+    :cond_1
+    const/4 v1, 0x1
+
+    invoke-direct {v0, p3, v1}, Landroid/database/MatrixCursor;-><init>([Ljava/lang/String;I)V
+    :try_end_lewa0
+    .catchall {:try_start_lewa0 .. :try_end_lewa0} :catchall_0
+
+    iget-object v1, p0, Landroid/content/ContentProvider$Transport;->this$0:Landroid/content/ContentProvider;
+
+    #calls: Landroid/content/ContentProvider;->setCallingPackage(Ljava/lang/String;)Ljava/lang/String;
+    invoke-static {v1, v7}, Landroid/content/ContentProvider;->access$000(Landroid/content/ContentProvider;Ljava/lang/String;)Ljava/lang/String;
+
+    goto :goto_0
+
+    .restart local p3
+    :cond_2
     :try_start_0
     iget-object v0, p0, Landroid/content/ContentProvider$Transport;->this$0:Landroid/content/ContentProvider;
 
@@ -975,6 +1045,7 @@
 
     goto :goto_0
 
+    .end local p3
     :catchall_0
     move-exception v0
 

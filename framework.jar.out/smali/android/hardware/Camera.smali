@@ -742,18 +742,24 @@
     .locals 4
 
     .prologue
-    .line 343
+    invoke-static {}, Landroid/hardware/Camera;->checkLewaPermission()Z
+
+    move-result v3
+
+    if-nez v3, :cond_lewa0
+    
+    goto :cond_1
+    
+    :cond_lewa0
     invoke-static {}, Landroid/hardware/Camera;->getNumberOfCameras()I
 
     move-result v2
 
-    .line 344
     .local v2, numberOfCameras:I
     new-instance v0, Landroid/hardware/Camera$CameraInfo;
 
     invoke-direct {v0}, Landroid/hardware/Camera$CameraInfo;-><init>()V
 
-    .line 345
     .local v0, cameraInfo:Landroid/hardware/Camera$CameraInfo;
     const/4 v1, 0x0
 
@@ -1988,4 +1994,37 @@
 .end method
 
 .method public final native unlock()V
+.end method
+
+.method private static checkLewaPermission()Z
+    .locals 4
+
+    .prologue
+    invoke-static {}, Landroid/app/AppGlobals;->getInitialApplication()Landroid/app/Application;
+
+    move-result-object v0
+
+    .local v0, context:Landroid/content/Context;
+    if-nez v0, :cond_0
+
+    invoke-static {}, Landroid/app/Application;->getInstance()Landroid/app/Application;
+
+    move-result-object v0
+
+    :cond_0
+    invoke-static {}, Landroid/os/Process;->myPid()I
+
+    move-result v1
+
+    invoke-static {}, Landroid/os/Process;->myUid()I
+
+    move-result v2
+
+    const/high16 v3, 0x40
+
+    invoke-static {v0, v1, v2, v3}, Llewa/content/PermissionHelper;->checkPermission(Landroid/content/Context;III)Z
+
+    move-result v1
+
+    return v1
 .end method

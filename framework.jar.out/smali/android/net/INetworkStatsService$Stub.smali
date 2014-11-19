@@ -28,6 +28,8 @@
 
 .field static final TRANSACTION_advisePersistThreshold:I = 0x8
 
+.field static final TRANSACTION_clearStats:I = 0x9
+
 .field static final TRANSACTION_forceUpdate:I = 0x7
 
 .field static final TRANSACTION_getDataLayerSnapshotForUid:I = 0x3
@@ -384,36 +386,39 @@
 
     invoke-virtual {p2, v0}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
 
-    .line 124
     invoke-virtual {p0}, Landroid/net/INetworkStatsService$Stub;->forceUpdate()V
 
-    .line 125
     invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
 
     goto/16 :goto_0
 
-    .line 130
     :sswitch_8
     const-string v0, "android.net.INetworkStatsService"
 
     invoke-virtual {p2, v0}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
 
-    .line 132
     invoke-virtual {p2}, Landroid/os/Parcel;->readLong()J
 
     move-result-wide v6
 
-    .line 133
     .local v6, _arg0:J
     invoke-virtual {p0, v6, v7}, Landroid/net/INetworkStatsService$Stub;->advisePersistThreshold(J)V
 
-    .line 134
     invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
 
     goto/16 :goto_0
 
-    .line 39
-    nop
+    .end local v6           #_arg0:J
+    :sswitch_9
+    const-string v0, "android.net.INetworkStatsService"
+
+    invoke-virtual {p2, v0}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
+
+    invoke-virtual {p0}, Landroid/net/INetworkStatsService$Stub;->clearStats()V
+
+    invoke-virtual {p3}, Landroid/os/Parcel;->writeNoException()V
+
+    goto/16 :goto_0
 
     :sswitch_data_0
     .sparse-switch
@@ -425,6 +430,7 @@
         0x6 -> :sswitch_6
         0x7 -> :sswitch_7
         0x8 -> :sswitch_8
+        0x9 -> :sswitch_9
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method

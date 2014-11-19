@@ -4671,10 +4671,13 @@
 
     .line 927
     .local v2, p:Lcom/android/server/AppWidgetServiceImpl$Provider;
+    invoke-direct {p0, v2, v3}, Lcom/android/server/AppWidgetServiceImpl;->addResultInfo(Lcom/android/server/AppWidgetServiceImpl$Provider;Ljava/util/ArrayList;)V
+
     iget-boolean v4, v2, Lcom/android/server/AppWidgetServiceImpl$Provider;->zombie:Z
 
     if-nez v4, :cond_1
 
+    .line 928
     iget-object v4, v2, Lcom/android/server/AppWidgetServiceImpl$Provider;->info:Landroid/appwidget/AppWidgetProviderInfo;
 
     iget v4, v4, Landroid/appwidget/AppWidgetProviderInfo;->widgetCategory:I
@@ -4682,15 +4685,6 @@
     and-int/2addr v4, p1
 
     if-eqz v4, :cond_1
-
-    .line 928
-    iget-object v4, v2, Lcom/android/server/AppWidgetServiceImpl$Provider;->info:Landroid/appwidget/AppWidgetProviderInfo;
-
-    invoke-direct {p0, v4}, Lcom/android/server/AppWidgetServiceImpl;->cloneIfLocalBinder(Landroid/appwidget/AppWidgetProviderInfo;)Landroid/appwidget/AppWidgetProviderInfo;
-
-    move-result-object v4
-
-    invoke-virtual {v3, v4}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     .line 925
     :cond_1
@@ -10551,4 +10545,49 @@
 
     .line 1719
     goto :goto_4
+.end method
+
+.method private addResultInfo(Lcom/android/server/AppWidgetServiceImpl$Provider;Ljava/util/ArrayList;)V
+    .locals 2
+    .parameter "p"
+    .parameter
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Lcom/android/server/AppWidgetServiceImpl$Provider;",
+            "Ljava/util/ArrayList",
+            "<",
+            "Landroid/appwidget/AppWidgetProviderInfo;",
+            ">;)V"
+        }
+    .end annotation
+
+    .prologue
+    .local p2, result:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/appwidget/AppWidgetProviderInfo;>;"
+    iget-boolean v0, p1, Lcom/android/server/AppWidgetServiceImpl$Provider;->zombie:Z
+
+    if-nez v0, :cond_0
+
+    const-string v0, "com.lewa.netmgr"
+
+    iget-object v1, p1, Lcom/android/server/AppWidgetServiceImpl$Provider;->info:Landroid/appwidget/AppWidgetProviderInfo;
+
+    iget-object v1, v1, Landroid/appwidget/AppWidgetProviderInfo;->provider:Landroid/content/ComponentName;
+
+    invoke-virtual {v1}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p1, Lcom/android/server/AppWidgetServiceImpl$Provider;->info:Landroid/appwidget/AppWidgetProviderInfo;
+
+    invoke-virtual {p2, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    :cond_0
+    return-void
 .end method

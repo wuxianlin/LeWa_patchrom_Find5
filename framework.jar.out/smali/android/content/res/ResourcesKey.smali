@@ -10,6 +10,8 @@
 
 .field private final mIsThemeable:Z
 
+.field private mIsThemeable:Z
+
 .field public final mOverrideConfiguration:Landroid/content/res/Configuration;
 
 .field final mResDir:Ljava/lang/String;
@@ -149,6 +151,116 @@
     goto :goto_1
 .end method
 
+.method public constructor <init>(Ljava/lang/String;ILandroid/content/res/Configuration;FLandroid/os/IBinder;Z)V
+    .locals 4
+    .parameter "resDir"
+    .parameter "displayId"
+    .parameter "overrideConfiguration"
+    .parameter "scale"
+    .parameter "token"
+    .parameter "isThemeable"
+
+    .prologue
+    const/4 v2, 0x0
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    new-instance v1, Landroid/content/res/Configuration;
+
+    invoke-direct {v1}, Landroid/content/res/Configuration;-><init>()V
+
+    iput-object v1, p0, Landroid/content/res/ResourcesKey;->mOverrideConfiguration:Landroid/content/res/Configuration;
+
+    iput-object p1, p0, Landroid/content/res/ResourcesKey;->mResDir:Ljava/lang/String;
+
+    iput p2, p0, Landroid/content/res/ResourcesKey;->mDisplayId:I
+
+    iput-boolean p6, p0, Landroid/content/res/ResourcesKey;->mIsThemeable:Z
+
+    if-eqz p3, :cond_0
+
+    iget-object v1, p0, Landroid/content/res/ResourcesKey;->mOverrideConfiguration:Landroid/content/res/Configuration;
+
+    invoke-virtual {v1, p3}, Landroid/content/res/Configuration;->setTo(Landroid/content/res/Configuration;)V
+
+    :cond_0
+    iput p4, p0, Landroid/content/res/ResourcesKey;->mScale:F
+
+    iput-object p5, p0, Landroid/content/res/ResourcesKey;->mToken:Landroid/os/IBinder;
+
+    const/16 v0, 0x11
+
+    .local v0, hash:I
+    iget-object v1, p0, Landroid/content/res/ResourcesKey;->mResDir:Ljava/lang/String;
+
+    if-nez v1, :cond_2
+
+    move v1, v2
+
+    :goto_0
+    add-int/lit16 v0, v1, 0x20f
+
+    mul-int/lit8 v1, v0, 0x1f
+
+    iget v3, p0, Landroid/content/res/ResourcesKey;->mDisplayId:I
+
+    add-int v0, v1, v3
+
+    mul-int/lit8 v3, v0, 0x1f
+
+    iget-object v1, p0, Landroid/content/res/ResourcesKey;->mOverrideConfiguration:Landroid/content/res/Configuration;
+
+    if-eqz v1, :cond_3
+
+    iget-object v1, p0, Landroid/content/res/ResourcesKey;->mOverrideConfiguration:Landroid/content/res/Configuration;
+
+    invoke-virtual {v1}, Landroid/content/res/Configuration;->hashCode()I
+
+    move-result v1
+
+    :goto_1
+    add-int v0, v3, v1
+
+    mul-int/lit8 v1, v0, 0x1f
+
+    iget v3, p0, Landroid/content/res/ResourcesKey;->mScale:F
+
+    invoke-static {v3}, Ljava/lang/Float;->floatToIntBits(F)I
+
+    move-result v3
+
+    add-int v0, v1, v3
+
+    mul-int/lit8 v1, v0, 0x1f
+
+    iget-boolean v3, p0, Landroid/content/res/ResourcesKey;->mIsThemeable:Z
+
+    if-eqz v3, :cond_1
+
+    const/4 v2, 0x1
+
+    :cond_1
+    add-int v0, v1, v2
+
+    iput v0, p0, Landroid/content/res/ResourcesKey;->mHash:I
+
+    return-void
+
+    :cond_2
+    iget-object v1, p0, Landroid/content/res/ResourcesKey;->mResDir:Ljava/lang/String;
+
+    invoke-virtual {v1}, Ljava/lang/String;->hashCode()I
+
+    move-result v1
+
+    goto :goto_0
+
+    :cond_3
+    move v1, v2
+
+    goto :goto_1
+.end method
+
 
 # virtual methods
 .method public equals(Ljava/lang/Object;)Z
@@ -231,6 +343,12 @@
     if-nez v2, :cond_0
 
     .line 85
+    iget-boolean v2, p0, Landroid/content/res/ResourcesKey;->mIsThemeable:Z
+
+    iget-boolean v3, v0, Landroid/content/res/ResourcesKey;->mIsThemeable:Z
+
+    if-ne v2, v3, :cond_0
+
     iget-boolean v2, p0, Landroid/content/res/ResourcesKey;->mIsThemeable:Z
 
     iget-boolean v3, v0, Landroid/content/res/ResourcesKey;->mIsThemeable:Z

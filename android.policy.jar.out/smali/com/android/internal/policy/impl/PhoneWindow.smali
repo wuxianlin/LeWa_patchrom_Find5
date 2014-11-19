@@ -9,6 +9,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lcom/android/internal/policy/impl/PhoneWindow$Injector;,
         Lcom/android/internal/policy/impl/PhoneWindow$DialogMenuCallback;,
         Lcom/android/internal/policy/impl/PhoneWindow$RotationWatcher;,
         Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;,
@@ -2014,21 +2015,17 @@
 
     move-result-object v17
 
-    .line 640
     .local v17, wm:Landroid/view/WindowManager;
     if-eqz v17, :cond_0
 
-    .line 645
     invoke-virtual/range {p0 .. p2}, Lcom/android/internal/policy/impl/PhoneWindow;->preparePanel(Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;Landroid/view/KeyEvent;)Z
 
     move-result v4
 
     if-eqz v4, :cond_0
 
-    .line 649
-    const/4 v3, -0x2
+    const/4 v3, -0x1
 
-    .line 650
     .local v3, width:I
     move-object/from16 v0, p1
 
@@ -2110,16 +2107,13 @@
 
     if-ne v4, v5, :cond_c
 
-    .line 674
     move-object/from16 v0, p1
 
-    iget v10, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->fullBackground:I
+    iget v10, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->background:I
 
-    .line 675
     .local v10, backgroundResId:I
     const/4 v3, -0x1
 
-    .line 680
     :goto_4
     move-object/from16 v0, p1
 
@@ -2226,7 +2220,7 @@
 
     const/16 v7, 0x3eb
 
-    const/high16 v8, 0x82
+    const v8, 0x820002
 
     move-object/from16 v0, p1
 
@@ -2265,6 +2259,10 @@
     iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindow$PanelFeatureState;->windowAnimations:I
 
     iput v4, v2, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
+
+    const/high16 v4, 0x3f40
+
+    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->dimAmount:F
 
     .line 725
     move-object/from16 v0, p1
@@ -5468,6 +5466,39 @@
     return-object v4
 .end method
 
+.method public getActionBarResourceId(Landroid/content/Context;I)I
+    .locals 1
+    .parameter "context"
+    .parameter "features"
+
+    .prologue
+    and-int/lit16 v0, p2, 0x200
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/internal/policy/impl/PhoneWindow;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/android/internal/policy/impl/PhoneWindow$Injector;->getActionBarOverlayResourceId(Landroid/content/Context;)I
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    invoke-virtual {p0}, Lcom/android/internal/policy/impl/PhoneWindow;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/android/internal/policy/impl/PhoneWindow$Injector;->getActionBarResourceId(Landroid/content/Context;)I
+
+    move-result v0
+
+    goto :goto_0
+.end method
+
 .method getAudioManager()Landroid/media/AudioManager;
     .locals 2
 
@@ -5915,6 +5946,17 @@
     move v1, v2
 
     goto :goto_0
+.end method
+
+.method protected lewaGetKeyguardManager()Landroid/app/KeyguardManager;
+    .locals 1
+
+    .prologue
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/PhoneWindow;->getKeyguardManager()Landroid/app/KeyguardManager;
+
+    move-result-object v0
+
+    return-object v0
 .end method
 
 .method protected onActive()V

@@ -16,6 +16,18 @@
 
 .field public static final RESULT_ERROR_RADIO_OFF:I = 0x2
 
+.field public static final RESULT_ERROR_SIM_MEM_FULL:I = 0x7
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final RESULT_ERROR_SUCCESS:I = 0x0
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final STATUS_ON_ICC_FREE:I = 0x0
 
 .field public static final STATUS_ON_ICC_READ:I = 0x1
@@ -25,6 +37,12 @@
 .field public static final STATUS_ON_ICC_UNREAD:I = 0x3
 
 .field public static final STATUS_ON_ICC_UNSENT:I = 0x7
+
+.field private static lastReceivedSmsSimId:I
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private static final sInstance:Landroid/telephony/SmsManager;
 
@@ -40,6 +58,10 @@
     invoke-direct {v0}, Landroid/telephony/SmsManager;-><init>()V
 
     sput-object v0, Landroid/telephony/SmsManager;->sInstance:Landroid/telephony/SmsManager;
+
+    const/4 v0, 0x0
+
+    sput v0, Landroid/telephony/SmsManager;->lastReceivedSmsSimId:I
 
     return-void
 .end method
@@ -474,6 +496,34 @@
     .line 188
     :cond_0
     invoke-static {p1}, Landroid/telephony/SmsMessage;->fragmentText(Ljava/lang/String;)Ljava/util/ArrayList;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public divideMessage(Ljava/lang/String;I)Ljava/util/ArrayList;
+    .locals 1
+    .parameter "msgText"
+    .parameter "codingType"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "I)",
+            "Ljava/util/ArrayList",
+            "<",
+            "Ljava/lang/String;",
+            ">;"
+        }
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0, p1}, Landroid/telephony/SmsManager;->divideMessage(Ljava/lang/String;)Ljava/util/ArrayList;
 
     move-result-object v0
 
@@ -1278,6 +1328,59 @@
     goto :goto_0
 .end method
 
+.method public sendMultipartTextMessageWithEncodingType(Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;ILjava/util/ArrayList;Ljava/util/ArrayList;)V
+    .locals 6
+    .parameter "destinationAddress"
+    .parameter "scAddress"
+    .parameter
+    .parameter "codingType"
+    .parameter
+    .parameter
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            "Ljava/lang/String;",
+            "Ljava/util/ArrayList",
+            "<",
+            "Ljava/lang/String;",
+            ">;I",
+            "Ljava/util/ArrayList",
+            "<",
+            "Landroid/app/PendingIntent;",
+            ">;",
+            "Ljava/util/ArrayList",
+            "<",
+            "Landroid/app/PendingIntent;",
+            ">;)V"
+        }
+    .end annotation
+
+    .prologue
+    .local p3, parts:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Ljava/lang/String;>;"
+    .local p5, sentIntents:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/app/PendingIntent;>;"
+    .local p6, deliveryIntents:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/app/PendingIntent;>;"
+    move-object v0, p0
+
+    move-object v1, p1
+
+    move-object v2, p2
+
+    move-object v3, p3
+
+    move-object v4, p5
+
+    move-object v5, p6
+
+    invoke-virtual/range {v0 .. v5}, Landroid/telephony/SmsManager;->sendMultipartTextMessage(Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;Ljava/util/ArrayList;Ljava/util/ArrayList;)V
+
+    return-void
+.end method
+
 .method public sendTextMessage(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/app/PendingIntent;Landroid/app/PendingIntent;)V
     .locals 7
     .parameter "destinationAddress"
@@ -1467,6 +1570,30 @@
     move-exception v1
 
     goto :goto_0
+.end method
+
+.method public setLastIncomingSmsSimId(I)V
+    .locals 0
+    .parameter "simId"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    sput p1, Landroid/telephony/SmsManager;->lastReceivedSmsSimId:I
+
+    return-void
+.end method
+
+.method public setSmsMemoryStatus(Z)V
+    .locals 0
+    .parameter "b"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    return-void
 .end method
 
 .method public updateMessageOnIcc(II[B)Z

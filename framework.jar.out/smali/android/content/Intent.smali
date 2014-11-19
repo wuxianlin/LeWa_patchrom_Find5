@@ -71,6 +71,34 @@
 
 .field public static final ACTION_CREATE_SHORTCUT:Ljava/lang/String; = "android.intent.action.CREATE_SHORTCUT"
 
+.field public static final ACTION_DATA_DEFAULT_SIM_CHANGED:Ljava/lang/String; = "android.intent.action.DATA_DEFAULT_SIM"
+
+.field public static final ACTION_APP_LAUNCH_FAILURE:Ljava/lang/String; = "com.lewa.intent.action.APP_LAUNCH_FAILURE"
+
+.field public static final ACTION_APP_LAUNCH_FAILURE_RESET:Ljava/lang/String; = "com.lewa.intent.action.APP_LAUNCH_FAILURE_RESET"
+
+.field public static final ACTION_DUAL_SIM_MODE_CHANGED:Ljava/lang/String; = "android.intent.action.DUAL_SIM_MODE"
+
+.field public static final ACTION_ROAMING_REMINDER_SETTING_CHANGED:Ljava/lang/String; = "android.intent.action.ROAMING_REMINDER_SETTING"
+
+.field public static final ACTION_SMS_DEFAULT_SIM_CHANGED:Ljava/lang/String; = "android.intent.action.SMS_DEFAULT_SIM"
+
+.field public static final ACTION_TETHERING_CHANGE:Ljava/lang/String; = "android.intent.action.TETHERING_CHANGED"
+
+.field public static final ACTION_THEME_FILE_ADDED:Ljava/lang/String; = "com.lewa.intent.action.THEME_FILE_ADDED"
+
+.field public static final ACTION_THEME_FILE_CHANGED:Ljava/lang/String; = "com.lewa.intent.action.THEME_FILE_CHANGED"
+
+.field public static final ACTION_VOICE_CALL_DEFAULT_SIM_CHANGED:Ljava/lang/String; = "android.intent.action.VOICE_CALL_DEFAULT_SIM"
+
+.field public static final CATEGORY_THEME_PACKAGE_INSTALLED_STATE_CHANGE:Ljava/lang/String; = "com.lewa.intent.category.THEME_PACKAGE_INSTALL_STATE_CHANGE"
+
+.field public static final EXTRA_DUAL_SIM_MODE:Ljava/lang/String; = "mode"
+
+.field public static final SIM_SETTINGS_INFO_CHANGED:Ljava/lang/String; = "android.intent.action.SIM_SETTING_INFO_CHANGED"
+
+.field public static final EXTRA_TETHERING_CONNECTED:Ljava/lang/String; = "tethering_isconnected"
+
 .field public static final ACTION_DATE_CHANGED:Ljava/lang/String; = "android.intent.action.DATE_CHANGED"
 
 .field public static final ACTION_DEFAULT:Ljava/lang/String; = "android.intent.action.VIEW"

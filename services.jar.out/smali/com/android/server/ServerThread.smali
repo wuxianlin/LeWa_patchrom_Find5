@@ -11,6 +11,14 @@
 .end annotation
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/server/ServerThread$Injector;
+    }
+.end annotation
+
+
 # static fields
 .field private static final ENCRYPTED_STATE:Ljava/lang/String; = "1"
 

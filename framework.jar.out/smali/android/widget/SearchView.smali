@@ -9,6 +9,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Landroid/widget/SearchView$Injector;,
         Landroid/widget/SearchView$SearchAutoComplete;,
         Landroid/widget/SearchView$OnSuggestionListener;,
         Landroid/widget/SearchView$OnCloseListener;,
@@ -140,6 +141,9 @@
     .locals 13
     .parameter "context"
     .parameter "attrs"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/high16 v12, 0x1000
@@ -271,6 +275,10 @@
     move-result-object v7
 
     iput-object v7, p0, Landroid/widget/SearchView;->mSearchEditFrame:Landroid/view/View;
+
+    iget-object v7, p0, Landroid/widget/SearchView;->mCloseButton:Landroid/widget/ImageView;
+
+    invoke-static {p1, v7}, Landroid/widget/SearchView$Injector;->setCloseButtonBackground(Landroid/content/Context;Landroid/view/View;)V
 
     .line 256
     const v7, 0x1020325

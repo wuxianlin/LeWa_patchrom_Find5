@@ -2276,23 +2276,34 @@
 
     if-eqz v17, :cond_5
 
-    .line 676
     const/16 v17, 0x0
 
     invoke-virtual/range {v16 .. v17}, Landroid/widget/Button;->setVisibility(I)V
 
-    .line 679
     .end local v3           #backButton:Landroid/widget/Button;
     .end local v16           #skipButton:Landroid/widget/Button;
     :cond_5
     return-void
 
-    .line 530
+    .end local v8           #hidingHeaders:Z
     .end local v9           #initialArguments:Landroid/os/Bundle;
     .end local v10           #initialFragment:Ljava/lang/String;
     .end local v11           #initialShortTitle:I
     .end local v13           #initialTitle:I
     .end local v15           #intent:Landroid/content/Intent;
+    
+    :cond_lewa0
+    const v17, 0x109007b
+
+    move-object/from16 v0, p0
+
+    move/from16 v1, v17
+
+    invoke-virtual {v0, v1}, Landroid/preference/PreferenceActivity;->setContentView(I)V
+
+    goto/16 :goto_lewa0
+
+    .restart local v8       #hidingHeaders:Z
     :cond_6
     const/16 v17, 0x0
 

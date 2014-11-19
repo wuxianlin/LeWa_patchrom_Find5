@@ -6,6 +6,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Landroid/widget/ListPopupWindow$InjectorP;,
         Landroid/widget/ListPopupWindow$PopupScrollListener;,
         Landroid/widget/ListPopupWindow$PopupTouchInterceptor;,
         Landroid/widget/ListPopupWindow$ResizePopupRunnable;,
@@ -297,6 +298,46 @@
     return-object v0
 .end method
 
+.method static synthetic access$1200(Landroid/widget/ListPopupWindow;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/ListPopupWindow;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$1300(Landroid/widget/ListPopupWindow;)Landroid/graphics/drawable/Drawable;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/ListPopupWindow;->mDropDownListHighlight:Landroid/graphics/drawable/Drawable;
+
+    return-object v0
+.end method
+
+.method static synthetic access$1400(Landroid/widget/ListPopupWindow;)Landroid/view/View;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/ListPopupWindow;->mPromptView:Landroid/view/View;
+
+    return-object v0
+.end method
+
+.method static synthetic access$1500(Landroid/widget/ListPopupWindow;)I
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    iget v0, p0, Landroid/widget/ListPopupWindow;->mPromptPosition:I
+
+    return v0
+.end method
+
 .method static synthetic access$600(Landroid/widget/ListPopupWindow;)Landroid/widget/ListPopupWindow$DropDownListView;
     .locals 1
     .parameter "x0"
@@ -321,6 +362,9 @@
 
 .method private buildDropDown()I
     .locals 21
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1029
@@ -602,14 +646,14 @@
 
     invoke-virtual {v1, v9}, Landroid/widget/PopupWindow;->setContentView(Landroid/view/View;)V
 
-    .line 1136
     .end local v8           #context:Landroid/content/Context;
     .end local v13           #hintView:Landroid/view/View;
     :cond_3
     :goto_2
+    invoke-static/range {p0 .. p0}, Landroid/widget/ListPopupWindow$InjectorP;->setListViewSelector(Landroid/widget/ListPopupWindow;)V
+
     const/16 v18, 0x0
 
-    .line 1137
     .local v18, padding:I
     move-object/from16 v0, p0
 
@@ -966,12 +1010,8 @@
 
     move-result v2
 
-    .line 1174
     .restart local v2       #childWidthSpec:I
     goto :goto_6
-
-    .line 1093
-    nop
 
     :pswitch_data_0
     .packed-switch 0x0

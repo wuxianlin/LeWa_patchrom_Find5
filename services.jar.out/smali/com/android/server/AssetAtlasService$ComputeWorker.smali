@@ -282,30 +282,47 @@
 
     if-ge v3, v8, :cond_2
 
-    .line 703
     mul-int v8, v7, v3
 
     iget v9, p0, Lcom/android/server/AssetAtlasService$ComputeWorker;->mThreshold:I
 
     if-gt v8, v9, :cond_1
 
-    .line 701
     :cond_0
     add-int/lit8 v3, v3, 0x40
 
     goto :goto_2
 
-    .line 705
     :cond_1
     invoke-direct {p0, v6, v7, v3, v2}, Lcom/android/server/AssetAtlasService$ComputeWorker;->packBitmaps(Landroid/graphics/Atlas$Type;IILandroid/graphics/Atlas$Entry;)I
 
     move-result v1
 
-    .line 706
     .local v1, count:I
+    const-string v8, "Atlas"
+
+    new-instance v9, Ljava/lang/StringBuilder;
+
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v10, "Running...count = "
+
+    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v9, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v9
+
+    invoke-static {v8, v9}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
     if-lez v1, :cond_0
 
-    .line 707
     iget-object v8, p0, Lcom/android/server/AssetAtlasService$ComputeWorker;->mResults:Ljava/util/List;
 
     new-instance v9, Lcom/android/server/AssetAtlasService$WorkerResult;

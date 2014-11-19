@@ -1611,42 +1611,45 @@
     .parameter "notifyNow"
 
     .prologue
-    .line 193
     invoke-static {}, Landroid/os/UserHandle;->getCallingUserId()I
 
     move-result v3
 
-    .line 194
     .local v3, callerUid:I
     invoke-static {}, Landroid/os/UserHandle;->myUserId()I
 
     move-result v7
 
-    .line 200
     .local v7, myUid:I
     if-eqz p3, :cond_e
 
-    .line 202
     move/from16 v0, p3
 
     invoke-direct {p0, v0}, Lcom/android/server/TelephonyRegistry;->checkListenerPermission(I)V
 
-    .line 204
+    move/from16 v0, p3
+
+    invoke-direct {p0, v0}, Lcom/android/server/TelephonyRegistry;->checkPermission(I)Z
+
+    move-result v11
+
+    if-nez v11, :cond_lewa0
+    
+    goto :goto_d
+    
+    :cond_lewa0
     iget-object v12, p0, Lcom/android/server/TelephonyRegistry;->mRecords:Ljava/util/ArrayList;
 
     monitor-enter v12
 
-    .line 206
     const/4 v8, 0x0
 
-    .line 208
     .local v8, r:Lcom/android/server/TelephonyRegistry$Record;
     :try_start_0
     invoke-interface/range {p2 .. p2}, Lcom/android/internal/telephony/IPhoneStateListener;->asBinder()Landroid/os/IBinder;
 
     move-result-object v2
 
-    .line 209
     .local v2, b:Landroid/os/IBinder;
     iget-object v11, p0, Lcom/android/server/TelephonyRegistry;->mRecords:Ljava/util/ArrayList;
 
@@ -3627,4 +3630,66 @@
 
     .line 188
     return-void
+.end method
+
+.method private checkPermission(I)Z
+    .locals 4
+    .parameter "events"
+
+    .prologue
+    and-int/lit16 v0, p1, 0xec
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/server/TelephonyRegistry;->mContext:Landroid/content/Context;
+
+    invoke-static {}, Lcom/android/server/TelephonyRegistry;->getCallingPid()I
+
+    move-result v1
+
+    invoke-static {}, Lcom/android/server/TelephonyRegistry;->getCallingUid()I
+
+    move-result v2
+
+    const/16 v3, 0x40
+
+    invoke-static {v0, v1, v2, v3}, Llewa/content/PermissionHelper;->checkPermission(Landroid/content/Context;III)Z
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    and-int/lit8 v0, p1, 0x10
+
+    if-nez v0, :cond_1
+
+    and-int/lit16 v0, p1, 0x400
+
+    if-eqz v0, :cond_2
+
+    :cond_1
+    iget-object v0, p0, Lcom/android/server/TelephonyRegistry;->mContext:Landroid/content/Context;
+
+    invoke-static {}, Lcom/android/server/TelephonyRegistry;->getCallingPid()I
+
+    move-result v1
+
+    invoke-static {}, Lcom/android/server/TelephonyRegistry;->getCallingUid()I
+
+    move-result v2
+
+    const/high16 v3, 0x1
+
+    invoke-static {v0, v1, v2, v3}, Llewa/content/PermissionHelper;->checkPermission(Landroid/content/Context;III)Z
+
+    move-result v0
+
+    goto :goto_0
+
+    :cond_2
+    const/4 v0, 0x1
+
+    goto :goto_0
 .end method

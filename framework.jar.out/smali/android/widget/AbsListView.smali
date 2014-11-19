@@ -13,6 +13,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Landroid/widget/AbsListView$Injector;,
         Landroid/widget/AbsListView$RecycleBin;,
         Landroid/widget/AbsListView$RecyclerListener;,
         Landroid/widget/AbsListView$LayoutParams;,
@@ -2053,6 +2054,9 @@
 
 .method private initAbsListView()V
     .locals 3
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v2, 0x0
@@ -2133,6 +2137,8 @@
     iget v1, v1, Landroid/util/DisplayMetrics;->density:F
 
     iput v1, p0, Landroid/widget/AbsListView;->mDensityScale:F
+
+    invoke-static {p0}, Landroid/widget/AbsListView$Injector;->setChildSequenceStateTaggingListener(Landroid/widget/AbsListView;)V
 
     .line 838
     return-void
@@ -4004,6 +4010,9 @@
     .parameter "t"
     .parameter "r"
     .parameter "b"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 2442
@@ -4026,6 +4035,8 @@
     add-int/2addr v4, p4
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/graphics/Rect;->set(IIII)V
+
+    invoke-static {p0}, Landroid/widget/AbsListView$Injector;->setListViewAdditionalState(Landroid/widget/AbsListView;)V
 
     .line 2444
     return-void
@@ -10460,6 +10471,9 @@
 .method public onRestoreInstanceState(Landroid/os/Parcelable;)V
     .locals 7
     .parameter "state"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const-wide/16 v5, 0x0
@@ -10581,6 +10595,10 @@
     move-result-object v1
 
     iput-object v1, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    iget-object v1, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    invoke-static {v1}, Landroid/widget/AbsListView$Injector;->setLewaRightActionButtonVisibility(Landroid/view/ActionMode;)V
 
     .line 1851
     :cond_3
@@ -12148,6 +12166,9 @@
     .parameter "child"
     .parameter "longPressPosition"
     .parameter "longPressId"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v6, 0x1
@@ -12175,6 +12196,10 @@
     iput-object v0, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
 
     if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    invoke-static {v0}, Landroid/widget/AbsListView$Injector;->setLewaRightActionButtonVisibility(Landroid/view/ActionMode;)V
 
     .line 2971
     invoke-virtual {p0, p2, v6}, Landroid/widget/AbsListView;->setItemChecked(IZ)V
@@ -14031,6 +14056,9 @@
     .locals 9
     .parameter "position"
     .parameter "value"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v5, 0x3
@@ -14093,6 +14121,10 @@
     move-result-object v1
 
     iput-object v1, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    iget-object v1, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    invoke-static {v1}, Landroid/widget/AbsListView$Injector;->setLewaRightActionButtonVisibility(Landroid/view/ActionMode;)V
 
     .line 1007
     :cond_4
@@ -16699,4 +16731,35 @@
     const/4 v0, 0x0
 
     goto :goto_0
+.end method
+
+.method public startActionMode()V
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    if-nez v0, :cond_0
+
+    iget-object v0, p0, Landroid/widget/AbsListView;->mMultiChoiceModeCallback:Landroid/widget/AbsListView$MultiChoiceModeWrapper;
+
+    invoke-virtual {p0, v0}, Landroid/widget/AbsListView;->startActionMode(Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;
+
+    move-result-object v0
+
+    iput-object v0, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/widget/AbsListView;->mChoiceActionMode:Landroid/view/ActionMode;
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Landroid/view/ActionMode;->setRightActionButtonVisibility(I)V
+
+    :cond_0
+    return-void
 .end method

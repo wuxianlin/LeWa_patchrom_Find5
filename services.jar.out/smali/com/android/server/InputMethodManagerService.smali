@@ -3406,9 +3406,13 @@
     .local v5, a:Landroid/content/res/TypedArray;
     new-instance v22, Landroid/app/AlertDialog$Builder;
 
+    const v24, 0x9030010
+
     move-object/from16 v0, v22
 
-    invoke-direct {v0, v8}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
+    move/from16 v1, v24
+
+    invoke-direct {v0, v8, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;I)V
 
     new-instance v24, Lcom/android/server/InputMethodManagerService$6;
 

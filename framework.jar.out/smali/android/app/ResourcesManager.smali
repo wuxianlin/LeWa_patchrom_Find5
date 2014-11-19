@@ -3,6 +3,14 @@
 .source "ResourcesManager.java"
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Landroid/app/ResourcesManager$Injector;
+    }
+.end annotation
+
+
 # static fields
 .field static final DEBUG_CACHE:Z = false
 
@@ -11,6 +19,10 @@
 .field static final TAG:Ljava/lang/String; = "ResourcesManager"
 
 .field static sPackageManager:Landroid/content/pm/IPackageManager;
+
+.field static final localLOGV:Z
+
+.field static sAssetRedirectionManager:Lcom/android/internal/app/IAssetRedirectionManager;
 
 .field private static sResourcesManager:Landroid/app/ResourcesManager;
 
@@ -2665,4 +2677,384 @@
 
     .restart local v3       #config:Landroid/content/res/Configuration;
     goto :goto_2
+.end method
+
+.method final applyLewaConfigurationToResourcesLocked(Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;)I
+    .locals 8
+    .parameter "config"
+    .parameter "compat"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v6, 0x0
+
+    iget-object v7, p0, Landroid/app/ResourcesManager;->mResConfiguration:Landroid/content/res/Configuration;
+
+    if-nez v7, :cond_0
+
+    new-instance v7, Landroid/content/res/Configuration;
+
+    invoke-direct {v7}, Landroid/content/res/Configuration;-><init>()V
+
+    iput-object v7, p0, Landroid/app/ResourcesManager;->mResConfiguration:Landroid/content/res/Configuration;
+
+    :cond_0
+    iget-object v7, p0, Landroid/app/ResourcesManager;->mResConfiguration:Landroid/content/res/Configuration;
+
+    invoke-virtual {v7, p1}, Landroid/content/res/Configuration;->isOtherSeqNewer(Landroid/content/res/Configuration;)Z
+
+    move-result v7
+
+    if-nez v7, :cond_2
+
+    if-nez p2, :cond_2
+
+    move v0, v6
+
+    :cond_1
+    return v0
+
+    :cond_2
+    iget-object v7, p0, Landroid/app/ResourcesManager;->mResConfiguration:Landroid/content/res/Configuration;
+
+    invoke-virtual {v7, p1}, Landroid/content/res/Configuration;->updateFrom(Landroid/content/res/Configuration;)I
+
+    move-result v0
+
+    .local v0, changes:I
+    invoke-virtual {p0}, Landroid/app/ResourcesManager;->flushDisplayMetricsLocked()V
+
+    invoke-virtual {p0, v6}, Landroid/app/ResourcesManager;->getDisplayMetricsLocked(I)Landroid/util/DisplayMetrics;
+
+    move-result-object v1
+
+    .local v1, defaultDisplayMetrics:Landroid/util/DisplayMetrics;
+    if-eqz p2, :cond_4
+
+    iget-object v6, p0, Landroid/app/ResourcesManager;->mResCompatibilityInfo:Landroid/content/res/CompatibilityInfo;
+
+    if-eqz v6, :cond_3
+
+    iget-object v6, p0, Landroid/app/ResourcesManager;->mResCompatibilityInfo:Landroid/content/res/CompatibilityInfo;
+
+    invoke-virtual {v6, p2}, Landroid/content/res/CompatibilityInfo;->equals(Ljava/lang/Object;)Z
+
+    move-result v6
+
+    if-nez v6, :cond_4
+
+    :cond_3
+    iput-object p2, p0, Landroid/app/ResourcesManager;->mResCompatibilityInfo:Landroid/content/res/CompatibilityInfo;
+
+    or-int/lit16 v0, v0, 0xd00
+
+    :cond_4
+    iget-object v6, p1, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
+
+    if-eqz v6, :cond_5
+
+    iget-object v6, p1, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
+
+    invoke-static {v6}, Ljava/util/Locale;->setDefault(Ljava/util/Locale;)V
+
+    :cond_5
+    invoke-static {p1, v1, p2}, Landroid/content/res/Resources;->updateSystemConfiguration(Landroid/content/res/Configuration;Landroid/util/DisplayMetrics;Landroid/content/res/CompatibilityInfo;)V
+
+    invoke-static {}, Landroid/app/ApplicationPackageManager;->configurationChanged()V
+
+    const/4 v5, 0x0
+
+    .local v5, tmpConfig:Landroid/content/res/Configuration;
+    iget-object v6, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
+
+    invoke-virtual {v6}, Landroid/util/ArrayMap;->size()I
+
+    move-result v6
+
+    add-int/lit8 v2, v6, -0x1
+
+    .local v2, i:I
+    :goto_0
+    if-ltz v2, :cond_1
+
+    iget-object v6, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
+
+    invoke-virtual {v6, v2}, Landroid/util/ArrayMap;->keyAt(I)Ljava/lang/Object;
+
+    move-result-object v3
+
+    check-cast v3, Landroid/content/res/ResourcesKey;
+
+    .local v3, key:Landroid/content/res/ResourcesKey;
+    iget-object v6, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
+
+    invoke-virtual {v6, v2}, Landroid/util/ArrayMap;->valueAt(I)Ljava/lang/Object;
+
+    move-result-object v6
+
+    check-cast v6, Ljava/lang/ref/WeakReference;
+
+    invoke-virtual {v6}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v4
+
+    check-cast v4, Landroid/content/res/Resources;
+
+    .local v4, r:Landroid/content/res/Resources;
+    if-eqz v4, :cond_6
+
+    invoke-virtual {v4, p1, v1, p2}, Landroid/content/res/Resources;->updateConfiguration(Landroid/content/res/Configuration;Landroid/util/DisplayMetrics;Landroid/content/res/CompatibilityInfo;)V
+
+    :goto_1
+    add-int/lit8 v2, v2, -0x1
+
+    goto :goto_0
+
+    :cond_6
+    iget-object v6, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
+
+    invoke-virtual {v6, v2}, Landroid/util/ArrayMap;->removeAt(I)Ljava/lang/Object;
+
+    goto :goto_1
+.end method
+
+.method public getTopLevelResources(Landroid/app/ActivityThread;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+    .locals 14
+    .parameter "activityThread"
+    .parameter "resDir"
+    .parameter "displayId"
+    .parameter "overrideConfiguration"
+    .parameter "compatInfo"
+    .parameter "token"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    move-object/from16 v0, p5
+
+    iget v5, v0, Landroid/content/res/CompatibilityInfo;->applicationScale:F
+
+    .local v5, scale:F
+    new-instance v1, Landroid/content/res/ResourcesKey;
+
+    move-object/from16 v0, p5
+
+    iget-boolean v7, v0, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
+
+    move-object/from16 v2, p2
+
+    move/from16 v3, p3
+
+    move-object/from16 v4, p4
+
+    move-object/from16 v6, p6
+
+    invoke-direct/range {v1 .. v7}, Landroid/content/res/ResourcesKey;-><init>(Ljava/lang/String;ILandroid/content/res/Configuration;FLandroid/os/IBinder;Z)V
+
+    .local v1, key:Landroid/content/res/ResourcesKey;
+    monitor-enter p0
+
+    :try_start_0
+    iget-object v2, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
+
+    invoke-virtual {v2, v1}, Landroid/util/ArrayMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v13
+
+    check-cast v13, Ljava/lang/ref/WeakReference;
+
+    .local v13, wr:Ljava/lang/ref/WeakReference;,"Ljava/lang/ref/WeakReference<Landroid/content/res/Resources;>;"
+    if-eqz v13, :cond_0
+
+    invoke-virtual {v13}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/content/res/Resources;
+
+    move-object v6, v2
+
+    .local v6, r:Landroid/content/res/Resources;
+    :goto_0
+    if-eqz v6, :cond_1
+
+    invoke-virtual {v6}, Landroid/content/res/Resources;->getAssets()Landroid/content/res/AssetManager;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Landroid/content/res/AssetManager;->isUpToDate()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1
+
+    monitor-exit p0
+
+    move-object v12, v6
+
+    :goto_1
+    return-object v12
+
+    .end local v6           #r:Landroid/content/res/Resources;
+    :cond_0
+    const/4 v6, 0x0
+
+    goto :goto_0
+
+    .restart local v6       #r:Landroid/content/res/Resources;
+    :cond_1
+    monitor-exit p0
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    new-instance v7, Landroid/content/res/AssetManager;
+
+    invoke-direct {v7}, Landroid/content/res/AssetManager;-><init>()V
+
+    .local v7, assets:Landroid/content/res/AssetManager;
+    move-object/from16 v0, p5
+
+    iget-boolean v2, v0, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
+
+    invoke-virtual {v7, v2}, Landroid/content/res/AssetManager;->setThemeSupport(Z)V
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v7, v0}, Landroid/content/res/AssetManager;->addAssetPath(Ljava/lang/String;)I
+
+    move-result v2
+
+    if-nez v2, :cond_2
+
+    const/4 v12, 0x0
+
+    goto :goto_1
+
+    .end local v6           #r:Landroid/content/res/Resources;
+    .end local v7           #assets:Landroid/content/res/AssetManager;
+    .end local v13           #wr:Ljava/lang/ref/WeakReference;,"Ljava/lang/ref/WeakReference<Landroid/content/res/Resources;>;"
+    :catchall_0
+    move-exception v2
+
+    :try_start_1
+    monitor-exit p0
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw v2
+
+    .restart local v6       #r:Landroid/content/res/Resources;
+    .restart local v7       #assets:Landroid/content/res/AssetManager;
+    .restart local v13       #wr:Ljava/lang/ref/WeakReference;,"Ljava/lang/ref/WeakReference<Landroid/content/res/Resources;>;"
+    :cond_2
+    move-object/from16 v0, p5
+
+    invoke-static {p0, p1, v7, v0}, Landroid/app/ResourcesManager$Injector;->attachTheme(Landroid/app/ResourcesManager;Landroid/app/ActivityThread;Landroid/content/res/AssetManager;Landroid/content/res/CompatibilityInfo;)V
+
+    move/from16 v0, p3
+
+    invoke-virtual {p0, v0}, Landroid/app/ResourcesManager;->getDisplayMetricsLocked(I)Landroid/util/DisplayMetrics;
+
+    move-result-object v8
+
+    .local v8, dm:Landroid/util/DisplayMetrics;
+    new-instance v6, Landroid/content/res/LewaResources;
+
+    .end local v6           #r:Landroid/content/res/Resources;
+    invoke-virtual {p0}, Landroid/app/ResourcesManager;->getConfiguration()Landroid/content/res/Configuration;
+
+    move-result-object v9
+
+    move-object/from16 v10, p5
+
+    move-object/from16 v11, p6
+
+    invoke-direct/range {v6 .. v11}, Landroid/content/res/LewaResources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
+
+    .restart local v6       #r:Landroid/content/res/Resources;
+    monitor-enter p0
+
+    :try_start_2
+    iget-object v2, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
+
+    invoke-virtual {v2, v1}, Landroid/util/ArrayMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v13
+
+    .end local v13           #wr:Ljava/lang/ref/WeakReference;,"Ljava/lang/ref/WeakReference<Landroid/content/res/Resources;>;"
+    check-cast v13, Ljava/lang/ref/WeakReference;
+
+    .restart local v13       #wr:Ljava/lang/ref/WeakReference;,"Ljava/lang/ref/WeakReference<Landroid/content/res/Resources;>;"
+    if-eqz v13, :cond_3
+
+    invoke-virtual {v13}, Ljava/lang/ref/WeakReference;->get()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/content/res/Resources;
+
+    move-object v12, v2
+
+    .local v12, existing:Landroid/content/res/Resources;
+    :goto_2
+    if-eqz v12, :cond_4
+
+    invoke-virtual {v12}, Landroid/content/res/Resources;->getAssets()Landroid/content/res/AssetManager;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Landroid/content/res/AssetManager;->isUpToDate()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_4
+
+    invoke-virtual {v6}, Landroid/content/res/Resources;->getAssets()Landroid/content/res/AssetManager;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Landroid/content/res/AssetManager;->close()V
+
+    monitor-exit p0
+
+    goto :goto_1
+
+    .end local v12           #existing:Landroid/content/res/Resources;
+    .end local v13           #wr:Ljava/lang/ref/WeakReference;,"Ljava/lang/ref/WeakReference<Landroid/content/res/Resources;>;"
+    :catchall_1
+    move-exception v2
+
+    monitor-exit p0
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_1
+
+    throw v2
+
+    .restart local v13       #wr:Ljava/lang/ref/WeakReference;,"Ljava/lang/ref/WeakReference<Landroid/content/res/Resources;>;"
+    :cond_3
+    const/4 v12, 0x0
+
+    goto :goto_2
+
+    .restart local v12       #existing:Landroid/content/res/Resources;
+    :cond_4
+    :try_start_3
+    iget-object v2, p0, Landroid/app/ResourcesManager;->mActiveResources:Landroid/util/ArrayMap;
+
+    new-instance v3, Ljava/lang/ref/WeakReference;
+
+    invoke-direct {v3, v6}, Ljava/lang/ref/WeakReference;-><init>(Ljava/lang/Object;)V
+
+    invoke-virtual {v2, v1, v3}, Landroid/util/ArrayMap;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    monitor-exit p0
+    :try_end_3
+    .catchall {:try_start_3 .. :try_end_3} :catchall_1
+
+    move-object v12, v6
+
+    goto :goto_1
 .end method

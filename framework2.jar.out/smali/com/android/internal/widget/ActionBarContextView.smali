@@ -6,6 +6,14 @@
 .implements Landroid/animation/Animator$AnimatorListener;
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/internal/widget/ActionBarContextView$Injector;
+    }
+.end annotation
+
+
 # static fields
 .field private static final ANIMATE_IDLE:I = 0x0
 
@@ -17,6 +25,12 @@
 
 
 # instance fields
+.field mActionMode:Landroid/view/ActionMode;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field private mAnimateInOnLayout:Z
 
 .field private mAnimationMode:I
@@ -26,6 +40,12 @@
 .field private mCurrentAnimation:Landroid/animation/Animator;
 
 .field private mCustomView:Landroid/view/View;
+
+.field private mSpinner:Landroid/widget/Button;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private mSplitBackground:Landroid/graphics/drawable/Drawable;
 
@@ -179,6 +199,12 @@
     const/4 v4, 0x1
 
     const/4 v5, 0x0
+
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->lewaInitTitle()Z
+
+    move-result v3
+
+    if-nez v3, :cond_4
 
     .line 177
     iget-object v3, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
@@ -527,6 +553,8 @@
     .end local v5           #i:I
     .end local v6           #j:I
     :cond_0
+    invoke-direct {p0, v1}, Lcom/android/internal/widget/ActionBarContextView;->makeInAnimation(Landroid/animation/AnimatorSet$Builder;)V
+
     return-object v7
 
     .line 419
@@ -677,6 +705,8 @@
     .end local v4           #count:I
     .end local v5           #i:I
     :cond_0
+    invoke-direct {p0, v1}, Lcom/android/internal/widget/ActionBarContextView;->makeOutAnimation(Landroid/animation/AnimatorSet$Builder;)V
+
     return-object v6
 .end method
 
@@ -765,10 +795,12 @@
 
 .method public getSubtitle()Ljava/lang/CharSequence;
     .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
-    .line 173
-    iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mSubtitle:Ljava/lang/CharSequence;
+    const/4 v0, 0x0
 
     return-object v0
 .end method
@@ -812,11 +844,16 @@
 .method public initForMode(Landroid/view/ActionMode;)V
     .locals 8
     .parameter "mode"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v7, -0x1
 
     const/4 v6, 0x1
+
+    invoke-direct {p0, p1}, Lcom/android/internal/widget/ActionBarContextView;->setActionMode(Landroid/view/ActionMode;)V
 
     .line 204
     iget-object v4, p0, Lcom/android/internal/widget/ActionBarContextView;->mClose:Landroid/view/View;
@@ -832,7 +869,11 @@
 
     .line 206
     .local v1, inflater:Landroid/view/LayoutInflater;
-    const v4, 0x109001e
+    iget-object v4, p0, Lcom/android/internal/widget/ActionBarContextView;->mContext:Landroid/content/Context;
+
+    invoke-static {v4}, Lcom/android/internal/widget/ActionBarContextView$Injector;->getLeftButtonLayoutId(Landroid/content/Context;)I
+
+    move-result v4
 
     const/4 v5, 0x0
 
@@ -887,11 +928,13 @@
 
     .line 223
     :cond_1
-    new-instance v4, Lcom/android/internal/view/menu/ActionMenuPresenter;
+    iget-object v4, p0, Lcom/android/internal/widget/ActionBarContextView;->mContext:Landroid/content/Context;
 
-    iget-object v5, p0, Lcom/android/internal/widget/ActionBarContextView;->mContext:Landroid/content/Context;
+    iget-boolean v5, p0, Lcom/android/internal/widget/ActionBarContextView;->mSplitActionBar:Z
 
-    invoke-direct {v4, v5}, Lcom/android/internal/view/menu/ActionMenuPresenter;-><init>(Landroid/content/Context;)V
+    invoke-static {v4, v5}, Lcom/android/internal/widget/ActionBarContextView$Injector;->newMenuPresenter(Landroid/content/Context;Z)Lcom/android/internal/view/menu/ActionMenuPresenter;
+
+    move-result-object v4
 
     iput-object v4, p0, Lcom/android/internal/widget/ActionBarContextView;->mActionMenuPresenter:Lcom/android/internal/view/menu/ActionMenuPresenter;
 
@@ -1077,41 +1120,38 @@
 
 .method public killMode()V
     .locals 3
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v2, 0x0
 
-    .line 276
     invoke-direct {p0}, Lcom/android/internal/widget/ActionBarContextView;->finishAnimation()V
 
-    .line 277
     invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->removeAllViews()V
 
-    .line 278
     iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mSplitView:Lcom/android/internal/widget/ActionBarContainer;
 
     if-eqz v0, :cond_0
 
-    .line 279
     iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mSplitView:Lcom/android/internal/widget/ActionBarContainer;
 
     iget-object v1, p0, Lcom/android/internal/widget/ActionBarContextView;->mMenuView:Lcom/android/internal/view/menu/ActionMenuView;
 
     invoke-virtual {v0, v1}, Lcom/android/internal/widget/ActionBarContainer;->removeView(Landroid/view/View;)V
 
-    .line 281
     :cond_0
     iput-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mCustomView:Landroid/view/View;
 
-    .line 282
     iput-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mMenuView:Lcom/android/internal/view/menu/ActionMenuView;
 
-    .line 283
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mAnimateInOnLayout:Z
 
-    .line 284
+    invoke-direct {p0, v2}, Lcom/android/internal/widget/ActionBarContextView;->setActionMode(Landroid/view/ActionMode;)V
+
     return-void
 .end method
 
@@ -1467,7 +1507,7 @@
 
     move v10, v4
 
-    invoke-virtual/range {v6 .. v11}, Lcom/android/internal/widget/ActionBarContextView;->positionChild(Landroid/view/View;IIIZ)I
+    invoke-direct/range {v6 .. v11}, Lcom/android/internal/widget/ActionBarContextView;->getPositionSize(Landroid/view/View;IIIZ)I
 
     move-result v0
 
@@ -1530,6 +1570,9 @@
     .locals 27
     .parameter "widthMeasureSpec"
     .parameter "heightMeasureSpec"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 324
@@ -1883,6 +1926,18 @@
 
     move-object/from16 v25, v0
 
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/internal/widget/ActionBarContextView;->mTitle:Ljava/lang/CharSequence;
+
+    move-object/from16 v24, v0
+
+    invoke-static/range {v24 .. v24}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v24
+
+    if-nez v24, :cond_a
+
     if-eqz v18, :cond_a
 
     const/16 v24, 0x0
@@ -2130,7 +2185,7 @@
 
     move/from16 v2, v25
 
-    invoke-virtual {v0, v1, v3, v4, v2}, Lcom/android/internal/widget/ActionBarContextView;->measureChildView(Landroid/view/View;III)I
+    invoke-direct {v0, v1, v3, v4, v2}, Lcom/android/internal/widget/ActionBarContextView;->setAvailableWidth(Landroid/widget/LinearLayout;III)I
 
     move-result v3
 
@@ -2425,13 +2480,10 @@
     .parameter "subtitle"
 
     .prologue
-    .line 164
     iput-object p1, p0, Lcom/android/internal/widget/ActionBarContextView;->mSubtitle:Ljava/lang/CharSequence;
 
-    .line 165
-    invoke-direct {p0}, Lcom/android/internal/widget/ActionBarContextView;->initTitle()V
+    invoke-direct {p0}, Lcom/android/internal/widget/ActionBarContextView;->initLewaTitle()V
 
-    .line 166
     return-void
 .end method
 
@@ -2440,13 +2492,10 @@
     .parameter "title"
 
     .prologue
-    .line 159
     iput-object p1, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitle:Ljava/lang/CharSequence;
 
-    .line 160
-    invoke-direct {p0}, Lcom/android/internal/widget/ActionBarContextView;->initTitle()V
+    invoke-direct {p0}, Lcom/android/internal/widget/ActionBarContextView;->initLewaTitle()V
 
-    .line 161
     return-void
 .end method
 
@@ -2505,4 +2554,465 @@
     const/4 v0, 0x0
 
     goto :goto_0
+.end method
+
+.method private getAvailableWidth(II)I
+    .locals 2
+    .parameter "availableWidth"
+    .parameter "childSpecHeight"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v1, 0x0
+
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {v0}, Llewa/util/LewaUiUtil;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    invoke-static {v0, p1, p2, v1}, Lcom/android/internal/widget/ActionBarContextView$Injector;->measureTitleView(Landroid/view/View;III)I
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    invoke-virtual {p0, v0, p1, p2, v1}, Lcom/android/internal/widget/ActionBarContextView;->measureChildView(Landroid/view/View;III)I
+
+    move-result v0
+
+    goto :goto_0
+.end method
+
+.method private getPositionSize(Landroid/view/View;IIIZ)I
+    .locals 6
+    .parameter "child"
+    .parameter "x"
+    .parameter "y"
+    .parameter "contentHeight"
+    .parameter "isLayoutRtl"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v1, p0, Lcom/android/internal/widget/ActionBarContextView;->mMenuView:Lcom/android/internal/view/menu/ActionMenuView;
+
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    iget-boolean v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mSplitActionBar:Z
+
+    invoke-static {v0, v2, p4}, Lcom/android/internal/widget/ActionBarContextView$Injector;->getContextMenuViewHeight(Landroid/content/Context;ZI)I
+
+    move-result v4
+
+    const/4 v5, 0x1
+
+    move-object v0, p0
+
+    move v2, p2
+
+    move v3, p3
+
+    invoke-virtual/range {v0 .. v5}, Lcom/android/internal/widget/ActionBarContextView;->positionChild(Landroid/view/View;IIIZ)I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private initLewaTitle()V
+    .locals 5
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v3, 0x0
+
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->lewaInitTitle()Z
+
+    move-result v2
+
+    if-nez v2, :cond_0
+
+    iget-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    if-nez v2, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->getContext()Landroid/content/Context;
+
+    move-result-object v2
+
+    invoke-static {v2}, Landroid/view/LayoutInflater;->from(Landroid/content/Context;)Landroid/view/LayoutInflater;
+
+    move-result-object v1
+
+    .local v1, inflater:Landroid/view/LayoutInflater;
+    const v2, 0x1090019
+
+    invoke-virtual {v1, v2, p0}, Landroid/view/LayoutInflater;->inflate(ILandroid/view/ViewGroup;)Landroid/view/View;
+
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->getChildCount()I
+
+    move-result v2
+
+    add-int/lit8 v2, v2, -0x1
+
+    invoke-virtual {p0, v2}, Lcom/android/internal/widget/ActionBarContextView;->getChildAt(I)Landroid/view/View;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/widget/LinearLayout;
+
+    iput-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    .end local v1           #inflater:Landroid/view/LayoutInflater;
+    :cond_0
+    iget-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mContext:Landroid/content/Context;
+
+    invoke-static {v2}, Llewa/util/LewaUiUtil;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1
+
+    iget-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleView:Landroid/widget/TextView;
+
+    iget-object v4, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitle:Ljava/lang/CharSequence;
+
+    invoke-virtual {v2, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    :cond_1
+    iget-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitle:Ljava/lang/CharSequence;
+
+    invoke-static {v2}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+
+    move-result v2
+
+    if-nez v2, :cond_3
+
+    const/4 v0, 0x1
+
+    .local v0, hasTitle:Z
+    :goto_0
+    iget-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    if-eqz v0, :cond_4
+
+    :goto_1
+    invoke-virtual {v2, v3}, Landroid/widget/LinearLayout;->setVisibility(I)V
+
+    iget-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    invoke-virtual {v2}, Landroid/widget/LinearLayout;->getParent()Landroid/view/ViewParent;
+
+    move-result-object v2
+
+    if-nez v2, :cond_2
+
+    iget-object v2, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    invoke-virtual {p0, v2}, Lcom/android/internal/widget/ActionBarContextView;->addView(Landroid/view/View;)V
+
+    :cond_2
+    return-void
+
+    .end local v0           #hasTitle:Z
+    :cond_3
+    move v0, v3
+
+    goto :goto_0
+
+    .restart local v0       #hasTitle:Z
+    :cond_4
+    const/16 v3, 0x8
+
+    goto :goto_1
+.end method
+
+.method public setTitleView(Landroid/widget/TextView;)V
+    .locals 0
+    .parameter "titleView"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-object p1, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleView:Landroid/widget/TextView;
+
+    return-void
+.end method
+
+.method protected lewaInitTitle()Z
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x0
+
+    return v0
+.end method
+
+.method protected makeRightButtonInAnimation()Landroid/animation/ObjectAnimator;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
+.method protected makeRightButtonOutAnimation()Landroid/animation/ObjectAnimator;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x0
+
+    return-object v0
+.end method
+
+.method public setSubTitleView(Landroid/widget/TextView;)V
+    .locals 0
+    .parameter "subtitleView"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-object p1, p0, Lcom/android/internal/widget/ActionBarContextView;->mSubtitleView:Landroid/widget/TextView;
+
+    return-void
+.end method
+
+.method public setTitleLayout(Landroid/widget/LinearLayout;)V
+    .locals 0
+    .parameter "titleLayout"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-object p1, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    return-void
+.end method
+
+.method private makeOutAnimation(Landroid/animation/AnimatorSet$Builder;)V
+    .locals 1
+    .parameter "b"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->makeRightButtonOutAnimation()Landroid/animation/ObjectAnimator;
+
+    move-result-object v0
+
+    .local v0, rightBbuttonAnimator:Landroid/animation/ObjectAnimator;
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p1, v0}, Landroid/animation/AnimatorSet$Builder;->with(Landroid/animation/Animator;)Landroid/animation/AnimatorSet$Builder;
+
+    :cond_0
+    return-void
+.end method
+
+.method private setActionMode(Landroid/view/ActionMode;)V
+    .locals 0
+    .parameter "actionMode"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iput-object p1, p0, Lcom/android/internal/widget/ActionBarContextView;->mActionMode:Landroid/view/ActionMode;
+
+    return-void
+.end method
+
+.method private setAvailableWidth(Landroid/widget/LinearLayout;III)I
+    .locals 1
+    .parameter "mTitleLayout"
+    .parameter "availableWidth"
+    .parameter "childSpecHeight"
+    .parameter "zero"
+
+    .prologue
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {v0}, Llewa/util/LewaUiUtil;->isV5Ui(Landroid/content/Context;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    invoke-static {p1, p2, p3, p4}, Lcom/android/internal/widget/ActionBarContextView$Injector;->measureTitleView(Landroid/view/View;III)I
+
+    move-result v0
+
+    :goto_0
+    return v0
+
+    :cond_0
+    invoke-virtual {p0, p1, p2, p3, p4}, Lcom/android/internal/widget/ActionBarContextView;->measureChildView(Landroid/view/View;III)I
+
+    move-result v0
+
+    goto :goto_0
+.end method
+
+.method public getTitleLayout()Landroid/widget/LinearLayout;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleLayout:Landroid/widget/LinearLayout;
+
+    return-object v0
+.end method
+
+.method public getTitleStyleRes()I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleStyleRes:I
+
+    return v0
+.end method
+
+.method public getTitleView()Landroid/widget/TextView;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mTitleView:Landroid/widget/TextView;
+
+    return-object v0
+.end method
+
+.method public getActionMode()Landroid/view/ActionMode;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mActionMode:Landroid/view/ActionMode;
+
+    return-object v0
+.end method
+
+.method public getSubTitleView()Landroid/widget/TextView;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mSubtitleView:Landroid/widget/TextView;
+
+    return-object v0
+.end method
+
+.method private makeInAnimation(Landroid/animation/AnimatorSet$Builder;)V
+    .locals 1
+    .parameter "b"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Lcom/android/internal/widget/ActionBarContextView;->makeRightButtonInAnimation()Landroid/animation/ObjectAnimator;
+
+    move-result-object v0
+
+    .local v0, rightBbuttonAnimator:Landroid/animation/ObjectAnimator;
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p1, v0}, Landroid/animation/AnimatorSet$Builder;->with(Landroid/animation/Animator;)Landroid/animation/AnimatorSet$Builder;
+
+    :cond_0
+    return-void
+.end method
+
+.method public getSubtitleStyleRes()I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget v0, p0, Lcom/android/internal/widget/ActionBarContextView;->mSubtitleStyleRes:I
+
+    return v0
+.end method
+
+.method public onTouchEvent(Landroid/view/MotionEvent;)Z
+    .locals 1
+    .parameter "ev"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-super {p0, p1}, Lcom/android/internal/widget/AbsActionBarView;->onTouchEvent(Landroid/view/MotionEvent;)Z
+
+    const/4 v0, 0x1
+
+    return v0
+.end method
+
+.method public setRightActionButtonDrawable(Landroid/graphics/drawable/Drawable;)V
+    .locals 0
+    .parameter "drawable"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    return-void
+.end method
+
+.method public setRightActionButtonVisibility(I)V
+    .locals 0
+    .parameter "visibility"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    return-void
 .end method

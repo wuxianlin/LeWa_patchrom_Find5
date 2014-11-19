@@ -16,6 +16,12 @@
 
 .field public static final FEATURE_ACTION_BAR:I = 0x8
 
+.field public static final FEATURE_ACTION_BAR_BOTTOM_OVERLAY:I = 0xb
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final FEATURE_ACTION_BAR_OVERLAY:I = 0x9
 
 .field public static final FEATURE_ACTION_MODE_OVERLAY:I = 0xa

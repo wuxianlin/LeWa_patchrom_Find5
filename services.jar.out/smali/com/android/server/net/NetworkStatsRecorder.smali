@@ -1094,6 +1094,19 @@
     goto :goto_1
 .end method
 
+.method public reset()V
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/net/NetworkStatsRecorder;->mRotator:Lcom/android/internal/util/FileRotator;
+
+    invoke-virtual {v0}, Lcom/android/internal/util/FileRotator;->deleteAll()V
+
+    invoke-virtual {p0}, Lcom/android/server/net/NetworkStatsRecorder;->resetLocked()V
+
+    return-void
+.end method
+
 .method public resetLocked()V
     .locals 1
 

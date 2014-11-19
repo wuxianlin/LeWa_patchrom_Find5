@@ -504,6 +504,86 @@
     return v0
 .end method
 
+.method private getPackageNameViaProcessId([Ljava/lang/String;)Ljava/lang/String;
+    .locals 8
+    .parameter "packageNames"
+
+    .prologue
+    const/4 v7, 0x1
+
+    const/4 v3, 0x0
+
+    .local v3, packageName:Ljava/lang/String;
+    array-length v6, p1
+
+    if-ne v6, v7, :cond_1
+
+    const/4 v6, 0x0
+
+    aget-object v3, p1, v6
+
+    :cond_0
+    :goto_0
+    return-object v3
+
+    :cond_1
+    array-length v6, p1
+
+    if-le v6, v7, :cond_0
+
+    invoke-static {}, Landroid/os/Binder;->getCallingPid()I
+
+    move-result v1
+
+    .local v1, callingPid:I
+    iget-object v6, p0, Lcom/android/internal/telephony/SMSDispatcher;->mContext:Landroid/content/Context;
+
+    const-string v7, "activity"
+
+    invoke-virtual {v6, v7}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/app/ActivityManager;
+
+    .local v0, am:Landroid/app/ActivityManager;
+    invoke-virtual {v0}, Landroid/app/ActivityManager;->getRunningAppProcesses()Ljava/util/List;
+
+    move-result-object v5
+
+    .local v5, processList:Ljava/util/List;
+    invoke-interface {v5}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    .local v2, index:Ljava/util/Iterator;
+    :cond_2
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v6
+
+    if-eqz v6, :cond_0
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v6
+
+    check-cast v6, Landroid/app/ActivityManager$RunningAppProcessInfo;
+
+    move-object v4, v6
+
+    check-cast v4, Landroid/app/ActivityManager$RunningAppProcessInfo;
+
+    .local v4, processInfo:Landroid/app/ActivityManager$RunningAppProcessInfo;
+    iget v6, v4, Landroid/app/ActivityManager$RunningAppProcessInfo;->pid:I
+
+    if-ne v1, v6, :cond_2
+
+    iget-object v3, v4, Landroid/app/ActivityManager$RunningAppProcessInfo;->processName:Ljava/lang/String;
+
+    goto :goto_0
+.end method
+
 .method protected static handleNotInService(ILandroid/app/PendingIntent;)V
     .locals 1
     .parameter "ss"
@@ -819,6 +899,26 @@
     .end local v5           #sentIntent:Landroid/app/PendingIntent;
     .end local v6           #deliveryIntent:Landroid/app/PendingIntent;
     :cond_2
+    return-void
+.end method
+
+.method private setPackageNames([Ljava/lang/String;)V
+    .locals 2
+    .parameter "packageNames"
+
+    .prologue
+    invoke-direct {p0, p1}, Lcom/android/internal/telephony/SMSDispatcher;->getPackageNameViaProcessId([Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    .local v0, packageName:Ljava/lang/String;
+    if-eqz v0, :cond_0
+
+    const/4 v1, 0x0
+
+    aput-object v0, p1, v1
+
+    :cond_0
     return-void
 .end method
 

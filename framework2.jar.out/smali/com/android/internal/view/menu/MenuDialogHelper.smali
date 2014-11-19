@@ -9,6 +9,14 @@
 .implements Lcom/android/internal/view/menu/MenuPresenter$Callback;
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/internal/view/menu/MenuDialogHelper$Injector;
+    }
+.end annotation
+
+
 # instance fields
 .field private mDialog:Landroid/app/AlertDialog;
 
@@ -324,6 +332,9 @@
 .method public show(Landroid/os/IBinder;)V
     .locals 7
     .parameter "windowToken"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 53
@@ -434,6 +445,18 @@
     or-int/2addr v4, v5
 
     iput v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    iget-object v4, p0, Lcom/android/internal/view/menu/MenuDialogHelper;->mDialog:Landroid/app/AlertDialog;
+
+    invoke-virtual {v4}, Landroid/app/AlertDialog;->getContext()Landroid/content/Context;
+
+    move-result-object v4
+
+    iget-object v5, p0, Lcom/android/internal/view/menu/MenuDialogHelper;->mDialog:Landroid/app/AlertDialog;
+
+    iget-object v6, p0, Lcom/android/internal/view/menu/MenuDialogHelper;->mMenu:Lcom/android/internal/view/menu/MenuBuilder;
+
+    invoke-static {v4, v5, v6}, Lcom/android/internal/view/menu/MenuDialogHelper$Injector;->setMenuListSelector(Landroid/content/Context;Landroid/app/AlertDialog;Lcom/android/internal/view/menu/MenuBuilder;)V
 
     .line 89
     iget-object v4, p0, Lcom/android/internal/view/menu/MenuDialogHelper;->mDialog:Landroid/app/AlertDialog;

@@ -53,22 +53,24 @@
 
     if-nez v0, :cond_0
 
-    .line 1134
     iget-object v0, p0, Landroid/widget/Spinner$DropdownPopup$2;->this$1:Landroid/widget/Spinner$DropdownPopup;
 
     invoke-virtual {v0}, Landroid/widget/Spinner$DropdownPopup;->dismiss()V
 
-    .line 1142
+    iget-object v0, p0, Landroid/widget/Spinner$DropdownPopup$2;->this$1:Landroid/widget/Spinner$DropdownPopup;
+
+    iget-object v0, v0, Landroid/widget/Spinner$DropdownPopup;->this$0:Landroid/widget/Spinner;
+
+    invoke-static {v0}, Landroid/widget/Spinner$Injector;->setSpinnerBackGround(Landroid/widget/Spinner;)V
+
     :goto_0
     return-void
 
-    .line 1136
     :cond_0
     iget-object v0, p0, Landroid/widget/Spinner$DropdownPopup$2;->this$1:Landroid/widget/Spinner$DropdownPopup;
 
     invoke-virtual {v0}, Landroid/widget/Spinner$DropdownPopup;->computeContentWidth()V
 
-    .line 1140
     iget-object v0, p0, Landroid/widget/Spinner$DropdownPopup$2;->this$1:Landroid/widget/Spinner$DropdownPopup;
 
     #calls: Landroid/widget/ListPopupWindow;->show()V

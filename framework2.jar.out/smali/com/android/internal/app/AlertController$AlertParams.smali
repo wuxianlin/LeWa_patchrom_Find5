@@ -411,6 +411,9 @@
 .method public apply(Lcom/android/internal/app/AlertController;)V
     .locals 6
     .parameter "dialog"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v3, 0x0
@@ -537,51 +540,46 @@
 
     invoke-virtual/range {v0 .. v5}, Lcom/android/internal/app/AlertController;->setView(Landroid/view/View;IIII)V
 
-    .line 866
     :cond_8
     :goto_1
+    iget-object v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mContext:Landroid/content/Context;
+
+    invoke-static {v0, p1}, Lcom/android/internal/app/AlertController$Injector;->setListViewSelector(Landroid/content/Context;Lcom/android/internal/app/AlertController;)V
+
     return-void
 
-    .line 814
     :cond_9
     iget-object v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mTitle:Ljava/lang/CharSequence;
 
     if-eqz v0, :cond_a
 
-    .line 815
     iget-object v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mTitle:Ljava/lang/CharSequence;
 
     invoke-virtual {p1, v0}, Lcom/android/internal/app/AlertController;->setTitle(Ljava/lang/CharSequence;)V
 
-    .line 817
     :cond_a
     iget-object v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mIcon:Landroid/graphics/drawable/Drawable;
 
     if-eqz v0, :cond_b
 
-    .line 818
     iget-object v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mIcon:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {p1, v0}, Lcom/android/internal/app/AlertController;->setIcon(Landroid/graphics/drawable/Drawable;)V
 
-    .line 820
     :cond_b
     iget v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mIconId:I
 
     if-ltz v0, :cond_c
 
-    .line 821
     iget v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mIconId:I
 
     invoke-virtual {p1, v0}, Lcom/android/internal/app/AlertController;->setIcon(I)V
 
-    .line 823
     :cond_c
     iget v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mIconAttrId:I
 
     if-lez v0, :cond_0
 
-    .line 824
     iget v0, p0, Lcom/android/internal/app/AlertController$AlertParams;->mIconAttrId:I
 
     invoke-virtual {p1, v0}, Lcom/android/internal/app/AlertController;->getIconAttributeResId(I)I

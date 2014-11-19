@@ -16,7 +16,8 @@
         Landroid/app/Activity$TranslucentConversionListener;,
         Landroid/app/Activity$ManagedCursor;,
         Landroid/app/Activity$NonConfigurationInstances;,
-        Landroid/app/Activity$ManagedDialog;
+        Landroid/app/Activity$ManagedDialog;,
+        Landroid/app/Activity$Injector;
     }
 .end annotation
 
@@ -5559,6 +5560,9 @@
 .method protected onPostCreate(Landroid/os/Bundle;)V
     .locals 3
     .parameter "savedInstanceState"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v2, 0x1
@@ -5583,6 +5587,10 @@
     move-result v1
 
     invoke-virtual {p0, v0, v1}, Landroid/app/Activity;->onTitleChanged(Ljava/lang/CharSequence;I)V
+
+    iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
+
+    invoke-static {p0, v0}, Landroid/app/Activity$Injector;->setContentViewForeground(Landroid/content/Context;Landroid/view/Window;)V
 
     .line 1018
     :cond_0
@@ -6556,93 +6564,38 @@
 
     if-lt v3, v5, :cond_2
 
-    .line 5279
-    new-instance v3, Ljava/lang/IllegalStateException;
-
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string/jumbo v6, "trying to requery an already closed cursor  "
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    #getter for: Landroid/app/Activity$ManagedCursor;->mCursor:Landroid/database/Cursor;
-    invoke-static {v2}, Landroid/app/Activity$ManagedCursor;->access$100(Landroid/app/Activity$ManagedCursor;)Landroid/database/Cursor;
-
-    move-result-object v6
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-direct {v3, v5}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
-
-    throw v3
-
-    .line 5288
-    .end local v0           #N:I
-    .end local v1           #i:I
-    .end local v2           #mc:Landroid/app/Activity$ManagedCursor;
-    :catchall_0
-    move-exception v3
-
-    monitor-exit v4
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v3
-
-    .line 5284
-    .restart local v0       #N:I
-    .restart local v1       #i:I
-    .restart local v2       #mc:Landroid/app/Activity$ManagedCursor;
     :cond_2
     const/4 v3, 0x0
 
-    :try_start_1
     #setter for: Landroid/app/Activity$ManagedCursor;->mReleased:Z
     invoke-static {v2, v3}, Landroid/app/Activity$ManagedCursor;->access$202(Landroid/app/Activity$ManagedCursor;Z)Z
 
-    .line 5285
     const/4 v3, 0x0
 
     #setter for: Landroid/app/Activity$ManagedCursor;->mUpdated:Z
     invoke-static {v2, v3}, Landroid/app/Activity$ManagedCursor;->access$302(Landroid/app/Activity$ManagedCursor;Z)Z
 
-    .line 5273
     :cond_3
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_0
 
-    .line 5288
     .end local v2           #mc:Landroid/app/Activity$ManagedCursor;
     :cond_4
     monitor-exit v4
-    :try_end_1
-    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 5290
     iput-boolean v6, p0, Landroid/app/Activity;->mCalled:Z
 
-    .line 5291
     iget-object v3, p0, Landroid/app/Activity;->mInstrumentation:Landroid/app/Instrumentation;
 
     invoke-virtual {v3, p0}, Landroid/app/Instrumentation;->callActivityOnRestart(Landroid/app/Activity;)V
 
-    .line 5292
     iget-boolean v3, p0, Landroid/app/Activity;->mCalled:Z
 
     if-nez v3, :cond_5
 
-    .line 5293
     new-instance v3, Landroid/util/SuperNotCalledException;
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -6679,11 +6632,25 @@
 
     throw v3
 
-    .line 5297
+    .line 5288
+    .end local v0           #N:I
+    .end local v1           #i:I
+    :catchall_0
+    move-exception v3
+
+    :try_start_1
+    monitor-exit v4
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw v3
+
+    .line 5284
+    .restart local v0       #N:I
+    .restart local v1       #i:I
     :cond_5
     invoke-virtual {p0}, Landroid/app/Activity;->performStart()V
 
-    .line 5299
     .end local v0           #N:I
     .end local v1           #i:I
     :cond_6
@@ -8409,16 +8376,15 @@
 .method public startActionMode(Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;
     .locals 1
     .parameter "callback"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 4987
     iget-object v0, p0, Landroid/app/Activity;->mWindow:Landroid/view/Window;
 
-    invoke-virtual {v0}, Landroid/view/Window;->getDecorView()Landroid/view/View;
-
-    move-result-object v0
-
-    invoke-virtual {v0, p1}, Landroid/view/View;->startActionMode(Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;
+    invoke-static {p0, v0, p1}, Landroid/app/Activity$Injector;->startActionMode(Landroid/content/Context;Landroid/view/Window;Landroid/view/ActionMode$Callback;)Landroid/view/ActionMode;
 
     move-result-object v0
 
@@ -9602,4 +9568,33 @@
 
     .line 2923
     return-void
+.end method
+
+.method public getLewaActionBar()Llewa/v5/app/LewaActionBar;
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-virtual {p0}, Landroid/app/Activity;->getActionBar()Landroid/app/ActionBar;
+
+    move-result-object v0
+
+    .local v0, bar:Landroid/app/ActionBar;
+    instance-of v1, v0, Llewa/v5/app/LewaActionBar;
+
+    if-eqz v1, :cond_0
+
+    check-cast v0, Llewa/v5/app/LewaActionBar;
+
+    .end local v0           #bar:Landroid/app/ActionBar;
+    :goto_0
+    return-object v0
+
+    .restart local v0       #bar:Landroid/app/ActionBar;
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method

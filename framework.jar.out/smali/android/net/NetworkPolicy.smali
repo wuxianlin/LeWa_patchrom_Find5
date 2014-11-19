@@ -56,6 +56,12 @@
 
 .field public cycleTimezone:Ljava/lang/String;
 
+.field public extraPolicy:Llewa/net/ExtraNetworkPolicy;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public inferred:Z
 
 .field public lastLimitSnooze:J
@@ -98,6 +104,9 @@
     .parameter "lastLimitSnooze"
     .parameter "metered"
     .parameter "inferred"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 77
@@ -131,25 +140,101 @@
 
     iput-object v0, p0, Landroid/net/NetworkPolicy;->cycleTimezone:Ljava/lang/String;
 
-    .line 82
     iput-wide p5, p0, Landroid/net/NetworkPolicy;->warningBytes:J
 
-    .line 83
     iput-wide p7, p0, Landroid/net/NetworkPolicy;->limitBytes:J
 
-    .line 84
     iput-wide p9, p0, Landroid/net/NetworkPolicy;->lastWarningSnooze:J
 
-    .line 85
     iput-wide p11, p0, Landroid/net/NetworkPolicy;->lastLimitSnooze:J
 
-    .line 86
     iput-boolean p13, p0, Landroid/net/NetworkPolicy;->metered:Z
 
-    .line 87
     iput-boolean p14, p0, Landroid/net/NetworkPolicy;->inferred:Z
 
-    .line 88
+    new-instance v0, Llewa/net/ExtraNetworkPolicy;
+
+    invoke-direct {v0, p2}, Llewa/net/ExtraNetworkPolicy;-><init>(I)V
+
+    iput-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    return-void
+.end method
+
+.method public constructor <init>(Landroid/net/NetworkTemplate;ILjava/lang/String;JJJJZZJJ)V
+    .locals 8
+    .parameter "template"
+    .parameter "cycleDay"
+    .parameter "cycleTimezone"
+    .parameter "warningBytes"
+    .parameter "limitBytes"
+    .parameter "lastWarningSnooze"
+    .parameter "lastLimitSnooze"
+    .parameter "metered"
+    .parameter "inferred"
+    .parameter "adjustBytes"
+    .parameter "adjustTime"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    const-string v2, "missing NetworkTemplate"
+
+    invoke-static {p1, v2}, Lcom/android/internal/util/Preconditions;->checkNotNull(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/net/NetworkTemplate;
+
+    iput-object v2, p0, Landroid/net/NetworkPolicy;->template:Landroid/net/NetworkTemplate;
+
+    iput p2, p0, Landroid/net/NetworkPolicy;->cycleDay:I
+
+    const-string v2, "missing cycleTimezone"
+
+    invoke-static {p3, v2}, Lcom/android/internal/util/Preconditions;->checkNotNull(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Ljava/lang/String;
+
+    iput-object v2, p0, Landroid/net/NetworkPolicy;->cycleTimezone:Ljava/lang/String;
+
+    iput-wide p4, p0, Landroid/net/NetworkPolicy;->warningBytes:J
+
+    iput-wide p6, p0, Landroid/net/NetworkPolicy;->limitBytes:J
+
+    move-wide/from16 v0, p8
+
+    iput-wide v0, p0, Landroid/net/NetworkPolicy;->lastWarningSnooze:J
+
+    move-wide/from16 v0, p10
+
+    iput-wide v0, p0, Landroid/net/NetworkPolicy;->lastLimitSnooze:J
+
+    move/from16 v0, p12
+
+    iput-boolean v0, p0, Landroid/net/NetworkPolicy;->metered:Z
+
+    move/from16 v0, p13
+
+    iput-boolean v0, p0, Landroid/net/NetworkPolicy;->inferred:Z
+
+    new-instance v2, Llewa/net/ExtraNetworkPolicy;
+
+    move v3, p2
+
+    move-wide/from16 v4, p14
+
+    move-wide/from16 v6, p16
+
+    invoke-direct/range {v2 .. v7}, Llewa/net/ExtraNetworkPolicy;-><init>(IJJ)V
+
+    iput-object v2, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
     return-void
 .end method
 
@@ -279,6 +364,9 @@
 .method public constructor <init>(Landroid/os/Parcel;)V
     .locals 5
     .parameter "in"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v1, 0x1
@@ -369,6 +457,18 @@
 
     :goto_1
     iput-boolean v1, p0, Landroid/net/NetworkPolicy;->inferred:Z
+
+    new-instance v0, Llewa/net/ExtraNetworkPolicy;
+
+    iget v1, p0, Landroid/net/NetworkPolicy;->cycleDay:I
+
+    invoke-direct {v0, v1}, Llewa/net/ExtraNetworkPolicy;-><init>(I)V
+
+    iput-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    invoke-virtual {v0, p1}, Llewa/net/ExtraNetworkPolicy;->readFromParcel(Landroid/os/Parcel;)V
 
     .line 101
     return-void
@@ -486,6 +586,9 @@
 .method public equals(Ljava/lang/Object;)Z
     .locals 6
     .parameter "obj"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v1, 0x0
@@ -578,12 +681,82 @@
 
     if-eqz v2, :cond_0
 
+    iget-object v2, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    invoke-virtual {v2, p1}, Llewa/net/ExtraNetworkPolicy;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_0
+
     const/4 v1, 0x1
 
     .line 187
     .end local v0           #other:Landroid/net/NetworkPolicy;
     :cond_0
     return v1
+.end method
+
+.method public getAdjustBytes()J
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    iget-wide v0, v0, Llewa/net/ExtraNetworkPolicy;->adjustBytes:J
+
+    :goto_0
+    return-wide v0
+
+    :cond_0
+    const-wide/16 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method public getAdjustTime()J
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    iget-wide v0, v0, Llewa/net/ExtraNetworkPolicy;->adjustTime:J
+
+    :goto_0
+    return-wide v0
+
+    :cond_0
+    const-wide/16 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method public getNetActive()Z
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    iget-boolean v0, v0, Llewa/net/ExtraNetworkPolicy;->active:Z
+
+    return v0
 .end method
 
 .method public hasCycle()Z
@@ -713,12 +886,23 @@
 
     move-result v0
 
+    iget-object v1, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    invoke-virtual {v1}, Llewa/net/ExtraNetworkPolicy;->hashCode()I
+
+    move-result v1
+
+    add-int/2addr v0, v1
+
     return v0
 .end method
 
 .method public isOverLimit(J)Z
     .locals 4
     .parameter "totalBytes"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 136
@@ -735,9 +919,15 @@
 
     if-eqz v0, :cond_0
 
-    iget-wide v0, p0, Landroid/net/NetworkPolicy;->limitBytes:J
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
 
-    cmp-long v0, p1, v0
+    invoke-virtual {v0, p1, p2}, Llewa/net/ExtraNetworkPolicy;->adjustTotalBytes(J)J
+
+    move-result-wide v0
+
+    iget-wide v2, p0, Landroid/net/NetworkPolicy;->limitBytes:J
+
+    cmp-long v0, v0, v2
 
     if-ltz v0, :cond_0
 
@@ -755,6 +945,9 @@
 .method public isOverWarning(J)Z
     .locals 4
     .parameter "totalBytes"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 126
@@ -766,9 +959,15 @@
 
     if-eqz v0, :cond_0
 
-    iget-wide v0, p0, Landroid/net/NetworkPolicy;->warningBytes:J
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
 
-    cmp-long v0, p1, v0
+    invoke-virtual {v0, p1, p2}, Llewa/net/ExtraNetworkPolicy;->adjustTotalBytes(J)J
+
+    move-result-wide v0
+
+    iget-wide v2, p0, Landroid/net/NetworkPolicy;->warningBytes:J
+
+    cmp-long v0, v0, v2
 
     if-ltz v0, :cond_0
 
@@ -783,8 +982,60 @@
     goto :goto_0
 .end method
 
+.method public setAdjustBytes(J)V
+    .locals 1
+    .parameter "adjustBytes"
+
+    .prologue
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    iput-wide p1, v0, Llewa/net/ExtraNetworkPolicy;->adjustBytes:J
+
+    :cond_0
+    return-void
+.end method
+
+.method public setAdjustTime(J)V
+    .locals 1
+    .parameter "adjustTime"
+
+    .prologue
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    iput-wide p1, v0, Llewa/net/ExtraNetworkPolicy;->adjustTime:J
+
+    :cond_0
+    return-void
+.end method
+
+.method public setNetActive(Z)V
+    .locals 1
+    .parameter "active"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    iput-boolean p1, v0, Llewa/net/ExtraNetworkPolicy;->active:Z
+
+    return-void
+.end method
+
 .method public toString()Ljava/lang/String;
     .locals 4
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 192
@@ -911,6 +1162,14 @@
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
+    iget-object v1, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    invoke-virtual {v1}, Llewa/net/ExtraNetworkPolicy;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
     .line 203
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
@@ -923,6 +1182,9 @@
     .locals 5
     .parameter "dest"
     .parameter "flags"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v1, 0x1
@@ -986,6 +1248,10 @@
 
     :goto_1
     invoke-virtual {p1, v1}, Landroid/os/Parcel;->writeInt(I)V
+
+    iget-object v0, p0, Landroid/net/NetworkPolicy;->extraPolicy:Llewa/net/ExtraNetworkPolicy;
+
+    invoke-virtual {v0, p1, p2}, Llewa/net/ExtraNetworkPolicy;->writeToParcel(Landroid/os/Parcel;I)V
 
     .line 115
     return-void

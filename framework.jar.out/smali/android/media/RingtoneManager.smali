@@ -29,6 +29,8 @@
 
 .field public static final EXTRA_RINGTONE_SHOW_DEFAULT:Ljava/lang/String; = "android.intent.extra.ringtone.SHOW_DEFAULT"
 
+.field public static final EXTRA_RINGTONE_SHOW_MORE_RINGTONES:Ljava/lang/String; = "android.intent.extra.ringtone.SHOW_MORE_RINGTONES"
+
 .field public static final EXTRA_RINGTONE_SHOW_SILENT:Ljava/lang/String; = "android.intent.extra.ringtone.SHOW_SILENT"
 
 .field public static final EXTRA_RINGTONE_TITLE:Ljava/lang/String; = "android.intent.extra.ringtone.TITLE"
@@ -52,6 +54,8 @@
 .field public static final TYPE_NOTIFICATION:I = 0x2
 
 .field public static final TYPE_RINGTONE:I = 0x1
+
+.field public static final TYPE_RINGTONE_2:I = 0x20
 
 .field public static final URI_COLUMN_INDEX:I = 0x2
 

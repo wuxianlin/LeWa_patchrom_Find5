@@ -2780,6 +2780,69 @@
     return-void
 .end method
 
+.method public clearStats()V
+    .locals 4
+
+    .prologue
+    :try_start_0
+    iget-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mDevStatsCached:Lcom/android/server/net/NetworkStatsCollection;
+
+    invoke-virtual {v1}, Lcom/android/server/net/NetworkStatsCollection;->reset()V
+
+    iget-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mXtStatsCached:Lcom/android/server/net/NetworkStatsCollection;
+
+    invoke-virtual {v1}, Lcom/android/server/net/NetworkStatsCollection;->reset()V
+
+    iget-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mDevRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v1}, Lcom/android/server/net/NetworkStatsRecorder;->reset()V
+
+    iget-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mXtRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v1}, Lcom/android/server/net/NetworkStatsRecorder;->reset()V
+
+    iget-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mUidRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v1}, Lcom/android/server/net/NetworkStatsRecorder;->reset()V
+
+    iget-object v1, p0, Lcom/android/server/net/NetworkStatsService;->mUidTagRecorder:Lcom/android/server/net/NetworkStatsRecorder;
+
+    invoke-virtual {v1}, Lcom/android/server/net/NetworkStatsRecorder;->reset()V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    :goto_0
+    return-void
+
+    :catch_0
+    move-exception v0
+
+    .local v0, e:Ljava/lang/Exception;
+    const-string v1, "NetworkStats"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "clearStats e:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_0
+.end method
+
 .method protected dump(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V
     .locals 18
     .parameter "fd"

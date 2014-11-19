@@ -23,6 +23,14 @@
     .end annotation
 .end method
 
+.method public abstract clearStats()V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
 .method public abstract forceUpdate()V
     .annotation system Ldalvik/annotation/Throws;
         value = {

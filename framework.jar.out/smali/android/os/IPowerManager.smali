@@ -95,6 +95,14 @@
     .end annotation
 .end method
 
+.method public abstract rebootConfirm(Ljava/lang/String;Z)V
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+.end method
+
 .method public abstract releaseWakeLock(Landroid/os/IBinder;I)V
     .annotation system Ldalvik/annotation/Throws;
         value = {

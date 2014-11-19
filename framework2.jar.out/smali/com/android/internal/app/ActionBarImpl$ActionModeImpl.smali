@@ -314,12 +314,18 @@
     .locals 2
 
     .prologue
-    .line 898
+    iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->mCallback:Landroid/view/ActionMode$Callback;
+
+    if-nez v0, :cond_lewa_0
+
+    :goto_lewa_0
+    return-void
+
+    :cond_lewa_0
     iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->mMenu:Lcom/android/internal/view/menu/MenuBuilder;
 
     invoke-virtual {v0}, Lcom/android/internal/view/menu/MenuBuilder;->stopDispatchingItemsChanged()V
 
-    .line 900
     :try_start_0
     iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->mCallback:Landroid/view/ActionMode$Callback;
 
@@ -329,15 +335,12 @@
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 902
     iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->mMenu:Lcom/android/internal/view/menu/MenuBuilder;
 
     invoke-virtual {v0}, Lcom/android/internal/view/menu/MenuBuilder;->startDispatchingItemsChanged()V
 
-    .line 904
-    return-void
+    goto :goto_lewa_0
 
-    .line 902
     :catchall_0
     move-exception v0
 
@@ -626,5 +629,82 @@
     invoke-virtual {v0, p1}, Lcom/android/internal/widget/ActionBarContextView;->setTitleOptional(Z)V
 
     .line 955
+    return-void
+.end method
+
+.method public setRightActionButtonDrawable(Landroid/graphics/drawable/Drawable;)V
+    .locals 1
+    .parameter "drawable"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    if-eqz p1, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->this$0:Lcom/android/internal/app/ActionBarImpl;
+
+    invoke-virtual {v0}, Lcom/android/internal/app/ActionBarImpl;->getContextView()Lcom/android/internal/widget/ActionBarContextView;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/android/internal/widget/ActionBarContextView;->setRightActionButtonDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    :cond_0
+    return-void
+.end method
+
+.method public setRightActionButtonResource(I)V
+    .locals 2
+    .parameter "resId"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    if-eqz p1, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->this$0:Lcom/android/internal/app/ActionBarImpl;
+
+    invoke-virtual {v0}, Lcom/android/internal/app/ActionBarImpl;->getContextView()Lcom/android/internal/widget/ActionBarContextView;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->this$0:Lcom/android/internal/app/ActionBarImpl;
+
+    invoke-virtual {v1}, Lcom/android/internal/app/ActionBarImpl;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    invoke-virtual {v1, p1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v1
+
+    invoke-virtual {v0, v1}, Lcom/android/internal/widget/ActionBarContextView;->setRightActionButtonDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    :cond_0
+    return-void
+.end method
+
+.method public setRightActionButtonVisibility(I)V
+    .locals 1
+    .parameter "visibility"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/app/ActionBarImpl$ActionModeImpl;->this$0:Lcom/android/internal/app/ActionBarImpl;
+
+    invoke-virtual {v0}, Lcom/android/internal/app/ActionBarImpl;->getContextView()Lcom/android/internal/widget/ActionBarContextView;
+
+    move-result-object v0
+
+    invoke-virtual {v0, p1}, Lcom/android/internal/widget/ActionBarContextView;->setRightActionButtonVisibility(I)V
+
     return-void
 .end method

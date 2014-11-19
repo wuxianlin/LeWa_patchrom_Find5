@@ -190,6 +190,12 @@
 
 .field public static final GET_SIGNATURES:I = 0x40
 
+.field public static final GET_THEME_PACKAGES:I = 0x8000
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final GET_UNINSTALLED_PACKAGES:I = 0x2000
 
 .field public static final GET_URI_PERMISSION_PATTERNS:I = 0x800

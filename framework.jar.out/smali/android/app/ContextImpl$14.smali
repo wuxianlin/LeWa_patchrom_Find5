@@ -30,10 +30,12 @@
 .method public createService(Landroid/app/ContextImpl;)Ljava/lang/Object;
     .locals 3
     .parameter "ctx"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
-    .line 397
-    new-instance v0, Landroid/app/DownloadManager;
+    new-instance v0, Landroid/app/LewaDownloadManager;
 
     invoke-virtual {p1}, Landroid/app/ContextImpl;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -43,7 +45,7 @@
 
     move-result-object v2
 
-    invoke-direct {v0, v1, v2}, Landroid/app/DownloadManager;-><init>(Landroid/content/ContentResolver;Ljava/lang/String;)V
+    invoke-direct {v0, v1, v2}, Landroid/app/LewaDownloadManager;-><init>(Landroid/content/ContentResolver;Ljava/lang/String;)V
 
     return-object v0
 .end method

@@ -3173,6 +3173,9 @@
 .method public createConfigurationContext(Landroid/content/res/Configuration;)Landroid/content/Context;
     .locals 9
     .parameter "overrideConfiguration"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     .line 1974
@@ -7727,6 +7730,115 @@
     .restart local v0       #rd:Landroid/content/IIntentReceiver;
     :catch_0
     move-exception v1
+
+    goto :goto_0
+.end method
+
+.method public getLewaTopLevelResources(Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+    .locals 7
+    .parameter "resDir"
+    .parameter "displayId"
+    .parameter "overrideConfiguration"
+    .parameter "compInfo"
+    .parameter "token"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ContextImpl;->mMainThread:Landroid/app/ActivityThread;
+
+    iget-object v1, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    iget-object v1, v1, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
+
+    move-object v2, p1
+
+    move v3, p2
+
+    move-object v4, p3
+
+    move-object v5, p4
+
+    move-object v6, p5
+
+    invoke-virtual/range {v0 .. v6}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public getLewaTopLevelResources(Landroid/app/ActivityThread;ILjava/lang/Object;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
+    .locals 7
+    .parameter "mainThread"
+    .parameter "display"
+    .parameter "obj"
+    .parameter "compatInfo"
+    .parameter "activityToken"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    iget-object v1, v0, Landroid/app/LoadedApk;->mPackageName:Ljava/lang/String;
+
+    iget-object v0, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    invoke-virtual {v0}, Landroid/app/LoadedApk;->getResDir()Ljava/lang/String;
+
+    move-result-object v2
+
+    const/4 v3, 0x0
+
+    const/4 v4, 0x0
+
+    move-object v0, p1
+
+    move-object v5, p4
+
+    move-object v6, p5
+
+    invoke-virtual/range {v0 .. v6}, Landroid/app/ActivityThread;->getTopLevelResources(Ljava/lang/String;Ljava/lang/String;ILandroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)Landroid/content/res/Resources;
+
+    return-void
+.end method
+
+.method refreshResourcesIfNecessary()V
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
+
+    invoke-static {}, Landroid/content/res/Resources;->getSystem()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    if-ne v0, v1, :cond_1
+
+    :cond_0
+    :goto_0
+    return-void
+
+    :cond_1
+    iget-object v0, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
+
+    invoke-virtual {v0}, Landroid/app/LoadedApk;->getCompatibilityInfo()Landroid/content/res/CompatibilityInfo;
+
+    move-result-object v0
+
+    iget-boolean v0, v0, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
+
+    if-eqz v0, :cond_0
+
+    const/4 v0, 0x0
+
+    iput-object v0, p0, Landroid/app/ContextImpl;->mTheme:Landroid/content/res/Resources$Theme;
 
     goto :goto_0
 .end method

@@ -67,6 +67,12 @@
 
 .field public static final SECONDARY_PHONE_TYPE:Ljava/lang/String; = "secondary_phone_type"
 
+.field public static final SIP_ADDRESS:Ljava/lang/String; = "sip_address"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final TERTIARY_EMAIL:Ljava/lang/String; = "tertiary_email"
 
 .field public static final TERTIARY_EMAIL_TYPE:Ljava/lang/String; = "tertiary_email_type"

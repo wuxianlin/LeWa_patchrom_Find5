@@ -40,6 +40,9 @@
     .locals 5
     .parameter "context"
     .parameter "attrs"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v2, 0x0
@@ -117,6 +120,8 @@
     :cond_1
     :goto_0
     invoke-virtual {p0, v1}, Lcom/android/internal/widget/ActionBarContainer;->setWillNotDraw(Z)V
+
+    invoke-direct {p0}, Lcom/android/internal/widget/ActionBarContainer;->setViewVisible()V
 
     .line 71
     return-void
@@ -1331,3 +1336,23 @@
 
     goto :goto_0
 .end method
+
+.method private setViewVisible()V
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-boolean v0, p0, Lcom/android/internal/widget/ActionBarContainer;->mIsSplit:Z
+
+    if-nez v0, :cond_0
+
+    const/4 v0, 0x4
+
+    invoke-virtual {p0, v0}, Lcom/android/internal/widget/ActionBarContainer;->setVisibility(I)V
+
+    :cond_0
+    return-void
+.end method
+

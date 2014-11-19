@@ -19,6 +19,20 @@
 
 .field public static final FEEDBACK_URI:Landroid/net/Uri; = null
 
+.field public static final SIM_CONTACT_STATUS:Ljava/lang/String; = "sim_contact_status"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
+.field public static final SIM_CONTACT_STATUS_LOADING:I = 0x1
+
+.field public static final SIM_CONTACT_STATUS_NORMAL:I = 0x0
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field public static final USAGE_TYPE:Ljava/lang/String; = "type"
 
 .field public static final USAGE_TYPE_CALL:Ljava/lang/String; = "call"

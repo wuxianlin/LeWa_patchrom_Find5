@@ -19,7 +19,8 @@
         Lcom/android/server/power/PowerManagerService$UserSwitchedReceiver;,
         Lcom/android/server/power/PowerManagerService$DreamReceiver;,
         Lcom/android/server/power/PowerManagerService$BootCompletedReceiver;,
-        Lcom/android/server/power/PowerManagerService$BatteryReceiver;
+        Lcom/android/server/power/PowerManagerService$BatteryReceiver;,
+        Lcom/android/server/power/PowerManagerService$ShutDownRunnable;
     }
 .end annotation
 
@@ -7996,6 +7997,15 @@
     return-object v0
 .end method
 
+.method public getContext()Landroid/content/Context;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/power/PowerManagerService;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
 .method public goToSleep(JI)V
     .locals 5
     .parameter "eventTime"
@@ -8375,6 +8385,56 @@
     invoke-static {v0, v1}, Landroid/os/Binder;->restoreCallingIdentity(J)V
 
     throw v2
+.end method
+
+.method public rebootConfirm(Ljava/lang/String;Z)V
+    .locals 6
+    .parameter "reason"
+    .parameter "confirm"
+
+    .prologue
+    iget-object v3, p0, Lcom/android/server/power/PowerManagerService;->mContext:Landroid/content/Context;
+
+    const-string v4, "android.permission.REBOOT"
+
+    const/4 v5, 0x0
+
+    invoke-virtual {v3, v4, v5}, Landroid/content/Context;->enforceCallingOrSelfPermission(Ljava/lang/String;Ljava/lang/String;)V
+
+    move-object v0, p1
+
+    .local v0, finalReason:Ljava/lang/String;
+    if-eqz v0, :cond_0
+
+    const-string v3, "shutdown"
+
+    invoke-virtual {v0, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v3
+
+    if-eqz v3, :cond_0
+
+    const/4 v2, 0x1
+
+    .local v2, shutdown:Z
+    :goto_0
+    new-instance v1, Lcom/android/server/power/PowerManagerService$ShutDownRunnable;
+
+    invoke-direct {v1, p0, p2, v0, v2}, Lcom/android/server/power/PowerManagerService$ShutDownRunnable;-><init>(Lcom/android/server/power/PowerManagerService;ZLjava/lang/String;Z)V
+
+    .local v1, runnable:Ljava/lang/Runnable;
+    iget-object v3, p0, Lcom/android/server/power/PowerManagerService;->mHandler:Lcom/android/server/power/PowerManagerService$PowerManagerHandler;
+
+    invoke-virtual {v3, v1}, Lcom/android/server/power/PowerManagerService$PowerManagerHandler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+
+    .end local v1           #runnable:Ljava/lang/Runnable;
+    .end local v2           #shutdown:Z
+    :cond_0
+    const/4 v2, 0x0
+
+    goto :goto_0
 .end method
 
 .method public releaseWakeLock(Landroid/os/IBinder;I)V

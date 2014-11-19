@@ -8,10 +8,48 @@
     value = {
         Lcom/android/server/BatteryService$SettingsObserver;,
         Lcom/android/server/BatteryService$BatteryListener;,
-        Lcom/android/server/BatteryService$Led;
+        Lcom/android/server/BatteryService$Led;,
+        Lcom/android/server/BatteryService$EstimatingTime;,
+        Lcom/android/server/BatteryService$ExtBroadcastReceiver;,
+        Lcom/android/server/BatteryService$ExtObserver;
     }
 .end annotation
 
+.field static mBatteryDurationTime:J
+
+.field static mBatteryLevelConsumeStartTime:J
+
+.field static mBatteryLevelStartTime:J
+
+.field static mBootCompleted:Z
+
+ .field mAcOnline:Z
+
+.field mBatteryHealth:I
+
+.field mBatteryLevel:I
+
+.field private mBatteryLowValObserver:Landroid/database/ContentObserver;
+
+.field mBatteryPresent:Z
+
+.field mBatteryStatus:I
+
+.field mBatteryTechnology:Ljava/lang/String;
+
+.field mBatteryTemperature:I
+
+.field mBatteryVoltage:I
+
+.field mBootCompletedFilter:Landroid/content/IntentFilter;
+
+.field private mBootCompletedReceiver:Landroid/content/BroadcastReceiver;
+
+.field mEstimatingTime:Lcom/android/server/BatteryService$EstimatingTime;
+
+.field mUsbOnline:Z
+
+.field mWirelessOnline:Z
 
 # static fields
 .field private static final BATTERY_PLUGGED_NONE:I = 0x0
@@ -4502,3 +4540,289 @@
 
     throw v0
 .end method
+
+.method private extraProcessValues()V
+    .locals 10
+
+    .prologue
+    const-wide/16 v8, 0x0
+
+    sget-boolean v4, Lcom/android/server/BatteryService;->mBootCompleted:Z
+
+    if-eqz v4, :cond_5
+
+    invoke-static {}, Landroid/os/SystemClock;->elapsedRealtime()J
+
+    move-result-wide v0
+
+    .local v0, currDate:J
+    iget-object v4, p0, Lcom/android/server/BatteryService;->mEstimatingTime:Lcom/android/server/BatteryService$EstimatingTime;
+
+    invoke-virtual {v4}, Lcom/android/server/BatteryService$EstimatingTime;->estimateDurationTime()J
+
+    iget v4, p0, Lcom/android/server/BatteryService;->mPlugType:I
+
+    if-eqz v4, :cond_3
+
+    sput-wide v8, Lcom/android/server/BatteryService;->mBatteryLevelConsumeStartTime:J
+
+    iget v4, p0, Lcom/android/server/BatteryService;->mLastBatteryLevel:I
+
+    iget v5, p0, Lcom/android/server/BatteryService;->mBatteryLevel:I
+
+    add-int/lit8 v5, v5, -0x1
+
+    if-ne v4, v5, :cond_2
+
+    sget-wide v4, Lcom/android/server/BatteryService;->mBatteryLevelStartTime:J
+
+    cmp-long v4, v4, v8
+
+    if-eqz v4, :cond_0
+
+    sget-wide v4, Lcom/android/server/BatteryService;->mBatteryLevelStartTime:J
+
+    sub-long v4, v0, v4
+
+    const-wide/16 v6, 0x3e8
+
+    div-long v2, v4, v6
+
+    .local v2, diff:J
+    cmp-long v4, v2, v8
+
+    if-lez v4, :cond_0
+
+    const-wide/16 v4, 0x1c20
+
+    cmp-long v4, v2, v4
+
+    if-gez v4, :cond_0
+
+    iget-object v4, p0, Lcom/android/server/BatteryService;->mEstimatingTime:Lcom/android/server/BatteryService$EstimatingTime;
+
+    iget v5, p0, Lcom/android/server/BatteryService;->mPlugType:I
+
+    iget v6, p0, Lcom/android/server/BatteryService;->mLastBatteryLevel:I
+
+    #calls: Lcom/android/server/BatteryService$EstimatingTime;->updateTimeBasedOnChargingMode(IIJ)V
+    invoke-static {v4, v5, v6, v2, v3}, Lcom/android/server/BatteryService$EstimatingTime;->access$000(Lcom/android/server/BatteryService$EstimatingTime;IIJ)V
+
+    .end local v2           #diff:J
+    :cond_0
+    sput-wide v0, Lcom/android/server/BatteryService;->mBatteryLevelStartTime:J
+
+    .end local v0           #currDate:J
+    :cond_1
+    :goto_0
+    return-void
+
+    .restart local v0       #currDate:J
+    :cond_2
+    iget v4, p0, Lcom/android/server/BatteryService;->mLastBatteryLevel:I
+
+    iget v5, p0, Lcom/android/server/BatteryService;->mBatteryLevel:I
+
+    if-eq v4, v5, :cond_1
+
+    sput-wide v8, Lcom/android/server/BatteryService;->mBatteryLevelStartTime:J
+
+    goto :goto_0
+
+    :cond_3
+    sput-wide v8, Lcom/android/server/BatteryService;->mBatteryLevelStartTime:J
+
+    iget v4, p0, Lcom/android/server/BatteryService;->mLastBatteryLevel:I
+
+    iget v5, p0, Lcom/android/server/BatteryService;->mBatteryLevel:I
+
+    add-int/lit8 v5, v5, 0x1
+
+    if-ne v4, v5, :cond_4
+
+    sput-wide v0, Lcom/android/server/BatteryService;->mBatteryLevelConsumeStartTime:J
+
+    goto :goto_0
+
+    :cond_4
+    sput-wide v8, Lcom/android/server/BatteryService;->mBatteryLevelConsumeStartTime:J
+
+    goto :goto_0
+
+    .end local v0           #currDate:J
+    :cond_5
+    iget v4, p0, Lcom/android/server/BatteryService;->mPlugType:I
+
+    if-eqz v4, :cond_6
+
+    iget-object v4, p0, Lcom/android/server/BatteryService;->mEstimatingTime:Lcom/android/server/BatteryService$EstimatingTime;
+
+    iget v5, p0, Lcom/android/server/BatteryService;->mPlugType:I
+
+    iget v6, p0, Lcom/android/server/BatteryService;->mBatteryLevel:I
+
+    invoke-virtual {v4, v5, v6}, Lcom/android/server/BatteryService$EstimatingTime;->estimateInitChargingTime(II)J
+
+    move-result-wide v4
+
+    sput-wide v4, Lcom/android/server/BatteryService;->mBatteryDurationTime:J
+
+    goto :goto_0
+
+    :cond_6
+    sput-wide v8, Lcom/android/server/BatteryService;->mBatteryDurationTime:J
+
+    goto :goto_0
+.end method
+
+.method public setLowBatteryCloseWarningLevel(I)V
+    .locals 0
+    .parameter "mLowBatteryCloseWarningLevel"
+
+    .prologue
+    iput p1, p0, Lcom/android/server/BatteryService;->mLowBatteryCloseWarningLevel:I
+
+    return-void
+.end method
+
+.method public setLowBatteryWarningLevel(I)V
+    .locals 0
+    .parameter "mLowBatteryWarningLevel"
+
+    .prologue
+    iput p1, p0, Lcom/android/server/BatteryService;->mLowBatteryWarningLevel:I
+
+    return-void
+.end method
+
+.method initExt()V
+    .locals 3
+
+    .prologue
+    new-instance v0, Lcom/android/server/BatteryService$EstimatingTime;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, p0, v1}, Lcom/android/server/BatteryService$EstimatingTime;-><init>(Lcom/android/server/BatteryService;Lcom/android/server/BatteryService$1;)V
+
+    iput-object v0, p0, Lcom/android/server/BatteryService;->mEstimatingTime:Lcom/android/server/BatteryService$EstimatingTime;
+
+    iget-object v0, p0, Lcom/android/server/BatteryService;->mBootCompletedFilter:Landroid/content/IntentFilter;
+
+    const-string v1, "android.intent.action.BOOT_COMPLETED"
+
+    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    iget-object v0, p0, Lcom/android/server/BatteryService;->mContext:Landroid/content/Context;
+
+    iget-object v1, p0, Lcom/android/server/BatteryService;->mBootCompletedReceiver:Landroid/content/BroadcastReceiver;
+
+    iget-object v2, p0, Lcom/android/server/BatteryService;->mBootCompletedFilter:Landroid/content/IntentFilter;
+
+    invoke-virtual {v0, v1, v2}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+
+    invoke-direct {p0}, Lcom/android/server/BatteryService;->setLowBatteryCloseWarningLevel()V
+
+    iget-object v0, p0, Lcom/android/server/BatteryService;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    invoke-direct {p0, v0}, Lcom/android/server/BatteryService;->registerObservers(Landroid/content/ContentResolver;)V
+
+    return-void
+.end method
+
+.method public getLowBatteryCloseWarningLevel()I
+    .locals 1
+
+    .prologue
+    iget v0, p0, Lcom/android/server/BatteryService;->mLowBatteryCloseWarningLevel:I
+
+    return v0
+.end method
+
+.method public getLowBatteryWarningLevel()I
+    .locals 1
+
+    .prologue
+    iget v0, p0, Lcom/android/server/BatteryService;->mLowBatteryWarningLevel:I
+
+    return v0
+.end method
+
+.method private putExtraBatteryInfo(Landroid/content/Intent;)V
+    .locals 3
+    .parameter "intent"
+
+    .prologue
+    const-string v0, "batteryInfo"
+
+    sget-wide v1, Lcom/android/server/BatteryService;->mBatteryDurationTime:J
+
+    invoke-virtual {p1, v0, v1, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;J)Landroid/content/Intent;
+
+    return-void
+.end method
+
+.method private registerObservers(Landroid/content/ContentResolver;)V
+    .locals 3
+    .parameter "contentResolver"
+
+    .prologue
+    const-string v0, "powerlowwarningval"
+
+    invoke-static {v0}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    iget-object v2, p0, Lcom/android/server/BatteryService;->mBatteryLowValObserver:Landroid/database/ContentObserver;
+
+    invoke-virtual {p1, v0, v1, v2}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    return-void
+.end method
+
+.method private setLowBatteryCloseWarningLevel()V
+    .locals 4
+
+    .prologue
+    iget-object v1, p0, Lcom/android/server/BatteryService;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v1
+
+    const-string v2, "powerlowwarningval"
+
+    iget v3, p0, Lcom/android/server/BatteryService;->mLowBatteryWarningLevel:I
+
+    invoke-static {v1, v2, v3}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    iput v1, p0, Lcom/android/server/BatteryService;->mLowBatteryWarningLevel:I
+
+    iget v1, p0, Lcom/android/server/BatteryService;->mLowBatteryWarningLevel:I
+
+    add-int/lit8 v0, v1, 0x5
+
+    .local v0, closeLevel:I
+    invoke-virtual {p0, v0}, Lcom/android/server/BatteryService;->setLowBatteryCloseWarningLevel(I)V
+
+    return-void
+.end method
+
+.method public getContext()Landroid/content/Context;
+    .locals 1
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/BatteryService;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+

@@ -13,7 +13,8 @@
         Lcom/android/internal/app/ResolverActivity$ItemLongClickListener;,
         Lcom/android/internal/app/ResolverActivity$ViewHolder;,
         Lcom/android/internal/app/ResolverActivity$ResolveListAdapter;,
-        Lcom/android/internal/app/ResolverActivity$DisplayResolveInfo;
+        Lcom/android/internal/app/ResolverActivity$DisplayResolveInfo;,
+        Lcom/android/internal/app/ResolverActivity$Injector;
     }
 .end annotation
 
@@ -446,6 +447,10 @@
     .parameter "initialIntents"
     .parameter
     .parameter "alwaysUseOption"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
     .annotation system Ldalvik/annotation/Signature;
         value = {
             "(",

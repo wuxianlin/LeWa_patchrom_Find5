@@ -274,8 +274,10 @@
     iget v1, v1, Landroid/app/Notification;->icon:I
 
     if-nez v1, :cond_3
-
-    .line 479
+    
+    const/4 v1, 0x0
+    
+    if-eqz v1, :cond_3
     new-instance v1, Ljava/lang/RuntimeException;
 
     const-string v2, "icon must be non-zero"

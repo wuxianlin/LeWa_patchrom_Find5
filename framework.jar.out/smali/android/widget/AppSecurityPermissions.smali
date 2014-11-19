@@ -10,7 +10,8 @@
         Landroid/widget/AppSecurityPermissions$PermissionGroupInfoComparator;,
         Landroid/widget/AppSecurityPermissions$PermissionItemView;,
         Landroid/widget/AppSecurityPermissions$MyPermissionInfo;,
-        Landroid/widget/AppSecurityPermissions$MyPermissionGroupInfo;
+        Landroid/widget/AppSecurityPermissions$MyPermissionGroupInfo;,
+        Landroid/widget/AppSecurityPermissions$Injector;
     }
 .end annotation
 

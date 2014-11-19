@@ -34,6 +34,17 @@
 
 .field private final mContext:Landroid/content/Context;
 
+.field private mDatas:Ljava/util/ArrayList;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "Ljava/util/ArrayList",
+            "<",
+            "Ljava/lang/String;",
+            ">;"
+        }
+    .end annotation
+.end field
+
 .field private final mPermissionOwner:Landroid/os/IBinder;
 
 .field private final mPm:Landroid/content/pm/PackageManager;
@@ -45,34 +56,34 @@
     .parameter "context"
 
     .prologue
-    .line 92
     invoke-direct {p0}, Landroid/content/IClipboard$Stub;-><init>()V
 
-    .line 87
+    new-instance v3, Ljava/util/ArrayList;
+
+    invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
+
+    iput-object v3, p0, Lcom/android/server/ClipboardService;->mDatas:Ljava/util/ArrayList;
+
     new-instance v3, Landroid/util/SparseArray;
 
     invoke-direct {v3}, Landroid/util/SparseArray;-><init>()V
 
     iput-object v3, p0, Lcom/android/server/ClipboardService;->mClipboards:Landroid/util/SparseArray;
 
-    .line 93
     iput-object p1, p0, Lcom/android/server/ClipboardService;->mContext:Landroid/content/Context;
 
-    .line 94
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
     move-result-object v3
 
     iput-object v3, p0, Lcom/android/server/ClipboardService;->mAm:Landroid/app/IActivityManager;
 
-    .line 95
     invoke-virtual {p1}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v3
 
     iput-object v3, p0, Lcom/android/server/ClipboardService;->mPm:Landroid/content/pm/PackageManager;
 
-    .line 96
     const-string v3, "appops"
 
     invoke-virtual {p1, v3}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
@@ -1457,4 +1468,131 @@
     move-exception v7
 
     goto :goto_2
+.end method
+
+.method public addData(Ljava/lang/String;)V
+    .locals 4
+    .parameter "data"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    .prologue
+    iget-object v1, p0, Lcom/android/server/ClipboardService;->mDatas:Ljava/util/ArrayList;
+
+    invoke-virtual {v1, p1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    iget-object v1, p0, Lcom/android/server/ClipboardService;->mDatas:Ljava/util/ArrayList;
+
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    move-result v0
+
+    .local v0, size:I
+    const-string v1, "ClipExtraService"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "add in service:"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " saved size="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    const/16 v1, 0x14
+
+    if-lt v0, v1, :cond_0
+
+    iget-object v1, p0, Lcom/android/server/ClipboardService;->mDatas:Ljava/util/ArrayList;
+
+    const/4 v2, 0x0
+
+    add-int/lit8 v3, v0, -0x3
+
+    invoke-virtual {v1, v2, v3}, Ljava/util/ArrayList;->subList(II)Ljava/util/List;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Ljava/util/List;->clear()V
+
+    :cond_0
+    return-void
+.end method
+
+.method public getData(I)Ljava/util/List;
+    .locals 3
+    .parameter "number"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(I)",
+            "Ljava/util/List",
+            "<",
+            "Ljava/lang/String;",
+            ">;"
+        }
+    .end annotation
+
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Landroid/os/RemoteException;
+        }
+    .end annotation
+
+    .prologue
+    iget-object v1, p0, Lcom/android/server/ClipboardService;->mDatas:Ljava/util/ArrayList;
+
+    invoke-virtual {v1}, Ljava/util/ArrayList;->size()I
+
+    move-result v0
+
+    .local v0, size:I
+    if-ge v0, p1, :cond_0
+
+    iget-object v1, p0, Lcom/android/server/ClipboardService;->mDatas:Ljava/util/ArrayList;
+
+    :goto_0
+    return-object v1
+
+    :cond_0
+    iget-object v1, p0, Lcom/android/server/ClipboardService;->mDatas:Ljava/util/ArrayList;
+
+    sub-int v2, v0, p1
+
+    invoke-virtual {v1, v2, v0}, Ljava/util/ArrayList;->subList(II)Ljava/util/List;
+
+    move-result-object v1
+
+    goto :goto_0
 .end method

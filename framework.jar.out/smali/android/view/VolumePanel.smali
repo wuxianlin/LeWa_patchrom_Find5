@@ -13,7 +13,8 @@
     value = {
         Landroid/view/VolumePanel$WarningDialogReceiver;,
         Landroid/view/VolumePanel$StreamControl;,
-        Landroid/view/VolumePanel$StreamResources;
+        Landroid/view/VolumePanel$StreamResources;,
+        Landroid/view/VolumePanel$Injector;
     }
 .end annotation
 
@@ -2253,6 +2254,9 @@
 .method private updateSlider(Landroid/view/VolumePanel$StreamControl;)V
     .locals 4
     .parameter "sc"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
 
     .prologue
     const/4 v3, 0x1
@@ -2277,6 +2281,12 @@
 
     .line 569
     .local v0, muted:Z
+    iget-object v1, p0, Landroid/view/VolumePanel;->mContext:Landroid/content/Context;
+
+    iget-object v2, p0, Landroid/view/VolumePanel;->mAudioManager:Landroid/media/AudioManager;
+
+    invoke-static {v1, v0, p1, v2}, Landroid/view/VolumePanel$Injector;->setVibrationEnabled(Landroid/content/Context;ZLandroid/view/VolumePanel$StreamControl;Landroid/media/AudioManager;)V
+
     iget-object v1, p1, Landroid/view/VolumePanel$StreamControl;->icon:Landroid/widget/ImageView;
 
     const/4 v2, 0x0

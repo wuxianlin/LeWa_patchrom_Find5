@@ -386,6 +386,12 @@
     .end packed-switch
 .end method
 
+.method public static native screenshot(II)Landroid/graphics/Bitmap;
+.end method
+
+.method public static native screenshot(IIII)Landroid/graphics/Bitmap;
+.end method
+
 .method private setNativeObjectLocked(I)V
     .locals 2
     .parameter "ptr"

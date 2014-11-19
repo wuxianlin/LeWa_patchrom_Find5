@@ -2198,3 +2198,15 @@
     .restart local v13       #parsedArgs:Lcom/android/internal/os/ZygoteConnection$Arguments;
     goto :goto_0
 .end method
+
+.method private static isPreloadResources()Z
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const/4 v0, 0x0
+
+    return v0
+.end method

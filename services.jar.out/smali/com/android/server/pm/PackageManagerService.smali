@@ -27,7 +27,8 @@
         Lcom/android/server/pm/PackageManagerService$PostInstallData;,
         Lcom/android/server/pm/PackageManagerService$DefaultContainerConnection;,
         Lcom/android/server/pm/PackageManagerService$PendingPackageBroadcasts;,
-        Lcom/android/server/pm/PackageManagerService$SharedLibraryEntry;
+        Lcom/android/server/pm/PackageManagerService$SharedLibraryEntry;,
+        Lcom/android/server/pm/PackageManagerService$Injector;
     }
 .end annotation
 
@@ -107,6 +108,13 @@
 
 .field private static final INSTALL_PACKAGE_SUFFIX:Ljava/lang/String; = "-"
 
+#the value of this static final field might be set in the static constructor
+.field private static final LEWA_DEV_MODE:Z = false
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field private static final LIB_DIR_NAME:Ljava/lang/String; = "lib"
 
 .field private static final LOG_UID:I = 0x3ef
@@ -173,6 +181,12 @@
 
 .field static final TAG:Ljava/lang/String; = "PackageManager"
 
+.field private static final THEME_MAMANER_GUID:I = 0x514
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
+
 .field static final UPDATED_MEDIA_STATUS:I = 0xc
 
 .field static final UPDATE_PERMISSIONS_ALL:I = 0x1
@@ -190,6 +204,12 @@
 .field static final WRITE_SETTINGS:I = 0xd
 
 .field static final WRITE_SETTINGS_DELAY:I = 0x2710
+
+.field static mIconManager:Llewa/util/IIconManager; = null
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+.end field
 
 .field private static final mProviderInitOrderSorter:Ljava/util/Comparator; = null
     .annotation system Ldalvik/annotation/Signature;
@@ -269,6 +289,12 @@
             "Ljava/lang/Long;",
             ">;"
         }
+    .end annotation
+.end field
+
+.field mAssetRedirectionManager:Lcom/android/internal/app/IAssetRedirectionManager;
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
     .end annotation
 .end field
 
@@ -555,7 +581,21 @@
     .locals 3
 
     .prologue
-    .line 280
+    const/4 v0, 0x1
+
+    const/4 v1, 0x0
+
+    const-string v2, "persist.sys.lewa_dev_mode"
+
+    invoke-static {v2, v1}, Landroid/os/SystemProperties;->getInt(Ljava/lang/String;I)I
+
+    move-result v2
+
+    if-ne v2, v0, :cond_0
+
+    :goto_0
+    sput-boolean v0, Lcom/android/server/pm/PackageManagerService;->LEWA_DEV_MODE:Z
+
     new-instance v0, Landroid/content/ComponentName;
 
     const-string v1, "com.android.defcontainer"
@@ -594,6 +634,11 @@
     sput-object v0, Lcom/android/server/pm/PackageManagerService;->mProviderInitOrderSorter:Ljava/util/Comparator;
 
     return-void
+
+    :cond_0
+    move v0, v1
+
+    goto :goto_0
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Lcom/android/server/pm/Installer;ZZ)V
@@ -2986,41 +3031,34 @@
 
     invoke-virtual {v0, v3}, Lcom/android/server/pm/PackageManagerService;->cleanupInstallFailedPackage(Lcom/android/server/pm/PackageSetting;)V
 
-    .line 1513
     add-int/lit8 v30, v30, 0x1
 
-    goto :goto_c
+    goto/16 :goto_c
 
-    .line 1518
     :cond_1b
     invoke-direct/range {p0 .. p0}, Lcom/android/server/pm/PackageManagerService;->deleteTempPackageFiles()V
 
-    .line 1521
     move-object/from16 v0, p0
 
     iget-object v3, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
 
     invoke-virtual {v3}, Lcom/android/server/pm/Settings;->pruneSharedUsersLPw()V
 
-    .line 1522
     monitor-exit v5
     :try_end_15
     .catchall {:try_start_15 .. :try_end_15} :catchall_2
 
-    .line 1523
     :try_start_16
     monitor-exit v4
     :try_end_16
     .catchall {:try_start_16 .. :try_end_16} :catchall_3
 
-    .line 1525
     move-object/from16 v0, p0
 
     iget-boolean v3, v0, Lcom/android/server/pm/PackageManagerService;->mOnlyCore:Z
 
     if-nez v3, :cond_21
 
-    .line 1526
     const/16 v3, 0xc08
 
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
@@ -11623,6 +11661,43 @@
     return-object v3
 .end method
 
+.method public static getIconManager()Llewa/util/IIconManager;
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    sget-object v1, Lcom/android/server/pm/PackageManagerService;->mIconManager:Llewa/util/IIconManager;
+
+    if-eqz v1, :cond_0
+
+    sget-object v1, Lcom/android/server/pm/PackageManagerService;->mIconManager:Llewa/util/IIconManager;
+
+    .local v0, b:Landroid/os/IBinder;
+    :goto_0
+    return-object v1
+
+    .end local v0           #b:Landroid/os/IBinder;
+    :cond_0
+    const-string v1, "iconmanager"
+
+    invoke-static {v1}, Landroid/os/ServiceManager;->getService(Ljava/lang/String;)Landroid/os/IBinder;
+
+    move-result-object v0
+
+    .restart local v0       #b:Landroid/os/IBinder;
+    invoke-static {v0}, Llewa/util/IIconManager$Stub;->asInterface(Landroid/os/IBinder;)Llewa/util/IIconManager;
+
+    move-result-object v1
+
+    sput-object v1, Lcom/android/server/pm/PackageManagerService;->mIconManager:Llewa/util/IIconManager;
+
+    sget-object v1, Lcom/android/server/pm/PackageManagerService;->mIconManager:Llewa/util/IIconManager;
+
+    goto :goto_0
+.end method
+
 .method private static getNextCodePath(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
     .locals 7
     .parameter "oldCodePath"
@@ -14444,6 +14519,12 @@
 
     .line 9470
     :cond_4
+    iget-object v1, p1, Landroid/content/pm/PackageParser$Package;->applicationInfo:Landroid/content/pm/ApplicationInfo;
+
+    iget-object v3, p0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
+
+    invoke-static {v1, v3}, Lcom/android/server/pm/ExtraPackageManagerServices;->postProcessNewInstall(Landroid/content/pm/ApplicationInfo;Lcom/android/server/pm/Settings;)V
+
     const/4 v4, 0x0
 
     const/4 v5, 0x0
@@ -24606,6 +24687,16 @@
     .line 5092
     :cond_50
     :goto_18
+    move-object/from16 v0, p1
+
+    iget-object v3, v0, Landroid/content/pm/PackageParser$Package;->applicationInfo:Landroid/content/pm/ApplicationInfo;
+
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
+
+    invoke-static {v3, v4}, Lcom/android/server/pm/ExtraPackageManagerServices;->blockAutoStartedApp(Landroid/content/pm/ApplicationInfo;Lcom/android/server/pm/Settings;)V
+
     move-object/from16 v0, p0
 
     iget-object v3, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
@@ -28696,6 +28787,159 @@
     .line 7121
     :cond_7
     return-void
+.end method
+
+.method static final sendPackageBroadcast(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Landroid/os/Bundle;Ljava/lang/String;Landroid/content/IIntentReceiver;I)V
+    .locals 11
+    .parameter "action"
+    .parameter "pkg"
+    .parameter "intentCategory"
+    .parameter "extras"
+    .parameter "targetPkg"
+    .parameter "finishedReceiver"
+    .parameter "userId"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
+
+    move-result-object v1
+
+    .local v1, am:Landroid/app/IActivityManager;
+    if-eqz v1, :cond_5
+
+    const/4 v9, -0x1
+
+    move/from16 v0, p6
+
+    if-ne v0, v9, :cond_4
+
+    :try_start_0
+    sget-object v9, Lcom/android/server/pm/PackageManagerService;->sUserManager:Lcom/android/server/pm/UserManagerService;
+
+    invoke-virtual {v9}, Lcom/android/server/pm/UserManagerService;->getUserIds()[I
+
+    move-result-object v8
+
+    .local v8, userIds:[I
+    :goto_0
+    move-object v2, v8
+
+    .local v2, arr$:[I
+    array-length v6, v2
+
+    .local v6, len$:I
+    const/4 v3, 0x0
+
+    .local v3, i$:I
+    :goto_1
+    if-ge v3, v6, :cond_5
+
+    aget v4, v2, v3
+
+    .local v4, id:I
+    new-instance v5, Landroid/content/Intent;
+
+    if-eqz p1, :cond_6
+
+    const-string v9, "package"
+
+    const/4 v10, 0x0
+
+    invoke-static {v9, p1, v10}, Landroid/net/Uri;->fromParts(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v9
+
+    :goto_2
+    invoke-direct {v5, p0, v9}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+
+    .local v5, intent:Landroid/content/Intent;
+    if-eqz p3, :cond_0
+
+    invoke-virtual {v5, p3}, Landroid/content/Intent;->putExtras(Landroid/os/Bundle;)Landroid/content/Intent;
+
+    :cond_0
+    if-eqz p4, :cond_1
+
+    invoke-virtual {v5, p4}, Landroid/content/Intent;->setPackage(Ljava/lang/String;)Landroid/content/Intent;
+
+    :cond_1
+    const-string v9, "android.intent.extra.UID"
+
+    const/4 v10, -0x1
+
+    invoke-virtual {v5, v9, v10}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v7
+
+    .local v7, uid:I
+    if-lez v7, :cond_2
+
+    if-lez v4, :cond_2
+
+    invoke-static {v7}, Landroid/os/UserHandle;->getAppId(I)I
+
+    move-result v9
+
+    invoke-static {v4, v9}, Landroid/os/UserHandle;->getUid(II)I
+
+    move-result v7
+
+    const-string v9, "android.intent.extra.UID"
+
+    invoke-virtual {v5, v9, v7}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
+
+    :cond_2
+    const/high16 v9, 0x400
+
+    invoke-virtual {v5, v9}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    if-eqz p2, :cond_3
+
+    invoke-virtual {v5, p2}, Landroid/content/Intent;->addCategory(Ljava/lang/String;)Landroid/content/Intent;
+
+    :cond_3
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_1
+
+    .end local v2           #arr$:[I
+    .end local v3           #i$:I
+    .end local v4           #id:I
+    .end local v5           #intent:Landroid/content/Intent;
+    .end local v6           #len$:I
+    .end local v7           #uid:I
+    .end local v8           #userIds:[I
+    :cond_4
+    const/4 v9, 0x1
+
+    new-array v8, v9, [I
+
+    const/4 v9, 0x0
+
+    aput p6, v8, v9
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_0
+
+    :catch_0
+    move-exception v9
+
+    :cond_5
+    return-void
+
+    .restart local v2       #arr$:[I
+    .restart local v3       #i$:I
+    .restart local v4       #id:I
+    .restart local v6       #len$:I
+    .restart local v8       #userIds:[I
+    :cond_6
+    const/4 v9, 0x0
+
+    goto :goto_2
 .end method
 
 .method private sendPackageChangedBroadcast(Ljava/lang/String;ZLjava/util/ArrayList;I)V
@@ -39224,6 +39468,41 @@
     goto :goto_0
 .end method
 
+.method public getAssetRedirectionManager()Lcom/android/internal/app/IAssetRedirectionManager;
+    .locals 2
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mAssetRedirectionManager:Lcom/android/internal/app/IAssetRedirectionManager;
+
+    if-eqz v1, :cond_0
+
+    iget-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mAssetRedirectionManager:Lcom/android/internal/app/IAssetRedirectionManager;
+
+    :goto_0
+    return-object v1
+
+    :cond_0
+    const-string v1, "assetredirection"
+
+    invoke-static {v1}, Landroid/os/ServiceManager;->getService(Ljava/lang/String;)Landroid/os/IBinder;
+
+    move-result-object v0
+
+    .local v0, b:Landroid/os/IBinder;
+    invoke-static {v0}, Lcom/android/internal/app/IAssetRedirectionManager$Stub;->asInterface(Landroid/os/IBinder;)Lcom/android/internal/app/IAssetRedirectionManager;
+
+    move-result-object v1
+
+    iput-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mAssetRedirectionManager:Lcom/android/internal/app/IAssetRedirectionManager;
+
+    iget-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mAssetRedirectionManager:Lcom/android/internal/app/IAssetRedirectionManager;
+
+    goto :goto_0
+.end method
+
 .method public getComponentEnabledSetting(Landroid/content/ComponentName;I)I
     .locals 3
     .parameter "componentName"
@@ -46486,6 +46765,8 @@
 
     .line 5969
     :try_start_0
+    invoke-static {p0, p1}, Lcom/android/server/pm/PackageManagerService$Injector;->cleanAssetRedirections(Lcom/android/server/pm/PackageManagerService;Landroid/content/pm/PackageParser$Package;)V
+
     iget-object v0, p0, Lcom/android/server/pm/PackageManagerService;->mPackages:Ljava/util/HashMap;
 
     iget-object v2, p1, Landroid/content/pm/PackageParser$Package;->applicationInfo:Landroid/content/pm/ApplicationInfo;

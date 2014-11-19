@@ -22,6 +22,7 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Landroid/provider/ContactsContract$Contacts$StickerDisplayPhoto;,
         Landroid/provider/ContactsContract$Contacts$Photo;,
         Landroid/provider/ContactsContract$Contacts$AggregationSuggestions;,
         Landroid/provider/ContactsContract$Contacts$StreamItems;,
@@ -597,4 +598,46 @@
 
     :cond_5
     throw v0
+.end method
+
+.method public static openContactStickerPhotoInputStream(Landroid/content/ContentResolver;Landroid/net/Uri;)Ljava/io/InputStream;
+    .locals 3
+    .parameter "cr"
+    .parameter "contactUri"
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    const-string v2, "sticker_display_photo"
+
+    invoke-static {p1, v2}, Landroid/net/Uri;->withAppendedPath(Landroid/net/Uri;Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    .local v1, stickerdisplayPhotoUri:Landroid/net/Uri;
+    :try_start_0
+    const-string v2, "r"
+
+    invoke-virtual {p0, v1, v2}, Landroid/content/ContentResolver;->openAssetFileDescriptor(Landroid/net/Uri;Ljava/lang/String;)Landroid/content/res/AssetFileDescriptor;
+
+    move-result-object v0
+
+    .local v0, fd:Landroid/content/res/AssetFileDescriptor;
+    invoke-virtual {v0}, Landroid/content/res/AssetFileDescriptor;->createInputStream()Ljava/io/FileInputStream;
+    :try_end_0
+    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_0
+
+    move-result-object v2
+
+    .end local v0           #fd:Landroid/content/res/AssetFileDescriptor;
+    :goto_0
+    return-object v2
+
+    :catch_0
+    move-exception v2
+
+    const/4 v2, 0x0
+
+    goto :goto_0
 .end method

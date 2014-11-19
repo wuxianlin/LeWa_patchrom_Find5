@@ -101,6 +101,17 @@
 
 .field public static final STATE_KEY:Ljava/lang/String; = "state"
 
+.field public static final GEMINI_DEFAULT_SIM_PROP:Ljava/lang/String; = "persist.radio.default_sim"
+
+.field public static final GEMINI_SIM_1:I = 0x0
+
+.field public static final GEMINI_SIM_2:I = 0x1
+
+#the value of this static final field might be set in the static constructor
+.field public static final GEMINI_SIM_NUM:I = 0x0
+
+.field public static final GEMINI_SIM_NUM_PROP:Ljava/lang/String; = "persist.gemini.sim_num"
+
 
 # direct methods
 .method static constructor <clinit>()V
@@ -127,6 +138,12 @@
 
     sput v0, Lcom/android/internal/telephony/PhoneConstants;->PRESENTATION_PAYPHONE:I
 
+    invoke-static {}, Lcom/android/internal/telephony/PhoneConstants;->getGeminiSimNumber()I
+
+    move-result v0
+
+    sput v0, Lcom/android/internal/telephony/PhoneConstants;->GEMINI_SIM_NUM:I
+
     return-void
 .end method
 
@@ -138,4 +155,19 @@
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
+.end method
+
+.method private static getGeminiSimNumber()I
+    .locals 2
+
+    .prologue
+    const-string v0, "persist.gemini.sim_num"
+
+    const/4 v1, 0x2
+
+    invoke-static {v0, v1}, Landroid/os/SystemProperties;->getInt(Ljava/lang/String;I)I
+
+    move-result v0
+
+    return v0
 .end method

@@ -35,6 +35,8 @@
 
 .field private static final VERSION:I = 0x3f0
 
+.field static bInit:Z
+
 .field private static final localLOGV:Z
 
 .field static sService:Lcom/android/internal/app/IUsageStats;
@@ -82,6 +84,8 @@
 
 .field private mPackageMonitor:Lcom/android/internal/content/PackageMonitor;
 
+.field private mPkgStartTime:J
+
 .field private final mStats:Landroid/util/ArrayMap;
     .annotation system Ldalvik/annotation/Signature;
         value = {
@@ -113,7 +117,13 @@
 
     sput-object v0, Lcom/android/server/am/UsageStatsService;->LAUNCH_TIME_BINS:[I
 
+    const/4 v0, 0x0
+
+    sput-boolean v0, Lcom/android/server/am/UsageStatsService;->bInit:Z
+
     return-void
+
+    nop
 
     :array_0
     .array-data 0x4
@@ -2828,6 +2838,111 @@
     goto :goto_0
 .end method
 
+.method private setTime(Z)V
+    .locals 6
+    .parameter "samePackage"
+
+    .prologue
+    iget-object v0, p0, Lcom/android/server/am/UsageStatsService;->mLastResumedPkg:Ljava/lang/String;
+
+    if-nez v0, :cond_0
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    iput-wide v0, p0, Lcom/android/server/am/UsageStatsService;->mPkgStartTime:J
+
+    :cond_0
+    if-nez p1, :cond_2
+
+    iget-object v0, p0, Lcom/android/server/am/UsageStatsService;->mLastResumedPkg:Ljava/lang/String;
+
+    if-eqz v0, :cond_2
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    iget-wide v2, p0, Lcom/android/server/am/UsageStatsService;->mPkgStartTime:J
+
+    sub-long v4, v0, v2
+
+    .local v4, useTime:J
+    const-string v0, "UsageStats"
+
+    new-instance v1, Ljava/lang/StringBuilder;
+
+    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v2, "##########pkg:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/server/am/UsageStatsService;->mLastResumedPkg:Ljava/lang/String;
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " startTime:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    iget-wide v2, p0, Lcom/android/server/am/UsageStatsService;->mPkgStartTime:J
+
+    invoke-virtual {v1, v2, v3}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    const-string v2, " useTime:"
+
+    invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v4, v5}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v0, v1}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    sget-boolean v0, Lcom/android/server/am/UsageStatsService;->bInit:Z
+
+    if-nez v0, :cond_1
+
+    const/4 v0, 0x1
+
+    sput-boolean v0, Lcom/android/server/am/UsageStatsService;->bInit:Z
+
+    :cond_1
+    iget-object v0, p0, Lcom/android/server/am/UsageStatsService;->mContext:Landroid/content/Context;
+
+    iget-object v1, p0, Lcom/android/server/am/UsageStatsService;->mLastResumedPkg:Ljava/lang/String;
+
+    iget-wide v2, p0, Lcom/android/server/am/UsageStatsService;->mPkgStartTime:J
+
+    invoke-static/range {v0 .. v5}, Llewa/bi/BIAgent;->onAppUsage(Landroid/content/Context;Ljava/lang/String;JJ)V
+
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    iput-wide v0, p0, Lcom/android/server/am/UsageStatsService;->mPkgStartTime:J
+
+    .end local v4           #useTime:J
+    :cond_2
+    return-void
+.end method
+
 .method private writeHistoryStatsFLOCK(Landroid/util/AtomicFile;)V
     .locals 10
     .parameter "historyFile"
@@ -4540,18 +4655,17 @@
 
     move-result v4
 
-    .line 727
     .local v4, samePackage:Z
+    invoke-direct {p0, v4}, Lcom/android/server/am/UsageStatsService;->setTime(Z)V
+
     iget-boolean v8, p0, Lcom/android/server/am/UsageStatsService;->mIsResumed:Z
 
     if-eqz v8, :cond_2
 
-    .line 728
     iget-object v8, p0, Lcom/android/server/am/UsageStatsService;->mLastResumedPkg:Ljava/lang/String;
 
     if-eqz v8, :cond_2
 
-    .line 733
     iget-object v8, p0, Lcom/android/server/am/UsageStatsService;->mStats:Landroid/util/ArrayMap;
 
     iget-object v9, p0, Lcom/android/server/am/UsageStatsService;->mLastResumedPkg:Ljava/lang/String;

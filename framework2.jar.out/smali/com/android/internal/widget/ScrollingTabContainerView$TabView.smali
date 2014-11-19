@@ -1,4 +1,4 @@
-.class Lcom/android/internal/widget/ScrollingTabContainerView$TabView;
+.class public Lcom/android/internal/widget/ScrollingTabContainerView$TabView;
 .super Landroid/widget/LinearLayout;
 .source "ScrollingTabContainerView.java"
 
@@ -12,7 +12,7 @@
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x2
+    accessFlags = 0x4
     name = "TabView"
 .end annotation
 
@@ -84,12 +84,48 @@
     return-void
 .end method
 
+.method public getCustomView()Landroid/view/View;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/widget/ScrollingTabContainerView$TabView;->mCustomView:Landroid/view/View;
+
+    return-object v0
+.end method
+
+.method public getIconView()Landroid/widget/ImageView;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/widget/ScrollingTabContainerView$TabView;->mIconView:Landroid/widget/ImageView;
+
+    return-object v0
+.end method
+
 .method public getTab()Landroid/app/ActionBar$Tab;
     .locals 1
 
     .prologue
     .line 513
     iget-object v0, p0, Lcom/android/internal/widget/ScrollingTabContainerView$TabView;->mTab:Landroid/app/ActionBar$Tab;
+
+    return-object v0
+.end method
+
+.method public getTextView()Landroid/widget/TextView;
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/widget/ScrollingTabContainerView$TabView;->mTextView:Landroid/widget/TextView;
 
     return-object v0
 .end method
