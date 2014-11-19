@@ -6,14 +6,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/android/server/ServerThread$AdbPortObserver;
-    }
-.end annotation
-
-
-# annotations
-.annotation system Ldalvik/annotation/MemberClasses;
-    value = {
+        Lcom/android/server/ServerThread$AdbPortObserver;,
         Lcom/android/server/ServerThread$Injector;
     }
 .end annotation
