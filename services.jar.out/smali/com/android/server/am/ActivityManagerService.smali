@@ -1984,7 +1984,7 @@
 
     .prologue
     .line 207
-    invoke-direct {p0}, Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
+    invoke-virtual {p0}, Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
 
     move-result-object v0
 
@@ -46732,20 +46732,6 @@
 
     const/4 v2, 0x0
 
-    move-object/from16 v0, p0
-
-    iget-object v2, v0, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
-
-    new-instance v3, Lcom/android/server/am/ActivityManagerService$ThemeChangeBroadcastReceiver;
-
-    const/4 v4, 0x0
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v3, v0, v4}, Lcom/android/server/am/ActivityManagerService$ThemeChangeBroadcastReceiver;-><init>(Lcom/android/server/am/ActivityManagerService;Lcom/android/server/am/ActivityManagerService$1;)V
-
-    invoke-static {v2, v3}, Lcom/android/internal/app/ThemeUtils;->registerThemeChangeReceiver(Landroid/content/Context;Landroid/content/BroadcastReceiver;)V
-
     .line 5317
     monitor-enter p0
 
@@ -47195,6 +47181,20 @@
     invoke-direct {v3, v0}, Lcom/android/server/am/ActivityManagerService$8;-><init>(Lcom/android/server/am/ActivityManagerService;)V
 
     invoke-static {v2, v3}, Landroid/content/pm/ThemeUtils;->registerThemeChangeReceiver(Landroid/content/Context;Landroid/content/BroadcastReceiver;)V
+
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/server/am/ActivityManagerService;->mContext:Landroid/content/Context;
+
+    new-instance v3, Lcom/android/server/am/ActivityManagerService$ThemeChangeBroadcastReceiver;
+
+    const/4 v4, 0x0
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v3, v0, v4}, Lcom/android/server/am/ActivityManagerService$ThemeChangeBroadcastReceiver;-><init>(Lcom/android/server/am/ActivityManagerService;Lcom/android/server/am/ActivityManagerService$1;)V
+
+    invoke-static {v2, v3}, Lcom/android/internal/app/ThemeUtils;->registerThemeChangeReceiver(Landroid/content/Context;Landroid/content/BroadcastReceiver;)V
 
     .line 5263
     monitor-enter p0

@@ -16766,6 +16766,18 @@
     const/4 v3, 0x0
 
     .line 1892
+    if-eqz p1, :cond_lewa0
+
+    invoke-virtual {p0}, Lcom/android/server/ConnectivityService;->checkPermission()Z
+
+    move-result v2
+
+    if-nez v2, :cond_lewa0
+
+    :goto_lewa_0
+    return-void
+
+    :cond_lewa0
     invoke-direct {p0}, Lcom/android/server/ConnectivityService;->enforceChangePermission()V
 
     .line 1893
@@ -16949,18 +16961,6 @@
     .prologue
     const/4 v1, 0x0
 
-    if-eqz p1, :cond_lewa0
-
-    invoke-virtual {p0}, Lcom/android/server/ConnectivityService;->checkPermission()Z
-
-    move-result v0
-
-    if-nez v0, :cond_lewa0
-
-    :goto_lewa_0
-    return-void
-
-    :cond_lewa0
     invoke-direct {p0}, Lcom/android/server/ConnectivityService;->enforceChangePermission()V
 
     invoke-static {p1}, Landroid/net/ConnectivityManager;->isNetworkTypeValid(I)Z

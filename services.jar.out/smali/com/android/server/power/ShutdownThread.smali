@@ -125,6 +125,17 @@
     return-void
 .end method
 
+.method static synthetic access$000(Landroid/content/Context;)V
+    .locals 0
+    .parameter "x0"
+
+    .prologue
+    .line 56
+    invoke-static {p0}, Lcom/android/server/power/ShutdownThread;->beginShutdownSequence(Landroid/content/Context;)V
+
+    return-void
+.end method
+
 .method static synthetic access$002(Z)Z
     .locals 0
     .parameter "x0"
