@@ -87,8 +87,6 @@
 .field public mIsLegacyThemeApk:Z
 
 .field public mIsThemeApk:Z
-
-.field public mIsThemeApk:Z
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
     .end annotation
@@ -200,17 +198,6 @@
             "Ljava/util/Set",
             "<",
             "Ljava/security/PublicKey;",
-            ">;"
-        }
-    .end annotation
-.end field
-
-.field public final mThemeInfos:Ljava/util/ArrayList;
-    .annotation system Ldalvik/annotation/Signature;
-        value = {
-            "Ljava/util/ArrayList",
-            "<",
-            "Landroid/content/pm/ThemeInfo;",
             ">;"
         }
     .end annotation

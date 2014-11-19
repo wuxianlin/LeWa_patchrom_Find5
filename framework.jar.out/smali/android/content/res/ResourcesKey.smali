@@ -8,8 +8,6 @@
 
 .field private final mHash:I
 
-.field private final mIsThemeable:Z
-
 .field private mIsThemeable:Z
 
 .field public final mOverrideConfiguration:Landroid/content/res/Configuration;

@@ -79,8 +79,6 @@
 
 .field public isLegacyThemeApk:Z
 
-.field public isThemeApk:Z
-
 .field public lastUpdateTime:J
 
 .field public legacyThemeInfos:[Landroid/content/pm/LegacyThemeInfo;
@@ -140,8 +138,6 @@
 .field public sharedUserLabel:I
 
 .field public signatures:[Landroid/content/pm/Signature;
-
-.field public themeInfos:[Landroid/content/pm/ThemeInfo;
 
 .field public themeInfos:[Landroid/content/pm/ThemeInfo;
     .annotation build Landroid/annotation/LewaHook;

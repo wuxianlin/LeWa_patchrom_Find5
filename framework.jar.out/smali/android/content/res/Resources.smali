@@ -7509,38 +7509,6 @@
 
 .method public final updateStringCache()V
     .locals 2
-
-    .prologue
-    .line 2122
-    iget-object v1, p0, Landroid/content/res/Resources;->mAccessLock:Ljava/lang/Object;
-
-    monitor-enter v1
-
-    .line 2123
-    :try_start_0
-    iget-object v0, p0, Landroid/content/res/Resources;->mAssets:Landroid/content/res/AssetManager;
-
-    invoke-virtual {v0}, Landroid/content/res/AssetManager;->recreateStringBlocks()V
-
-    .line 2124
-    monitor-exit v1
-
-    .line 2125
-    return-void
-
-    .line 2124
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
-.end method
-
-.method public final updateStringCache()V
-    .locals 2
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
     .end annotation

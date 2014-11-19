@@ -76,10 +76,6 @@
 
 
 # instance fields
-.field private mAppName:Ljava/lang/String;
-
-.field private mAssetDir:Ljava/lang/String;
-
 .field private mCommonResCookie:I
 
 .field private mCommonResPackageName:Ljava/lang/String;
@@ -137,10 +133,6 @@
         }
     .end annotation
 .end field
-
-.field private mThemePackageName:Ljava/lang/String;
-
-.field private mThemeSupport:Z
 
 .field private final mValue:Landroid/util/TypedValue;
 
@@ -679,9 +671,6 @@
     return-void
 .end method
 
-.method public final native attachThemePath(Ljava/lang/String;)I
-.end method
-
 .method public close()V
     .locals 1
 
@@ -777,9 +766,6 @@
 .end method
 
 .method public final native detachThemePath(Ljava/lang/String;I)Z
-.end method
-
-.method public final native detachThemePath(Ljava/lang/String;I)Z
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
     .end annotation
@@ -857,9 +843,6 @@
     throw v0
 .end method
 
-.method public final native generateStyleRedirections(III)Z
-.end method
-
 .method public getAppName()Ljava/lang/String;
     .locals 1
 
@@ -874,15 +857,6 @@
 .end method
 
 .method final native getArraySize(I)I
-.end method
-
-.method public final native getBasePackageCount()I
-.end method
-
-.method public final native getBasePackageId(I)I
-.end method
-
-.method public final native getBasePackageName(I)Ljava/lang/String;
 .end method
 
 .method public final native getBaseResourcePackageName(I)Ljava/lang/String;
@@ -1306,16 +1280,6 @@
     return-object v0
 .end method
 
-.method public getThemePackageName()Ljava/lang/String;
-    .locals 1
-
-    .prologue
-    .line 779
-    iget-object v0, p0, Landroid/content/res/AssetManager;->mThemePackageName:Ljava/lang/String;
-
-    return-object v0
-.end method
-
 .method final getThemeValue(IILandroid/util/TypedValue;Z)Z
     .locals 5
     .parameter "theme"
@@ -1380,16 +1344,6 @@
     const/4 v2, 0x0
 
     goto :goto_0
-.end method
-
-.method public final hasThemeSupport()Z
-    .locals 1
-
-    .prologue
-    .line 729
-    iget-boolean v0, p0, Landroid/content/res/AssetManager;->mThemeSupport:Z
-
-    return v0
 .end method
 
 .method public final native isUpToDate()Z
@@ -2183,36 +2137,6 @@
     return-object v0
 .end method
 
-.method final recreateStringBlocks()V
-    .locals 1
-
-    .prologue
-    .line 270
-    monitor-enter p0
-
-    .line 271
-    const/4 v0, 0x1
-
-    :try_start_0
-    invoke-virtual {p0, v0}, Landroid/content/res/AssetManager;->makeStringBlocks(Z)V
-
-    .line 272
-    monitor-exit p0
-
-    .line 273
-    return-void
-
-    .line 272
-    :catchall_0
-    move-exception v0
-
-    monitor-exit p0
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
-.end method
-
 .method final releaseTheme(I)V
     .locals 1
     .parameter "theme"
@@ -2318,30 +2242,6 @@
 .end method
 
 .method public final native setLocale(Ljava/lang/String;)V
-.end method
-
-.method public setThemePackageName(Ljava/lang/String;)V
-    .locals 0
-    .parameter "packageName"
-
-    .prologue
-    .line 787
-    iput-object p1, p0, Landroid/content/res/AssetManager;->mThemePackageName:Ljava/lang/String;
-
-    .line 788
-    return-void
-.end method
-
-.method public final setThemeSupport(Z)V
-    .locals 0
-    .parameter "themeSupport"
-
-    .prologue
-    .line 719
-    iput-boolean p1, p0, Landroid/content/res/AssetManager;->mThemeSupport:Z
-
-    .line 720
-    return-void
 .end method
 
 .method xmlBlockGone(I)V

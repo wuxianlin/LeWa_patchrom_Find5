@@ -1174,37 +1174,6 @@
     goto :goto_0
 .end method
 
-.method public getConfiguration()Landroid/content/res/Configuration;
-    .locals 2
-
-    .prologue
-    .line 1878
-    :try_start_0
-    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
-
-    move-result-object v1
-
-    invoke-interface {v1}, Landroid/app/IActivityManager;->getConfiguration()Landroid/content/res/Configuration;
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
-
-    move-result-object v1
-
-    .line 1880
-    :goto_0
-    return-object v1
-
-    .line 1879
-    :catch_0
-    move-exception v0
-
-    .line 1880
-    .local v0, e:Landroid/os/RemoteException;
-    const/4 v1, 0x0
-
-    goto :goto_0
-.end method
-
 .method public getDeviceConfigurationInfo()Landroid/content/pm/ConfigurationInfo;
     .locals 1
 
@@ -2433,37 +2402,6 @@
     .line 2257
     .local v0, e:Landroid/os/RemoteException;
     const/4 v1, 0x0
-
-    goto :goto_0
-.end method
-
-.method public updateConfiguration(Landroid/content/res/Configuration;)V
-    .locals 1
-    .parameter "values"
-    .annotation system Ldalvik/annotation/Throws;
-        value = {
-            Ljava/lang/SecurityException;
-        }
-    .end annotation
-
-    .prologue
-    .line 2345
-    :try_start_0
-    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
-
-    move-result-object v0
-
-    invoke-interface {v0, p1}, Landroid/app/IActivityManager;->updateConfiguration(Landroid/content/res/Configuration;)V
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
-
-    .line 2348
-    :goto_0
-    return-void
-
-    .line 2346
-    :catch_0
-    move-exception v0
 
     goto :goto_0
 .end method

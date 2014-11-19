@@ -5413,44 +5413,6 @@
     return-void
 .end method
 
-.method refreshResourcesIfNecessary()V
-    .locals 2
-
-    .prologue
-    .line 671
-    iget-object v0, p0, Landroid/app/ContextImpl;->mResources:Landroid/content/res/Resources;
-
-    invoke-static {}, Landroid/content/res/Resources;->getSystem()Landroid/content/res/Resources;
-
-    move-result-object v1
-
-    if-ne v0, v1, :cond_1
-
-    .line 678
-    :cond_0
-    :goto_0
-    return-void
-
-    .line 675
-    :cond_1
-    iget-object v0, p0, Landroid/app/ContextImpl;->mPackageInfo:Landroid/app/LoadedApk;
-
-    invoke-virtual {v0}, Landroid/app/LoadedApk;->getCompatibilityInfo()Landroid/content/res/CompatibilityInfo;
-
-    move-result-object v0
-
-    iget-boolean v0, v0, Landroid/content/res/CompatibilityInfo;->isThemeable:Z
-
-    if-eqz v0, :cond_0
-
-    .line 676
-    const/4 v0, 0x0
-
-    iput-object v0, p0, Landroid/app/ContextImpl;->mTheme:Landroid/content/res/Resources$Theme;
-
-    goto :goto_0
-.end method
-
 .method public registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
     .locals 1
     .parameter "receiver"

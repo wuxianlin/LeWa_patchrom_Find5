@@ -82,8 +82,6 @@
 
 .field public static final PRESENTATION_UNKNOWN:I = 0x3
 
-.field public static final SUBSCRIPTION:Ljava/lang/String; = "subscription"
-
 .field public static final SUBSCRIPTION:Ljava/lang/String; = "simid"
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->CHANGE_CODE:Landroid/annotation/LewaHook$LewaHookType;

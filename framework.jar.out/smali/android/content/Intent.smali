@@ -31,10 +31,6 @@
 
 .field public static final ACTION_APP_ERROR:Ljava/lang/String; = "android.intent.action.APP_ERROR"
 
-.field public static final ACTION_APP_LAUNCH_FAILURE:Ljava/lang/String; = "com.tmobile.intent.action.APP_LAUNCH_FAILURE"
-
-.field public static final ACTION_APP_LAUNCH_FAILURE_RESET:Ljava/lang/String; = "com.tmobile.intent.action.APP_LAUNCH_FAILURE_RESET"
-
 .field public static final ACTION_ASSIST:Ljava/lang/String; = "android.intent.action.ASSIST"
 
 .field public static final ACTION_ATTACH_DATA:Ljava/lang/String; = "android.intent.action.ATTACH_DATA"
@@ -410,8 +406,6 @@
 .field public static final CATEGORY_TAB:Ljava/lang/String; = "android.intent.category.TAB"
 
 .field public static final CATEGORY_TEST:Ljava/lang/String; = "android.intent.category.TEST"
-
-.field public static final CATEGORY_THEME_PACKAGE_INSTALLED_STATE_CHANGE:Ljava/lang/String; = "com.tmobile.intent.category.THEME_PACKAGE_INSTALL_STATE_CHANGE"
 
 .field public static final CATEGORY_UNIT_TEST:Ljava/lang/String; = "android.intent.category.UNIT_TEST"
 

@@ -114,8 +114,6 @@
 .field public installLocation:I
 
 .field public isThemeable:Z
-
-.field public isThemeable:Z
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_FIELD:Landroid/annotation/LewaHook$LewaHookType;
     .end annotation
