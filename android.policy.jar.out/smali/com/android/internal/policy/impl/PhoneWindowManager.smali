@@ -182,6 +182,8 @@
 
 .field mAssistKeyLongPressed:Z
 
+.field private mBarController:Lcom/android/internal/policy/impl/BarController;
+
 .field mBackKillTimeout:I
 
 .field mBackLongPress:Ljava/lang/Runnable;
@@ -189,6 +191,8 @@
 .field mBootMsgDialog:Landroid/app/ProgressDialog;
 
 .field mBroadcastWakeLock:Landroid/os/PowerManager$WakeLock;
+
+.field mCameraPowerShutter:Z
 
 .field mCameraKeyPressable:Z
 
@@ -2389,6 +2393,18 @@
     invoke-static {v0}, Lcom/android/internal/telephony/ITelephony$Stub;->asInterface(Landroid/os/IBinder;)Lcom/android/internal/telephony/ITelephony;
 
     move-result-object v0
+
+    return-object v0
+.end method
+
+.method static getWindowTypesWhereHomeDoesntWork()[I
+    .locals 1
+    .annotation build Landroid/annotation/LewaHook;
+        value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
+    .end annotation
+
+    .prologue
+    sget-object v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->WINDOW_TYPES_WHERE_HOME_DOESNT_WORK:[I
 
     return-object v0
 .end method
@@ -20374,13 +20390,13 @@
 
     move-result v3
 
-    if-eqz v3, :cond_2a
+    if-eqz v3, :cond_lewa_0
 
     move/from16 v0, v21
 
     and-int/lit16 v3, v0, 0x200
 
-    if-eqz v3, :cond_2a
+    if-eqz v3, :cond_lewa_0
 
     move-object/from16 v0, p2
 
@@ -20396,7 +20412,7 @@
 
     const/4 v4, 0x1
 
-    if-lt v3, v4, :cond_2a
+    if-lt v3, v4, :cond_lewa_0
 
     move-object/from16 v0, p2
 
@@ -20404,7 +20420,7 @@
 
     const/16 v4, 0x7cf
 
-    if-gt v3, v4, :cond_2a
+    if-gt v3, v4, :cond_lewa_0
 
     .line 3937
     :cond_29
@@ -20474,105 +20490,105 @@
     goto/16 :goto_f
 
     :cond_lewa_0
-    const/high16 v2, 0x1000
+    const/high16 v3, 0x1000
 
-    and-int v2, v2, v20
+    and-int v3, v3, v20
 
-    if-eqz v2, :cond_2a
+    if-eqz v3, :cond_2a
 
-    const-string v2, "WindowManager"
+    const-string v3, "WindowManager"
 
-    const-string v3, "SYSTEM_UI_FLAG_TRANSPARENT_STATUS_BAR flag"
+    const-string v4, "SYSTEM_UI_FLAG_TRANSPARENT_STATUS_BAR flag"
 
-    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    move-object/from16 v0, p0
-
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenLeft:I
-
-    iput v2, v10, Landroid/graphics/Rect;->left:I
-
-    iput v2, v9, Landroid/graphics/Rect;->left:I
-
-    iput v2, v8, Landroid/graphics/Rect;->left:I
+    invoke-static {v3, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     move-object/from16 v0, p0
 
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenTop:I
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenLeft:I
 
-    iput v2, v10, Landroid/graphics/Rect;->top:I
+    iput v3, v11, Landroid/graphics/Rect;->left:I
 
-    iput v2, v9, Landroid/graphics/Rect;->top:I
+    iput v3, v10, Landroid/graphics/Rect;->left:I
 
-    iput v2, v8, Landroid/graphics/Rect;->top:I
-
-    move-object/from16 v0, p0
-
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenLeft:I
+    iput v3, v9, Landroid/graphics/Rect;->left:I
 
     move-object/from16 v0, p0
 
-    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenWidth:I
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenTop:I
 
-    add-int/2addr v2, v3
+    iput v3, v11, Landroid/graphics/Rect;->top:I
 
-    iput v2, v10, Landroid/graphics/Rect;->right:I
+    iput v3, v10, Landroid/graphics/Rect;->top:I
 
-    iput v2, v9, Landroid/graphics/Rect;->right:I
-
-    iput v2, v8, Landroid/graphics/Rect;->right:I
+    iput v3, v9, Landroid/graphics/Rect;->top:I
 
     move-object/from16 v0, p0
 
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenTop:I
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenLeft:I
 
     move-object/from16 v0, p0
 
-    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenHeight:I
+    iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenWidth:I
 
-    add-int/2addr v2, v3
+    add-int/2addr v3, v4
 
-    iput v2, v10, Landroid/graphics/Rect;->bottom:I
+    iput v3, v11, Landroid/graphics/Rect;->right:I
 
-    iput v2, v9, Landroid/graphics/Rect;->bottom:I
+    iput v3, v10, Landroid/graphics/Rect;->right:I
 
-    iput v2, v8, Landroid/graphics/Rect;->bottom:I
-
-    move-object/from16 v0, p0
-
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenLeft:I
-
-    iput v2, v11, Landroid/graphics/Rect;->left:I
+    iput v3, v9, Landroid/graphics/Rect;->right:I
 
     move-object/from16 v0, p0
 
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenTop:I
-
-    iput v2, v11, Landroid/graphics/Rect;->top:I
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUnrestrictedScreenTop:I
 
     move-object/from16 v0, p0
 
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenLeft:I
+    iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenHeight:I
+
+    add-int/2addr v3, v4
+
+    iput v3, v11, Landroid/graphics/Rect;->bottom:I
+
+    iput v3, v10, Landroid/graphics/Rect;->bottom:I
+
+    iput v3, v9, Landroid/graphics/Rect;->bottom:I
 
     move-object/from16 v0, p0
 
-    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenWidth:I
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenLeft:I
 
-    add-int/2addr v2, v3
-
-    iput v2, v11, Landroid/graphics/Rect;->right:I
+    iput v3, v12, Landroid/graphics/Rect;->left:I
 
     move-object/from16 v0, p0
 
-    iget v2, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenTop:I
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenTop:I
+
+    iput v3, v12, Landroid/graphics/Rect;->top:I
 
     move-object/from16 v0, p0
 
-    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenHeight:I
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenLeft:I
 
-    add-int/2addr v2, v3
+    move-object/from16 v0, p0
 
-    iput v2, v11, Landroid/graphics/Rect;->bottom:I
+    iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenWidth:I
+
+    add-int/2addr v3, v4
+
+    iput v3, v12, Landroid/graphics/Rect;->right:I
+
+    move-object/from16 v0, p0
+
+    iget v3, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenTop:I
+
+    move-object/from16 v0, p0
+
+    iget v4, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mRestrictedScreenHeight:I
+
+    add-int/2addr v3, v4
+
+    iput v3, v12, Landroid/graphics/Rect;->bottom:I
 
     goto/16 :goto_f
 
@@ -23974,13 +23990,13 @@
 
     .line 1085
     .local v0, keyguardLocked:Z
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mGlobalActions:Lcom/android/internal/policy/impl/GlobalActions;
+    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mGlobalActions:Lcom/android/internal/policy/impl/LewaGlobalActions;
 
     invoke-virtual {p0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->isDeviceProvisioned()Z
 
     move-result v2
 
-    invoke-virtual {v1, v0, v2}, Lcom/android/internal/policy/impl/GlobalActions;->showDialog(ZZ)V
+    invoke-virtual {v1, v0, v2}, Lcom/android/internal/policy/impl/LewaGlobalActions;->showDialog(ZZ)V
 
     .line 1086
     if-eqz v0, :cond_1
@@ -24797,6 +24813,8 @@
     move-result v11
 
     iput v11, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mUserRotationAngles:I
+
+    invoke-direct {p0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->updateCameraPower()V
 
     .line 1681
     iget-boolean v11, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mSystemReady:Z

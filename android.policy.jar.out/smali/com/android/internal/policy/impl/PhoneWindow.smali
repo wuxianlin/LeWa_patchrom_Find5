@@ -5228,7 +5228,17 @@
     if-eqz v19, :cond_29
 
     .line 3272
-    const v10, 0x109008f
+    invoke-virtual/range {p0 .. p0}, Lcom/android/internal/policy/impl/PhoneWindow;->getContext()Landroid/content/Context;
+
+    move-result-object v19
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, v19
+
+    invoke-virtual {v0, v1, v7}, Lcom/android/internal/policy/impl/PhoneWindow;->getActionBarResourceId(Landroid/content/Context;I)I
+
+    move-result v10
 
     .restart local v10       #layoutResource:I
     goto/16 :goto_8

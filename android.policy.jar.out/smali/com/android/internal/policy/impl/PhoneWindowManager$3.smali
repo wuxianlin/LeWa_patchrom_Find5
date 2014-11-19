@@ -37,6 +37,37 @@
 
 
 # virtual methods
+.method isShowGlobalActionsDialog()V
+    .locals 2
+
+    .prologue
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$3;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    invoke-virtual {v0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->isCameraActive()Z
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    if-ne v0, v1, :cond_0
+
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$3;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    iget-boolean v0, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mCameraPowerShutter:Z
+
+    if-eqz v0, :cond_0
+
+    :goto_0
+    return-void
+
+    :cond_0
+    iget-object v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$3;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
+
+    invoke-virtual {v0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->showGlobalActionsDialog()V
+
+    goto :goto_0
+.end method
+
 .method public run()V
     .locals 7
 
@@ -150,9 +181,7 @@
     invoke-virtual {v1, v2}, Lcom/android/internal/policy/impl/PhoneWindowManager;->sendCloseSystemWindows(Ljava/lang/String;)V
 
     .line 1003
-    iget-object v1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager$3;->this$0:Lcom/android/internal/policy/impl/PhoneWindowManager;
-
-    invoke-virtual {v1}, Lcom/android/internal/policy/impl/PhoneWindowManager;->showGlobalActionsDialog()V
+    invoke-virtual {p0}, Lcom/android/internal/policy/impl/PhoneWindowManager$3;->isShowGlobalActionsDialog()V
 
     goto :goto_0
 
