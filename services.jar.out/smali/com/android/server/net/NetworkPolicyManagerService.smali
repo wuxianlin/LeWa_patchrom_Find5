@@ -1438,7 +1438,7 @@
 
     .line 740
     :pswitch_0
-    const v1, 0x10405da
+    const v1, 0x9040029
 
     invoke-virtual {v14, v1}, Landroid/content/res/Resources;->getText(I)Ljava/lang/CharSequence;
 
@@ -1446,9 +1446,7 @@
 
     .line 741
     .local v16, title:Ljava/lang/CharSequence;
-    const v1, 0x10405db
-
-    invoke-virtual {v14, v1}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+    invoke-static/range {p0 .. p4}, Lcom/android/server/net/NetworkPolicyManagerService$Injector;->getString(Lcom/android/server/net/NetworkPolicyManagerService;Landroid/net/NetworkPolicy;IJ)Ljava/lang/CharSequence;
 
     move-result-object v9
 
@@ -2064,6 +2062,7 @@
     iget v7, v0, Landroid/text/format/Time;->monthDay:I
 
     .local v7, cycleDay:I
+    const/4 v7, 0x1
     const/16 v20, 0x2
 
     .local v20, cycleLength:I

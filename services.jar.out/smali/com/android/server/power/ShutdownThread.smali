@@ -858,11 +858,6 @@
 
     if-eqz v8, :cond_1
 
-    .line 163
-    sget-object v8, Lcom/android/server/power/ShutdownThread;->sConfirmDialog:Landroid/app/AlertDialog;
-
-    invoke-virtual {v8}, Landroid/app/AlertDialog;->dismiss()V
-
     .line 164
     const/4 v8, 0x0
 
@@ -1056,11 +1051,11 @@
     invoke-virtual {v8, v9}, Landroid/view/Window;->setType(I)V
 
     .line 231
-    sget-object v8, Lcom/android/server/power/ShutdownThread;->sConfirmDialog:Landroid/app/AlertDialog;
+    sget-object v8, Lcom/android/server/power/ShutdownThread;->sIsStartedGuard:Ljava/lang/Object;
 
-    invoke-virtual {v8}, Landroid/app/AlertDialog;->show()V
+    invoke-static {p0, v8}, Lcom/android/server/power/ShutdownThread$Injector;->createRebootDialog(Landroid/content/Context;Ljava/lang/Object;)V
 
-    goto/16 :goto_0
+    goto :goto_0
 
     .line 132
     .end local v1           #closer:Lcom/android/server/power/ShutdownThread$CloseDialogReceiver;

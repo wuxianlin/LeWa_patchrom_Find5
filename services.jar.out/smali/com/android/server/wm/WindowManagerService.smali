@@ -17,7 +17,8 @@
         Lcom/android/server/wm/WindowManagerService$WindowChangeListener;,
         Lcom/android/server/wm/WindowManagerService$DragInputEventReceiver;,
         Lcom/android/server/wm/WindowManagerService$LayoutFields;,
-        Lcom/android/server/wm/WindowManagerService$RotationWatcher;
+        Lcom/android/server/wm/WindowManagerService$RotationWatcher;,
+        Lcom/android/server/wm/WindowManagerService$UIBroadcastReceiver;
     }
 .end annotation
 

@@ -3468,7 +3468,7 @@
 
     .line 2711
     .local v15, inflater:Landroid/view/LayoutInflater;
-    const v22, 0x109004f
+    const v22, 0x9090039
 
     const/16 v24, 0x0
 
@@ -3590,7 +3590,7 @@
     .line 2736
     new-instance v6, Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;
 
-    const v22, 0x10900a2
+    const v22, 0x909003a
 
     move/from16 v0, v22
 

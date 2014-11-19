@@ -2917,6 +2917,8 @@
     .restart local v71       #atlas:Lcom/android/server/AssetAtlasService;
     :cond_1f
     :goto_3e
+    invoke-static {v5}, Lcom/android/server/ServerThread$Injector;->initLewaService(Landroid/content/Context;)V
+
     invoke-virtual {v5}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v7
@@ -3336,6 +3338,7 @@
 
     .line 1047
     :goto_4d
+    invoke-static {v5}, Lcom/android/server/ServerThread$Injector;->addFilter(Landroid/content/Context;)V
     if-eqz v111, :cond_27
 
     .line 1049

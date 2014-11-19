@@ -4369,6 +4369,18 @@
     move-result-wide v0
 
     .line 614
+    if-eqz p1, :cond_lewa0
+
+    invoke-virtual {p0}, Lcom/android/server/wifi/WifiService;->checkPermission()Z
+    move-result v3
+
+    if-nez v3, :cond_lewa0
+
+    const/4 v2, 0x0
+
+    return v2
+
+    :cond_lewa0
     .local v0, ident:J
     :try_start_2
     iget-object v4, p0, Lcom/android/server/wifi/WifiService;->mSettingsStore:Lcom/android/server/wifi/WifiSettingsStore;

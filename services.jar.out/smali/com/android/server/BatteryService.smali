@@ -209,6 +209,29 @@
     invoke-direct {p0}, Landroid/app/IBatteryService$Stub;-><init>()V
 
     .line 108
+
+    new-instance v1, Landroid/content/IntentFilter;
+
+    invoke-direct {v1}, Landroid/content/IntentFilter;-><init>()V
+
+    iput-object v1, p0, Lcom/android/server/BatteryService;->mBootCompletedFilter:Landroid/content/IntentFilter;
+
+    new-instance v1, Lcom/android/server/BatteryService$ExtObserver;
+
+    new-instance v2, Landroid/os/Handler;
+
+    invoke-direct {v2}, Landroid/os/Handler;-><init>()V
+
+    invoke-direct {v1, p0, v2}, Lcom/android/server/BatteryService$ExtObserver;-><init>(Lcom/android/server/BatteryService;Landroid/os/Handler;)V
+
+    iput-object v1, p0, Lcom/android/server/BatteryService;->mBatteryLowValObserver:Landroid/database/ContentObserver;
+
+    new-instance v1, Lcom/android/server/BatteryService$ExtBroadcastReceiver;
+
+    invoke-direct {v1, p0}, Lcom/android/server/BatteryService$ExtBroadcastReceiver;-><init>(Lcom/android/server/BatteryService;)V
+
+    iput-object v1, p0, Lcom/android/server/BatteryService;->mBootCompletedReceiver:Landroid/content/BroadcastReceiver;
+
     new-instance v2, Ljava/lang/Object;
 
     invoke-direct {v2}, Ljava/lang/Object;-><init>()V
@@ -321,6 +344,8 @@
     iput v2, p0, Lcom/android/server/BatteryService;->mShutdownBatteryTemperature:I
 
     .line 181
+    invoke-virtual {p0}, Lcom/android/server/BatteryService;->initExt()V
+
     new-instance v2, Ljava/io/File;
 
     const-string v3, "/sys/devices/virtual/switch/invalid_charger/state"
@@ -2269,6 +2294,8 @@
     .line 528
     .local v12, sendBatteryLow:Z
     :goto_b
+    invoke-direct {p0}, Lcom/android/server/BatteryService;->extraProcessValues()V
+
     invoke-direct {p0}, Lcom/android/server/BatteryService;->sendIntentLocked()V
 
     .line 533
@@ -2851,6 +2878,8 @@
     iget-boolean v4, v4, Landroid/os/BatteryProperties;->chargerAcOnline:Z
 
     invoke-virtual {v2, v3, v4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
+
+    invoke-direct {p0, v2}, Lcom/android/server/BatteryService;->putExtraBatteryInfo(Landroid/content/Intent;)V
 
     .line 642
     const-string v3, "dock_ac_online"

@@ -707,7 +707,23 @@
 
     and-int/2addr v4, v5
 
+    if-eqz v4, :cond_lewa0
+    
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/server/NotificationManagerService$7;->this$0:Lcom/android/server/NotificationManagerService;
+
+    move-object/from16 v0, p0
+
+    iget-object v5, v0, Lcom/android/server/NotificationManagerService$7;->val$pkg:Ljava/lang/String;
+
+    invoke-static {v4, v5}, Lcom/android/server/NotificationManagerService$Injector;->isInCall(Lcom/android/server/NotificationManagerService;Ljava/lang/String;)Z
+
+    move-result v4
+
     if-eqz v4, :cond_1c
+
+    :cond_lewa0
 
     const/4 v12, 0x1
 

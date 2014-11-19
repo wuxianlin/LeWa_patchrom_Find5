@@ -381,6 +381,16 @@
     .line 1413
     invoke-direct/range {p0 .. p0}, Landroid/app/INotificationManager$Stub;-><init>()V
 
+    new-instance v18, Ljava/util/HashMap;
+
+    invoke-direct/range {v18 .. v18}, Ljava/util/HashMap;-><init>()V
+
+    move-object/from16 v0, v18
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/server/NotificationManagerService;->mBlacklist:Ljava/util/Map;
+
     .line 154
     new-instance v18, Landroid/os/Binder;
 

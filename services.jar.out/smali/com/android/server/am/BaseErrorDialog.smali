@@ -18,7 +18,7 @@
     const/high16 v3, 0x2
 
     .line 31
-    const v1, 0x1030308
+    const v1, 0x9030010
 
     invoke-direct {p0, p1, v1}, Landroid/app/AlertDialog;-><init>(Landroid/content/Context;I)V
 

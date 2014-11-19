@@ -62,8 +62,7 @@
 
     iget-object v1, p0, Lcom/android/server/am/ActivityManagerService$6;->this$0:Lcom/android/server/am/ActivityManagerService;
 
-    #calls: Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
-    invoke-static {v1}, Lcom/android/server/am/ActivityManagerService;->access$100(Lcom/android/server/am/ActivityManagerService;)Landroid/content/Context;
+    invoke-virtual {v1}, Lcom/android/server/am/ActivityManagerService;->getUiContext()Landroid/content/Context;
 
     move-result-object v1
 

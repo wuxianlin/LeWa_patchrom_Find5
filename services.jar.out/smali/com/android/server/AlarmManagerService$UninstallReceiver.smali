@@ -257,17 +257,7 @@
     .local v6, pkg:Ljava/lang/String;
     iget-object v9, p0, Lcom/android/server/AlarmManagerService$UninstallReceiver;->this$0:Lcom/android/server/AlarmManagerService;
 
-    invoke-virtual {v9, v6}, Lcom/android/server/AlarmManagerService;->removeLocked(Ljava/lang/String;)V
-
-    .line 1643
-    iget-object v9, p0, Lcom/android/server/AlarmManagerService$UninstallReceiver;->this$0:Lcom/android/server/AlarmManagerService;
-
-    #getter for: Lcom/android/server/AlarmManagerService;->mBroadcastStats:Ljava/util/HashMap;
-    invoke-static {v9}, Lcom/android/server/AlarmManagerService;->access$1900(Lcom/android/server/AlarmManagerService;)Ljava/util/HashMap;
-
-    move-result-object v9
-
-    invoke-virtual {v9, v6}, Ljava/util/HashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v9, v6}, Lcom/android/server/AlarmManagerService;->lewaRemovePkg(Ljava/lang/String;)V
 
     .line 1641
     add-int/lit8 v3, v3, 0x1

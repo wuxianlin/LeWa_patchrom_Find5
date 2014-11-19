@@ -1169,6 +1169,8 @@
 
     invoke-virtual {v3, v4, v5, v6}, Lcom/android/server/pm/Settings;->addSharedUserLPw(Ljava/lang/String;II)Lcom/android/server/pm/SharedUserSetting;
 
+    invoke-static/range {p0 .. p0}, Lcom/android/server/pm/PackageManagerService$Injector;->addThemeManagerToSharedLpw(Lcom/android/server/pm/PackageManagerService;)V
+
     .line 1191
     const-string v3, "appops"
 
@@ -2035,6 +2037,12 @@
     invoke-virtual {v9, v3}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
 
     .line 1343
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, v28
+
+    invoke-static {v0, v9, v1}, Lcom/android/server/pm/PackageManagerService$Injector;->ignoreLewaFrameworkRes(Lcom/android/server/pm/PackageManagerService;Ljava/util/HashSet;Ljava/io/File;)V
+
     invoke-virtual/range {v28 .. v28}, Ljava/io/File;->list()[Ljava/lang/String;
 
     move-result-object v29
@@ -3042,6 +3050,12 @@
 
     iget-object v3, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
 
+    invoke-static {v3}, Lcom/android/server/pm/ExtraPackageManagerServices;->performPreinstallApp(Lcom/android/server/pm/Settings;)V
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
+
     invoke-virtual {v3}, Lcom/android/server/pm/Settings;->pruneSharedUsersLPw()V
 
     monitor-exit v5
@@ -3852,6 +3866,8 @@
     iput-object v3, v0, Lcom/android/server/pm/PackageManagerService;->mRequiredVerifierPackage:Ljava/lang/String;
 
     .line 1644
+    invoke-static {}, Lcom/android/server/pm/ExtraPackageManagerServices;->postScanPackages()V
+
     monitor-exit v5
     :try_end_1d
     .catchall {:try_start_1d .. :try_end_1d} :catchall_5

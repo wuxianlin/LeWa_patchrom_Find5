@@ -559,6 +559,9 @@
 
     .line 443
     .end local v14           #delay:F
+    :cond_lewa_0
+    const/4 v7, 0x0
+
     :goto_1
     return-object v7
 

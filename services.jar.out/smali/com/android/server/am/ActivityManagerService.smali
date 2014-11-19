@@ -73788,6 +73788,8 @@
     invoke-direct {v0, v4, v3, v5}, Lcom/android/server/am/ActivityManagerService;->saveLocaleLocked(Ljava/util/Locale;ZZ)V
 
     :cond_2
+    invoke-static/range {p0 .. p1}, Lcom/android/server/am/ActivityManagerService$Injector;->setThemeResource(Lcom/android/server/am/ActivityManagerService;Landroid/content/res/Configuration;)V
+
     move-object/from16 v0, p1
 
     iget-object v3, v0, Landroid/content/res/Configuration;->themeConfig:Landroid/content/res/ThemeConfig;
