@@ -8746,13 +8746,38 @@
 .end method
 
 .method callHandleLongPressOnHome()V
-    .locals 0
+    .locals 4
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
     .end annotation
 
     .prologue
-    invoke-direct {p0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->handleLongPressOnHome()V
+    #invoke-direct {p0}, Lcom/android/internal/policy/impl/PhoneWindowManager;->handleLongPressOnHome()V
+    const/16 v1, 0x0
+
+    const/16 v2, 0x0
+
+    const/16 v3, 0x0
+
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0, v1, v2, v3}, Lcom/android/internal/policy/impl/PhoneWindowManager;->performHapticFeedbackLw(Landroid/view/WindowManagerPolicy$WindowState;IZ)Z
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mLongPressOnHomeBehavior:I
+
+    move/from16 v1, v0
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v0, v1}, Lcom/android/internal/policy/impl/PhoneWindowManager;->performKeyAction(I)V
+
+    const/16 v0, 0x1
+
+    move-object/from16 v1, p0
+
+    iput-boolean v0, v1, Lcom/android/internal/policy/impl/PhoneWindowManager;->mHomeConsumed:Z
 
     return-void
 .end method
@@ -11980,7 +12005,7 @@
     .end annotation
 
     .prologue
-    iget-boolean v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVolumeDownKeyConsumedByScreenshotChord:Z
+    iget-boolean v0, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVolumeDownKeyConsumedByChord:Z
 
     return v0
 .end method
@@ -23882,13 +23907,13 @@
 
 .method setVolumeDownKeyConsumedByScreenshotChord(Z)V
     .locals 0
-    .parameter "mVolumeDownKeyConsumedByScreenshotChord"
+    .parameter "mVolumeDownKeyConsumedByChord"
     .annotation build Landroid/annotation/LewaHook;
         value = .enum Landroid/annotation/LewaHook$LewaHookType;->NEW_METHOD:Landroid/annotation/LewaHook$LewaHookType;
     .end annotation
 
     .prologue
-    iput-boolean p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVolumeDownKeyConsumedByScreenshotChord:Z
+    iput-boolean p1, p0, Lcom/android/internal/policy/impl/PhoneWindowManager;->mVolumeDownKeyConsumedByChord:Z
 
     return-void
 .end method
