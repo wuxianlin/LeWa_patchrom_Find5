@@ -1540,6 +1540,10 @@
     .parameter "context"
 
     .prologue
+    const/4 v1, 0x0
+
+    goto :goto_lewa_0
+
     .line 506
     :try_start_0
     const-string v1, "com.android.systemui"
@@ -1565,6 +1569,7 @@
     .line 512
     .end local v0           #uiContext:Landroid/content/Context;
     :goto_0
+    :goto_lewa_0
     return-object v1
 
     .line 509
